@@ -1,0 +1,49 @@
+I, [2020-06-11T15:06:23.298571 #27764]  INFO -- : Registered expected interaction GET /balance/1
+D, [2020-06-11T15:06:23.299231 #27764] DEBUG -- : {
+  "description": "a request for account",
+  "providerState": "one client with your account",
+  "request": {
+    "method": "GET",
+    "path": "/balance/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "clientID": 1,
+      "accountID": 10,
+      "balance": 100
+    }
+  },
+  "metadata": null
+}
+I, [2020-06-11T15:06:23.305688 #27764]  INFO -- : Received request GET /balance/1
+D, [2020-06-11T15:06:23.306125 #27764] DEBUG -- : {
+  "path": "/balance/1",
+  "query": "",
+  "method": "get",
+  "headers": {
+    "Accept": "application/json, text/plain, */*",
+    "User-Agent": "axios/0.19.2",
+    "Host": "127.0.0.1:1234",
+    "Connection": "close",
+    "Version": "HTTP/1.1"
+  }
+}
+I, [2020-06-11T15:06:23.306742 #27764]  INFO -- : Found matching response for GET /balance/1
+D, [2020-06-11T15:06:23.307206 #27764] DEBUG -- : {
+  "status": 200,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "clientID": 1,
+    "accountID": 10,
+    "balance": 100
+  }
+}
+I, [2020-06-11T15:06:23.322474 #27764]  INFO -- : Verifying - interactions matched
+I, [2020-06-11T15:06:23.328251 #27764]  INFO -- : Cleared interactions
+I, [2020-06-11T15:06:23.337231 #27764]  INFO -- : Writing pact for AccountApi to /home/iann/dev/pact-node/client-api/pacts/clientapi-accountapi.json
