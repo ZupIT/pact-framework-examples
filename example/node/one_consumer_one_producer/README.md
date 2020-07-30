@@ -32,13 +32,13 @@ Do you set your house on fire to test your smoke alarm? No, you test the contrac
 
 4. To start with tests, go to `client-api` directory and execute `yarn test ; yarn pact:publish` to generate Pact Contract and publish it on Pact Broker. To view this result, go to `http://localhost`, you should see something like this:
 
-<img src="images/new-pact-contract.png" alt="new pact contract"/>
+<img src="../../../imgs/new-pact-contract.png" alt="new pact contract"/>
 
 Also you'll see the Pact contract JSON file on `client-api/pacts`.
 
 5. And to validate the generated contract, go to `account-api` and execute `yarn test`, this will run verifier Pact contract and publish the result on Pact Broker. To see, go again to `http://localhost` and you should see something like this:
 
-<img src="images/validated-pact-contract.png" alt="new pact contract"/>
+<img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
 
 ## Links
 
