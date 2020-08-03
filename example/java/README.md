@@ -1,6 +1,5 @@
 <img src="../../imgs/pact-logo.png" alt="Pact Logo"/>
 
-This repository contains an example of implementation of Pact Framework in Spring Boot and Junit 5.
 This folder contains examples of implementation of Pact Framework in Spring Boot and Junit 5.
 
 It has these examples:
