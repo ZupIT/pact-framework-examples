@@ -1,4 +1,4 @@
-<img src="../imgs/pact-logo.png" alt="Pact Logo"/>
+<img src="../../imgs/pact-logo.png" alt="Pact Logo"/>
 
 This repository contains an example of implementation of Pact Framework in Spring Boot and Junit 5.
 This folder contains examples of implementation of Pact Framework in Spring Boot and Junit 5.
@@ -25,9 +25,9 @@ Each folder we have one or more consumer and producer. Open the projects on your
 
 To generate contract, in the consumer project(s) run the junit Tests. After passed tests, the pact maven plugin will generate a json file from contract between client and account api.
 
-<img src="../imgs/junit5-tests-runner.png" alt="Pact Runner Tests"/>
+<img src="../../imgs/junit5-tests-runner.png" alt="Pact Runner Tests"/>
 
-<img src="../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
+<img src="../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 #### Publish Contract on Pact Broker
 
@@ -41,7 +41,7 @@ The Pact broker will be avaliable on http://localhost
 
 To make the consumer send contract to broker, we must have pact maven plugin configured corretly, as the same of above.
 
-<img src="../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>
+<img src="../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>
 
 After confirm this information, open another terminal from the consumer root folder and run maven goal pact publish.
 
