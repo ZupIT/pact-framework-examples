@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+.DS_Store
+example/.DS_Store
+example/java/.DS_Store
