@@ -36,8 +36,8 @@ The process of consumer-driven contracts looks like this:
 
 ## Examples
 
-The "integration" folder only have an integration between apis.
-If you want see full example, please jump to the "example" folder. 
+The "integration" folder only have an integration between apis. If you want see full example, please jump to the "example" folder. 
+The example folder has [Java examples](https://github.com/martetech/dtp-pact/tree/master/example/java) and [Node example](https://github.com/martetech/dtp-pact/tree/master/example/node/one_consumer_one_producer).
 
 ## Links
 
