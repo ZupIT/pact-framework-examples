@@ -1,0 +1,47 @@
+I, [2020-08-04T07:51:44.750285 #14563]  INFO -- : Registered expected interaction GET /prime/1
+D, [2020-08-04T07:51:44.750638 #14563] DEBUG -- : {
+  "description": "a request for account",
+  "providerState": "one client with your account",
+  "request": {
+    "method": "GET",
+    "path": "/prime/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "isPrime": true,
+      "discountPercentageFee": 2
+    }
+  },
+  "metadata": null
+}
+I, [2020-08-04T07:51:44.752559 #14563]  INFO -- : Received request GET /prime/1
+D, [2020-08-04T07:51:44.752660 #14563] DEBUG -- : {
+  "path": "/prime/1",
+  "query": "",
+  "method": "get",
+  "headers": {
+    "Accept": "application/json, text/plain, */*",
+    "User-Agent": "axios/0.19.2",
+    "Host": "127.0.0.1:4321",
+    "Connection": "close",
+    "Version": "HTTP/1.1"
+  }
+}
+I, [2020-08-04T07:51:44.752929 #14563]  INFO -- : Found matching response for GET /prime/1
+D, [2020-08-04T07:51:44.753010 #14563] DEBUG -- : {
+  "status": 200,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "isPrime": true,
+    "discountPercentageFee": 2
+  }
+}
+I, [2020-08-04T07:51:44.756154 #14563]  INFO -- : Verifying - interactions matched
+I, [2020-08-04T07:51:44.758825 #14563]  INFO -- : Cleared interactions
+I, [2020-08-04T07:51:44.761851 #14563]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/iann/dev/projects/dtp-pact/example/node/one_consumer_two_producer/client-api/pacts/clientapi-primeaccountdetailsapi.json
