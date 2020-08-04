@@ -2,15 +2,10 @@
 
 ![Pact Logo](imgs/pact-logo.png)
 
-This repository contains an example of implementation of Pact Framework in Spring Boot and Junit 5.
-
-## Tools Used
-
- - OpenJdk 11
- - Spring Boot
- - Swagger
- - Pact JVM
- - Pact Broker
+This repository contains examples of implementation of Pact Framework in:
+ - Java/Spring Boot;
+ - Java/Kafka;
+ - Node/Express
 
 ## Pact concept
 
@@ -41,52 +36,8 @@ The process of consumer-driven contracts looks like this:
 
 ## Examples
 
-The "integration" folder only have an integration between apis.
-
-If you want see full example, please jump to the "example" folder. 
-
-### Example of one consumer and one producer
-On the "one_consumer_one_producer" folder, open client-api on your favorite IDE, open Test Class AccountPactTest.
-
-#### Generating Contract
-
-To generate contract, run junit Tests from the class AccountPactTest. After passed tests, the pact maven plugin will generate a json file from contract between client and account api.
-
-![Pact Runner Tests](imgs/junit5-tests-runner.png)
-
-
-![Pact Contract Generated](imgs/pact-contract-generated.png)
-
-
-#### Publish Contract on Pact Broker
-
-To publish this contract to Pact Broker, open terminal on folder "infraestructure" and up Pact Broker Container.
-
-```
-docker-compose up -d
-```
-
-The Pact broker will be avaliable on http://localhost
-
-To make client-api send contract to broker, we must have pact maven plugin configured corretly, as the same of above.
-
-![Pact Maven Plugin](imgs/pact-maven-plugin.png)
-
-After confirm this information, open another terminal from client-api root folder and run maven goal pact publish.
-
-```
-mvn pact:publish
-```
-
-After successful published, you can see contract on pact broker url.
-
-### Other examples
-
-The "example" folder has other examples that can be run like the "one_consumer_one_producer" already explained. 
-
-## Test Contract on Provider side
-
-On the project account-api we have some tests based on client-api consumer contract. These tests are in the class "AccountProviderPactTest", you can check if its works running junit tests. Make sure your pact Broker was up when you run the tests. The concept is that the provider will obtain the contract from the boker and do tests with mocks. If your contract is ok the junit tests will be passed.
+The "integration" folder only have an integration between apis. If you want see full example, please jump to the "example" folder. 
+The example folder has [Java examples](https://github.com/martetech/dtp-pact/tree/master/example/java) and [Node example](https://github.com/martetech/dtp-pact/tree/master/example/node/one_consumer_one_producer).
 
 ## Links
 
