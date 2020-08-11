@@ -1,0 +1,34 @@
+{
+  "consumer": {
+    "name": "LegalPersonClient"
+  },
+  "provider": {
+    "name": "AccountApi"
+  },
+  "interactions": [
+    {
+      "description": "a request for account",
+      "providerState": "one client with your account",
+      "request": {
+        "method": "GET",
+        "path": "/balance/1"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=utf-8"
+        },
+        "body": {
+          "clientID": 1,
+          "accountID": 10,
+          "balance": 100
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

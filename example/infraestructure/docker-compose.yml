@@ -1,26 +1,43 @@
-version: '3'
+version: "3"
 
 services:
-  # Postgres and pact-broker settings were copied from https://github.com/DiUS/pact_broker-docker/blob/master/docker-compose.yml
   postgres:
-    image: postgres:10.5
+    image: postgres
     healthcheck:
       test: psql postgres --command "select 1" -U postgres
     ports:
       - "5432:5432"
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
-  pact_broker:
-    image: dius/pact-broker:2.27.2-1
+
+  pact-broker:
+    image: pactfoundation/pact-broker:2.59.2.0
     ports:
-      - "80:80"
-    links:
+      - "80:9292"
+    depends_on:
       - postgres
     environment:
-      PACT_BROKER_DATABASE_USERNAME: postgres
-      PACT_BROKER_DATABASE_PASSWORD: password
-      PACT_BROKER_DATABASE_HOST: postgres
-      PACT_BROKER_DATABASE_NAME: postgres
-      PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http https
+      PACT_BROKER_PORT: '9292'
+      PACT_BROKER_DATABASE_URL: "postgres://postgres:password@postgres/postgres"
+      PACT_BROKER_LOG_LEVEL: INFO
+      PACT_BROKER_SQL_LOG_LEVEL: DEBUG
+
+  # Nginx is not necessary, but demonstrates how
+  # one might use a reverse proxy in front of the broker,
+  # and includes the use of a self-signed TLS certificate
+  nginx:
+    image: nginx:alpine
+    depends_on:
+      - pact-broker
+    volumes:
+      - ./ssl/nginx.conf:/etc/nginx/conf.d:ro
+      - ./ssl:/etc/nginx/ssl
+    ports:
+      - "8443:443"
+      - "8080:8080"
+volumes:
+  postgres-volume:

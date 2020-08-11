@@ -20,25 +20,29 @@ Do you set your house on fire to test your smoke alarm? No, you test the contrac
 1. Clone the project on your machine.
 
 ```shell
-  git clone https://github.com/iannsantos/pact-node
+  git clone https://github.com/martetech/dtp-pact-examples
 ```
 
-2. Go to directories `account-api` and `client-api` and execute `yarn install` (or `npm install`) to install necessary packages.
+2. Go to directories `account-api`, `client-api` and `prime-account-details-api` and execute `yarn install` (or `npm install`) to install necessary packages for each of them.
+
 3. Go to directory `infrastructure` with `docker-compose.yml` for up Postgres and Pact Broker containers.
 
 ```shell
   docker-compose up
 ```
 
-4. To start with tests, go to `client-api` directory and execute `yarn test ; yarn pact:publish` to generate Pact Contract and publish it on Pact Broker. To view this result, go to `http://localhost`, you should see something like this:
+4. To start with tests, we need to generate the PACT for our consumer.
+Go to `client-api` directory and execute `yarn test ; yarn pact:publish` to generate Pact Contract and publish it on Pact Broker. To view this result, go to `http://localhost`, you should see something like this:
 
 <img src="../../../imgs/new-pact-contract.png" alt="new pact contract"/>
 
-Also you'll see the Pact contract JSON file on `client-api/pacts`.
+You can checkout the Pact contract JSON file at `client-api/pacts`.
 
 5. And to validate the generated contract, go to `account-api` and execute `yarn test`, this will run verifier Pact contract and publish the result on Pact Broker. To see, go again to `http://localhost` and you should see something like this:
 
 <img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
+
+6. To test the PACT against the second producer, execute the same process described in the last time, but for `prime-account-details-api` this time.
 
 ## Links
 

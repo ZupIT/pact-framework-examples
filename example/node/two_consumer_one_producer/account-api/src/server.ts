@@ -5,7 +5,7 @@ import routes from './routes';
 
 const app = express();
 
-app.listen(APP_PORT, () => console.log(`[PRIME ACCOUNT API] Running on ${APP_URL}`));
+app.listen(APP_PORT, () => console.log(`[ACCOUNT API] Running on ${APP_URL}`));
 
 app.use(express.json());
 app.use(cors());

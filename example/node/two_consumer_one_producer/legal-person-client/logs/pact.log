@@ -1,0 +1,49 @@
+I, [2020-08-11T19:20:49.963361 #6930]  INFO -- : Registered expected interaction GET /balance/1
+D, [2020-08-11T19:20:49.964053 #6930] DEBUG -- : {
+  "description": "a request for account",
+  "providerState": "one client with your account",
+  "request": {
+    "method": "GET",
+    "path": "/balance/1"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "clientID": 1,
+      "accountID": 10,
+      "balance": 100
+    }
+  },
+  "metadata": null
+}
+I, [2020-08-11T19:20:49.967755 #6930]  INFO -- : Received request GET /balance/1
+D, [2020-08-11T19:20:49.967937 #6930] DEBUG -- : {
+  "path": "/balance/1",
+  "query": "",
+  "method": "get",
+  "headers": {
+    "Accept": "application/json, text/plain, */*",
+    "User-Agent": "axios/0.19.2",
+    "Host": "127.0.0.1:1234",
+    "Connection": "close",
+    "Version": "HTTP/1.1"
+  }
+}
+I, [2020-08-11T19:20:49.968304 #6930]  INFO -- : Found matching response for GET /balance/1
+D, [2020-08-11T19:20:49.968469 #6930] DEBUG -- : {
+  "status": 200,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "clientID": 1,
+    "accountID": 10,
+    "balance": 100
+  }
+}
+I, [2020-08-11T19:20:49.978815 #6930]  INFO -- : Verifying - interactions matched
+I, [2020-08-11T19:20:49.984151 #6930]  INFO -- : Cleared interactions
+I, [2020-08-11T19:20:49.991243 #6930]  INFO -- : Writing pact for AccountApi to /workspace/dtp-pact-examples/example/node/two_consumer_one_producer/legal-person-client/pacts/legalpersonclient-accountapi.json
