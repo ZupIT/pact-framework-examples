@@ -12,10 +12,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
-  pact_broker:
-    image: dius/pact-broker:2.27.2-1
-    ports:
-      - "80:80"
+  pact-broker:
+    image: dius/pact-broker:2
     links:
       - postgres
     environment:
@@ -24,3 +22,18 @@ services:
       PACT_BROKER_DATABASE_HOST: postgres
       PACT_BROKER_DATABASE_NAME: postgres
       PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http https
+      PACT_BROKER_LOG_LEVEL: INFO
+  # Nginx is not necessary, but demonstrates how
+  # one might use a reverse proxy in front of the broker,
+  # and includes the use of a self-signed TLS certificate
+  pact-broker-with-ngnix:
+    image: nginx:alpine
+    depends_on:
+      - pact-broker
+    volumes:
+      - ./ssl/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl/nginx-selfsigned.crt:/etc/ssl/certs/nginx-selfsigned.crt       
+      - ./ssl/nginx-selfsigned.key:/etc/ssl/private/nginx-selfsigned.key       
+    ports:
+      - "443:443"
+      - "80:80"
