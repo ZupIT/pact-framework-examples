@@ -1,9 +1,9 @@
-# Pact workshop with Pact JVM and Junit 5
+# Pact Workshop
 
 ![Pact Logo](imgs/pact-logo.png)
 
 This repository contains examples of implementation of Pact Framework in:
- - Java/Spring Boot;
+ - [Java/Spring Boot](example/java/spring-boot/README.md);
  - Java/Kafka;
  - Node/Express
 
