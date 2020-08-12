@@ -6,14 +6,12 @@ services:
     image: postgres:10.5
     healthcheck:
       test: psql postgres --command "select 1" -U postgres
-    ports:
-      - "5432:5432"
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
   pact-broker:
-    image: dius/pact-broker:2
+    image: pactfoundation/pact-broker:2
     links:
       - postgres
     environment:
@@ -37,3 +35,5 @@ services:
     ports:
       - "443:443"
       - "80:80"
+networks:
+  broker-network:
