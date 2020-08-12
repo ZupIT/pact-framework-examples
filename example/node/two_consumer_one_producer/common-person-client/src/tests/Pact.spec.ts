@@ -14,7 +14,7 @@ describe('Pact', () => {
   const expectedBody = {
     clientID: 1,
     accountID: 10,
-    balance: 100
+    balance: 100,
   };
 
   describe('Given an existing ID', () => {
@@ -40,12 +40,13 @@ describe('Pact', () => {
       const response: AxiosResponse = await axios.get(
         `${provider.mockService.baseUrl}/balance/1`,
       );
-      
+
+      const clientInfo = response.data;
+
       expect(response.status).toBe(200);
-      // const clientInfo = response.data;
-      // expect(clientInfo).toHaveProperty('clientID');
-      // expect(clientInfo).toHaveProperty('accountID');
-      // expect(clientInfo).toHaveProperty('balance');
+      expect(clientInfo).toHaveProperty('clientID');
+      expect(clientInfo).toHaveProperty('accountID');
+      expect(clientInfo).toHaveProperty('balance');
     });
 
     afterEach(() => provider.verify());
