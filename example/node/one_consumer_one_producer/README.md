@@ -39,6 +39,8 @@ Also you'll see the Pact contract JSON file on `client-api/pacts`.
 
 <img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
 
+  **Do not forget to hit ctrl + c to end the test REPL and release it's port.**
+
 ## Links
 
 - How to Pact works: https://docs.pact.io/how-pact-works#slide-1

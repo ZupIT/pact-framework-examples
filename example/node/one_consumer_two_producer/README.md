@@ -42,6 +42,8 @@ You can checkout the Pact contract JSON file at `client-api/pacts`.
 
 <img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
 
+  **Do not forget to hit ctrl + c to end the test REPL and release it's port.**
+
 6. To test the PACT against the second producer, execute the same process described in the last time, but for `prime-account-details-api` this time.
 
 ## Links

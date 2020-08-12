@@ -40,9 +40,11 @@ You can checkout the Pact contract JSON file at `common-person-api/pacts`.
 
 5. Generate the PACT for the second consumer by executing the same process described in the previous step for the `legal-person-client`.
 
-5. And to validate the generated contract, go to `account-api` and execute `yarn test`, this will run verifier Pact contract and publish the result on Pact Broker. To see, go again to `http://localhost` and you should see something like this:
+6. And to validate the generated contract, go to `account-api` and execute `yarn test`, this will run verifier Pact contract and publish the result on Pact Broker. To see, go again to `http://localhost` and you should see something like this:
 
 <img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
+
+  **Do not forget to hit ctrl + c to end the test REPL and release it's port.**
 
 ## Links
 
