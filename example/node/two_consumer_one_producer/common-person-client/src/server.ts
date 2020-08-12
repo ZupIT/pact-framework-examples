@@ -5,7 +5,9 @@ import routes from './routes/index';
 
 const app = express();
 
-app.listen(APP_PORT, () => console.log(`[CLIENT API] Running on ${APP_URL}`));
+app.listen(APP_PORT, () =>
+  console.log(`[COMMON PERSON CLIENT API] Running on ${APP_URL}`),
+);
 
 app.use(cors());
 app.use(express.json());

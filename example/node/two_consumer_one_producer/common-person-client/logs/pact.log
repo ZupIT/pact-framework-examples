@@ -1,5 +1,5 @@
-I, [2020-08-11T19:14:40.754704 #5187]  INFO -- : Registered expected interaction GET /balance/1
-D, [2020-08-11T19:14:40.754981 #5187] DEBUG -- : {
+I, [2020-08-12T08:38:51.617128 #14920]  INFO -- : Registered expected interaction GET /balance/1
+D, [2020-08-12T08:38:51.617471 #14920] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -19,8 +19,8 @@ D, [2020-08-11T19:14:40.754981 #5187] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2020-08-11T19:14:40.757555 #5187]  INFO -- : Received request GET /balance/1
-D, [2020-08-11T19:14:40.757682 #5187] DEBUG -- : {
+I, [2020-08-12T08:38:51.619505 #14920]  INFO -- : Received request GET /balance/1
+D, [2020-08-12T08:38:51.619656 #14920] DEBUG -- : {
   "path": "/balance/1",
   "query": "",
   "method": "get",
@@ -32,8 +32,8 @@ D, [2020-08-11T19:14:40.757682 #5187] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-08-11T19:14:40.757899 #5187]  INFO -- : Found matching response for GET /balance/1
-D, [2020-08-11T19:14:40.757976 #5187] DEBUG -- : {
+I, [2020-08-12T08:38:51.620012 #14920]  INFO -- : Found matching response for GET /balance/1
+D, [2020-08-12T08:38:51.620112 #14920] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
@@ -44,6 +44,6 @@ D, [2020-08-11T19:14:40.757976 #5187] DEBUG -- : {
     "balance": 100
   }
 }
-I, [2020-08-11T19:14:40.761948 #5187]  INFO -- : Verifying - interactions matched
-I, [2020-08-11T19:14:40.764998 #5187]  INFO -- : Cleared interactions
-I, [2020-08-11T19:14:40.769020 #5187]  INFO -- : Writing pact for AccountApi to /workspace/dtp-pact-examples/example/node/two_consumer_one_producer/common-person-client/pacts/commonpersonclient-accountapi.json
+I, [2020-08-12T08:38:51.625087 #14920]  INFO -- : Verifying - interactions matched
+I, [2020-08-12T08:38:51.628398 #14920]  INFO -- : Cleared interactions
+I, [2020-08-12T08:38:51.632263 #14920]  INFO -- : Writing pact for AccountApi to /home/iann/dev/projects/dtp-pact-examples/example/node/two_consumer_one_producer/common-person-client/pacts/commonpersonclient-accountapi.json
