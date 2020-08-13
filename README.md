@@ -1,53 +1,51 @@
-# Pact Workshop
-
+# Exemplos de uso do Pact Framework
 ![Pact Logo](imgs/pact-logo.png)
 
-This repository contains examples of implementation of Pact Framework in:
- - [Java/Spring Boot](example/java/spring-boot/README.md);
- - Java/Kafka;
- - Node/Express
+Bem vindo ao repositório de exemplos do Pact Framework. <br>
+O objetivo deste repositório é fornecer exemplos de implementações do [PACT Framework](https://docs.pact.io/) 
+em diferentes linguagens como forma de facilitar seu entendimento. 
 
-## Pact concept
+Não conhece o Pact? Na sessão de [links úteis](#links-uteis) você encontrará tudo que precisa para se interar do assunto. 
 
-Pact is a code-first tool for testing HTTP and message integrations using contract tests. Contract tests assert that inter-application messages conform to a shared understanding that is documented in a contract. Without contract testing, the only way to ensure that applications will work correctly together is by using expensive and brittle integration tests.
-Do you set your house on fire to test your smoke alarm? No, you test the contract it holds with your ears by using the testing button. Pact provides that testing button for your code, allowing you to safely confirm that your applications will work together without having to deploy the world first.
+## <a name='exemplos'>Exemplos neste repositório</a>
 
-## Scenario
+Abaixo estão os links dos exemplos que você irá encontrar neste repositório.
+Neles você também irá encontrar detalhes sobre como executá-los.
 
-![Pact Logo](imgs/rest-scenario.png)
+ - [Java/Spring Boot](example/java/spring-boot/);
+ - [Java/Kafka](example/java/messaging-kafka/);
+ - [Node/Express](example/node);
 
-I maked two rest apis called client API and Account API. The client API must call account API to get client balance. This apis have an dependence, that is an simple example to use pact framework to make Consumer Driven Contract Test
+## <a name='estrutura-basica'>Estrutura básica dos testes</a>
 
-## Pact Workflow
+Todos os exemplos neste repositório seguem, basicamente, o fluxo representado abaixo.
 
 ![Pact Workflow](imgs/pact-workflow.png)
 
-The consumer creates and maintains a contract. Both the consumer and provider verify against that contract with every change in their code base.
+O processo de validação dos contratos acontece da seguinte forma:
 
-The process of consumer-driven contracts looks like this:
+ - A API Consumidor cria em mantém um contrato (em acordo com o Provedor).
 
- - The API consumer creates and maintains a contract (in agreement with the provider).
+ - A API Consumidor verifica que está rodando de forma aderente ao contrato.
+ 
+ - A API Consumidor publica o contrato para que o provedor possa acessá-lo.
 
- - The API consumer verifies that it successfully runs against the contract.
+ - A API Provedor verifica que está rodando de forma aderente ao contrato do(s) consumidor(es).
 
- - The API consumer publishes the contract.
+## <a name='links-uteis'>Links Úteis</a>
 
- - The API provider verifies that it successfully runs against the contract.
+- Série de artigos Testes de contratos com PACT: <br />
+https://www.zup.com.br/blog/testes-de-contratos-com-pact-1-conceitos
+https://www.zup.com.br/blog/testes-de-contratos-com-pact-2-consumer-driven-contract
+https://www.zup.com.br/blog/testes-de-contratos-com-pact-framework-3-hands-on
 
-## Examples
-
-The "integration" folder only have an integration between apis. If you want see full example, please jump to the "example" folder. 
-The example folder has [Java examples](https://github.com/martetech/dtp-pact/tree/master/example/java) and [Node example](https://github.com/martetech/dtp-pact/tree/master/example/node/one_consumer_one_producer).
-
-## Links
-
- - Documentation: <br />
+- Documentação do Pact: <br />
 https://docs.pact.io/
 
 - PactFlow: <br />
 https://pactflow.io/
 
- - Pact Benefits: <br />
+- Pact Benefits: <br />
 https://pactflow.io/how-pact-works/?utm_source=ossdocs&utm_campaign=intro_animation#slide-1
 
 - Pact Broker: <br />
