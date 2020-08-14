@@ -6,11 +6,12 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --ignore-watch node_modules --transpileOnly src/server.ts",
+    "dev:server": "ts-node-dev --ignore-watch node_modules --transpile-only src/server.ts",
     "jest": "jest",
     "test": "npm-run-all --parallel dev:server jest"
   },
   "dependencies": {
+    "@pact-foundation/pact": "^9.11.0",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "express": "^4.17.1"
@@ -31,7 +32,7 @@
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "ts-jest": "^26.1.0",
-    "ts-node-dev": "^1.0.0-pre.44",
+    "ts-node-dev": "^1.0.0-pre.56",
     "typescript": "^3.9.3"
   }
 }

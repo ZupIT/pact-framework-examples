@@ -1,11 +1,11 @@
-# Exemplos de uso do Pact Framework
 ![Pact Logo](imgs/pact-logo.png)
+# Exemplos de uso do Pact Framework
 
 Bem vindo ao repositório de exemplos do Pact Framework. <br>
 O objetivo deste repositório é fornecer exemplos de implementações do [PACT Framework](https://docs.pact.io/) 
 em diferentes linguagens como forma de facilitar seu entendimento. 
 
-Não conhece o Pact? Na sessão de [links úteis](#links-uteis) você encontrará tudo que precisa para se interar do assunto. 
+Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na sess]ão de [links úteis](#links-uteis). 
 
 ## <a name='exemplos'>Exemplos neste repositório</a>
 
@@ -16,7 +16,7 @@ Neles você também irá encontrar detalhes sobre como executá-los.
  - [Java/Kafka](example/java/messaging-kafka/);
  - [Node/Express](example/node);
 
-## <a name='estrutura-basica'>Estrutura básica dos testes</a>
+## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 
 Todos os exemplos neste repositório seguem, basicamente, o fluxo representado abaixo.
 
@@ -32,11 +32,30 @@ O processo de validação dos contratos acontece da seguinte forma:
 
  - A API Provedor verifica que está rodando de forma aderente ao contrato do(s) consumidor(es).
 
+Os contratos são publicados em uma aplicação que chamamos de Pact Broker. <br>
+Para qualquer um dos exemplos deste repositório, precisaremos de uma instância desta aplicação.
+A seguir explicamos como subir o seu próprio broker. 
+
+## <a name='config-broker'> Configurando o Pact Broker </a>
+
+Para configurar uma instancia do Pact Broker em sua máquina local, clone o projeto em sua máquina, <br>
+vá até o diretório `infrastructure/pact-broker` e execute o seguinte comando:
+
+```shell
+docker-compose up
+```
+Para validar se o broker está funcionando corretamente, acesse o endereço [localhost](http:localhost). <br>
+Caso tudo tenha ocorrido conforme planejado, você verá a página inicial do Pact Broker.
+
 ## <a name='links-uteis'>Links Úteis</a>
 
-- Série de artigos Testes de contratos com PACT: <br />
+- Conceitos do PACT: <br />
 https://www.zup.com.br/blog/testes-de-contratos-com-pact-1-conceitos
+
+- Conceitos do contratos dirigidos a consumidores (Consumer Driven Contract): <br />
 https://www.zup.com.br/blog/testes-de-contratos-com-pact-2-consumer-driven-contract
+
+- Hands On com Pact: <br />
 https://www.zup.com.br/blog/testes-de-contratos-com-pact-framework-3-hands-on
 
 - Documentação do Pact: <br />

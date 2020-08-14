@@ -2,9 +2,9 @@
 
 Exemplo da criação de um pacto entre:
 * 1 consumidor (Consumer)
-* 1 provedor (Provider)
+* 2 provedores (Providers)
 
-- Veja este mesmo cenário feito em Java: (../../java/spring-boot/one_consumer_one_producer).
+- Veja este mesmo cenário feito em Java: (../../java/spring-boot/one_consumer_two_producers).
 
 ## Ferramentas
 
@@ -64,3 +64,5 @@ Ao final, podemos conferir o resultado do teste que é publicado no Broker.
 <img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
 
 **Ao final, entre com CTRL + C para liberar o terminal**
+
+6. Para executar o teste da segunda API provedora, siga o mesmo processo da etapa anterior no diretório `prime-account-details-api`.

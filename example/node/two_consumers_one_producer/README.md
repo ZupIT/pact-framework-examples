@@ -1,10 +1,10 @@
 # Exemplo em Node
 
 Exemplo da criação de um pacto entre:
-* 1 consumidor (Consumer)
+* 2 consumidores (Consumers)
 * 1 provedor (Provider)
 
-- Veja este mesmo cenário feito em Java: (../../java/spring-boot/one_consumer_one_producer).
+- Veja este mesmo cenário feito em Java: (../../java/spring-boot/two_consumers_one_producer).
 
 ## Ferramentas
 
@@ -43,8 +43,10 @@ Acesse o Pact Broker (`http://localhost`) em seu navegador. Você deverá ver o 
 
 Caso tenha interesse, o contrato gerado pode ser conferido no diretório `client-api/pacts`.
 
+5. Para criar o contrato do segundo consumidor, siga o mesmo processo da etapa anterior no diretório 
+`legal-person-clent`.
 
-5. Para validar o contrato gerado, vamos até o diretório da nossa API provedora (provider) `account-api`.
+6. Para validar o contrato gerado, vamos até o diretório da nossa API provedora (provider) `account-api`.
 Novamente, precisamos instalar as dependencias da API. Para isto, execute o seguinte comando:
 
 ```shell
