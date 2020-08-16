@@ -12,9 +12,15 @@ Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na
 Abaixo estão os links dos exemplos que você irá encontrar neste repositório.
 Neles você também irá encontrar detalhes sobre como executá-los.
 
- - [Java/Spring Boot](example/java/spring-boot/);
  - [Java/Kafka](example/java/messaging-kafka/);
- - [Node/Express](example/node);
+ - Java/Spring Boot:
+    * [um consumidor e um provedor](example/java/spring-boot/one_consumer_one_provider).
+    * [um consumidor e dois provedores](example/java/spring-boot/two_consumers_one_provider).
+    * [dois consumidore e um provedor](example/java/spring-boot/one_consumer_two_providers).
+ - Node/Express:
+    * [um consumidor e um provedor](example/node/one_consumer_one_provider).
+    * [um consumidor e dois provedores](example/node/two_consumers_one_provider).
+    * [dois consumidore e um provedor](example/node/one_consumer_two_providers).
 
 ## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 

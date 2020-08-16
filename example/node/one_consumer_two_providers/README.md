@@ -1,26 +1,26 @@
 # Exemplo em Node
 
-Exemplo da criação de um pacto entre:
+Exemplo da criação de um Pact entre:
 * 1 consumidor (Consumer)
 * 2 provedores (Providers)
 
-- Veja este mesmo cenário feito em Java: (../../java/spring-boot/one_consumer_two_producers).
+- Veja este mesmo cenário feito em [Java](../../java/spring-boot/one_consumer_two_providers).
 
 ## Ferramentas
 
-- Docker Compose
 - Express
 - Typescript
 - Jest
 - Pact
+- Pact Broker
 
-## Passo a passo
+## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente. 
-Para isto, vide a sessão de [configuração do Pact Broker](../../../README.md#config-broker).
+Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
 
 
-4. Com o Broker funcionando, podemos iniciar os testes.
+2. Com o Broker funcionando, podemos iniciar os testes.
 Primeiro, precisamos instalar as dependencias da API. Para isto, va até o diretório `client-api` e execute o seguinte comando:
 
 ```shell
@@ -44,7 +44,7 @@ Acesse o Pact Broker (`http://localhost`) em seu navegador. Você deverá ver o 
 Caso tenha interesse, o contrato gerado pode ser conferido no diretório `client-api/pacts`.
 
 
-5. Para validar o contrato gerado, vamos até o diretório da nossa API provedora (provider) `account-api`.
+3. Para validar o contrato gerado, vamos até o diretório da nossa API provedora (provider) `account-api`.
 Novamente, precisamos instalar as dependencias da API. Para isto, execute o seguinte comando:
 
 ```shell
@@ -65,4 +65,4 @@ Ao final, podemos conferir o resultado do teste que é publicado no Broker.
 
 **Ao final, entre com CTRL + C para liberar o terminal**
 
-6. Para executar o teste da segunda API provedora, siga o mesmo processo da etapa anterior no diretório `prime-account-details-api`.
+4. Para executar o teste da segunda API provedora, siga o mesmo processo da etapa anterior no diretório `prime-account-details-api`.
