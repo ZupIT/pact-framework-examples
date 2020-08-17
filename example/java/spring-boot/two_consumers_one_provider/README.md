@@ -8,7 +8,7 @@ Exemplo da criação de um Pact entre:
 
 ## Ferramentas
 
- - OpenJdk 11
+ - OpenJdk 14
  - Spring Boot
  - Swagger
  - Pact JVM
