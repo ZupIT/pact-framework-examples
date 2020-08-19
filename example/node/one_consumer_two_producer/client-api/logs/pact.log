@@ -1,5 +1,5 @@
-I, [2020-08-04T07:51:44.750285 #14563]  INFO -- : Registered expected interaction GET /prime/1
-D, [2020-08-04T07:51:44.750638 #14563] DEBUG -- : {
+I, [2020-08-11T19:59:13.933653 #22063]  INFO -- : Registered expected interaction GET /prime/1
+D, [2020-08-11T19:59:13.934559 #22063] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -18,8 +18,8 @@ D, [2020-08-04T07:51:44.750638 #14563] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2020-08-04T07:51:44.752559 #14563]  INFO -- : Received request GET /prime/1
-D, [2020-08-04T07:51:44.752660 #14563] DEBUG -- : {
+I, [2020-08-11T19:59:13.942997 #22063]  INFO -- : Received request GET /prime/1
+D, [2020-08-11T19:59:13.943603 #22063] DEBUG -- : {
   "path": "/prime/1",
   "query": "",
   "method": "get",
@@ -31,8 +31,8 @@ D, [2020-08-04T07:51:44.752660 #14563] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-08-04T07:51:44.752929 #14563]  INFO -- : Found matching response for GET /prime/1
-D, [2020-08-04T07:51:44.753010 #14563] DEBUG -- : {
+I, [2020-08-11T19:59:13.944824 #22063]  INFO -- : Found matching response for GET /prime/1
+D, [2020-08-11T19:59:13.945290 #22063] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
@@ -42,6 +42,6 @@ D, [2020-08-04T07:51:44.753010 #14563] DEBUG -- : {
     "discountPercentageFee": 2
   }
 }
-I, [2020-08-04T07:51:44.756154 #14563]  INFO -- : Verifying - interactions matched
-I, [2020-08-04T07:51:44.758825 #14563]  INFO -- : Cleared interactions
-I, [2020-08-04T07:51:44.761851 #14563]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/iann/dev/projects/dtp-pact/example/node/one_consumer_two_producer/client-api/pacts/clientapi-primeaccountdetailsapi.json
+I, [2020-08-11T19:59:13.957961 #22063]  INFO -- : Verifying - interactions matched
+I, [2020-08-11T19:59:13.970402 #22063]  INFO -- : Cleared interactions
+I, [2020-08-11T19:59:13.984802 #22063]  INFO -- : Writing pact for PrimeAccountDetailsApi to /workspace/dtp-pact-examples/example/node/one_consumer_two_producer/client-api/pacts/clientapi-primeaccountdetailsapi.json
