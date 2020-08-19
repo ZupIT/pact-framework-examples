@@ -4,7 +4,7 @@ Exemplo da criação de um Pact entre:
 * 2 consumidores (Consumers)
 * 1 provedor (Provider)
 
-- Veja este mesmo cenário feito em [Node](../../node/two_consumers_one_provider).
+- Veja este mesmo cenário feito em [Node](../../../node/two_consumers_one_provider).
 
 ## Ferramentas
 
