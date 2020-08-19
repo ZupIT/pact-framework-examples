@@ -6,8 +6,7 @@ interface Response extends AxiosResponse {
 }
 
 interface Account {
-  clientID: number;
-  accountID: number;
+  name: string;
   balance: number;
 }
 

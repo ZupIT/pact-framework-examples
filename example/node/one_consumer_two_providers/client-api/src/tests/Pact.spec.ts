@@ -1,5 +1,5 @@
-import { Pact } from '@pact-foundation/pact';
-import axios, { AxiosResponse } from 'axios';
+import { Matchers, Pact } from '@pact-foundation/pact';
+import axios from 'axios';
 import path from 'path';
 
 describe('Pact with Account', () => {
@@ -10,12 +10,6 @@ describe('Pact with Account', () => {
     provider: 'AccountApi',
     consumer: 'ClientApi',
   });
-
-  const expectedBody = {
-    clientID: 1,
-    accountID: 10,
-    balance: 100,
-  };
 
   describe('Given an existing ID', () => {
     beforeAll(() =>
@@ -30,20 +24,18 @@ describe('Pact with Account', () => {
           willRespondWith: {
             status: 200,
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            body: expectedBody,
+            body: {
+              clientID: Matchers.integer(),
+              accountID: Matchers.integer(),
+              balance: Matchers.decimal(),
+            },
           },
         });
       }),
     );
 
     it('get balance by client ID', async () => {
-      const response: AxiosResponse = await axios.get(
-        `${provider.mockService.baseUrl}/balance/1`,
-      );
-      const clientInfo = response.data;
-      expect(clientInfo).toHaveProperty('clientID');
-      expect(clientInfo).toHaveProperty('accountID');
-      expect(clientInfo).toHaveProperty('balance');
+      await axios.get(`${provider.mockService.baseUrl}/balance/1`);
     });
 
     afterEach(() => provider.verify());
@@ -61,11 +53,6 @@ describe('Pact with PrimeAccountDetails', () => {
     consumer: 'ClientApi',
   });
 
-  const expectedBody = {
-    isPrime: true,
-    discountPercentageFee: 2,
-  };
-
   describe('Given an existing ID', () => {
     beforeAll(() =>
       provider.setup().then(() => {
@@ -79,19 +66,17 @@ describe('Pact with PrimeAccountDetails', () => {
           willRespondWith: {
             status: 200,
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            body: expectedBody,
+            body: {
+              isPrime: Matchers.boolean(),
+              discountPercentageFee: Matchers.decimal(),
+            },
           },
         });
       }),
     );
 
     it('get balance by client ID', async () => {
-      const response: AxiosResponse = await axios.get(
-        `${provider.mockService.baseUrl}/prime/1`,
-      );
-      const clientInfo = response.data;
-      expect(clientInfo).toHaveProperty('isPrime');
-      expect(clientInfo).toHaveProperty('discountPercentageFee');
+      await axios.get(`${provider.mockService.baseUrl}/prime/1`);
     });
 
     afterEach(() => provider.verify());

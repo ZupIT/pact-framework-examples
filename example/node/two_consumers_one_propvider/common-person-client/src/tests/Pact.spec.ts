@@ -1,5 +1,5 @@
-import { Pact } from '@pact-foundation/pact';
-import axios, { AxiosResponse } from 'axios';
+import { Matchers, Pact } from '@pact-foundation/pact';
+import axios from 'axios';
 import path from 'path';
 
 describe('Pact', () => {
@@ -10,12 +10,6 @@ describe('Pact', () => {
     provider: 'AccountApi',
     consumer: 'CommonPersonClient',
   });
-
-  const expectedBody = {
-    clientID: 1,
-    accountID: 10,
-    balance: 100,
-  };
 
   describe('Given an existing ID', () => {
     beforeAll(() =>
@@ -30,23 +24,17 @@ describe('Pact', () => {
           willRespondWith: {
             status: 200,
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            body: expectedBody,
+            body: {
+              balance: Matchers.decimal(),
+              name: Matchers.string(),
+            },
           },
         });
       }),
     );
 
     it('get balance by client ID', async () => {
-      const response: AxiosResponse = await axios.get(
-        `${provider.mockService.baseUrl}/balance/1`,
-      );
-
-      const clientInfo = response.data;
-
-      expect(response.status).toBe(200);
-      expect(clientInfo).toHaveProperty('clientID');
-      expect(clientInfo).toHaveProperty('accountID');
-      expect(clientInfo).toHaveProperty('balance');
+      await axios.get(`${provider.mockService.baseUrl}/balance/1`);
     });
 
     afterEach(() => provider.verify());
