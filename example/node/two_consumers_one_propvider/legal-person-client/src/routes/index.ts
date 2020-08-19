@@ -18,11 +18,11 @@ routes.get('/client/:id', async (req, res) => {
     return res.status(404).json({ message: "Client doesn't exist" });
   }
 
-  const { accountID, balance, clientID } = await GetBalanceByClientID({
+  const { balance, fantasyName } = await GetBalanceByClientID({
     clientID: Number(id),
   });
 
-  return res.status(200).json({ accountID, balance, clientID });
+  return res.status(200).json({ balance, fantasyName });
 });
 
 export default routes;
