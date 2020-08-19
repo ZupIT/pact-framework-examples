@@ -14,10 +14,14 @@ public class BalanceDTO implements Serializable {
     private Integer clientId;
     private Integer accountId;
     private BigDecimal balance;
+    private String name;
+    private String fantasyName;
 
     public static BalanceDTO fromAccountToDTO(Account accountFound) {
         if (Objects.nonNull(accountFound)) {
             return BalanceDTO.builder()
+                    .name(accountFound.getName())
+                    .fantasyName(accountFound.getSocialReason())
                     .accountId(accountFound.getId())
                     .clientId(accountFound.getClientId())
                     .balance(accountFound.getBalance())

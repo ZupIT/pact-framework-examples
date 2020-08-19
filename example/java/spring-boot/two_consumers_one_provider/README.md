@@ -15,6 +15,17 @@ Exemplo da criação de um Pact entre:
  - Pact JVM
  - Pact Broker
  
+## Contexto
+
+Neste exemplo, abordamos um cenário típico de uma API (`account`) que provê dados de saldo de determinado cliente.
+No entanto, o cliente (consumer) pode ser uma pessoa comum (`common-person`) ou uma pessoa jurídica (`legal-person`).
+
+Além da informação de saldo, a pessoa comum espera receber da API provedora um atributo dizendo qual seu identificador e seu nome.
+
+Da mesma forma, a pessoa jurídica espera receber, além da informação de saldo, qual seu identificador e, neste caso, seu nome fantasia registrado junto ao CNPJ.
+
+No passo seguinte, iremos conferir a criação dos contratos para ambos clientes, comum e jurídico, e como a API de saldo atendo os dois casos.
+
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente. 

@@ -19,6 +19,8 @@ public class Account {
     private Integer clientId;
     private BigDecimal balance;
     private AccountType accountType;
+    private String name;
+    private String socialReason;
 
     public static AccountDetailsDTO fromEntityToDto(Account account) {
         if (Objects.nonNull(account)) {

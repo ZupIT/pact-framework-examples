@@ -94,15 +94,18 @@ class ClientResourceEndpointTest {
                 .andExpect(jsonPath("$.clientId").exists())
                 .andExpect(jsonPath("$.accountId").exists())
                 .andExpect(jsonPath("$.balance").exists())
+                .andExpect(jsonPath("$.name").exists())
                 .andExpect(jsonPath("$.clientId").value(balanceDTO.getClientId()))
                 .andExpect(jsonPath("$.accountId").value(balanceDTO.getAccountId()))
                 .andExpect(jsonPath("$.balance").value(balanceDTO.getBalance()))
+                .andExpect(jsonPath("$.name").value(balanceDTO.getName()))
                 .andExpect(status().isOk());
     }
 
     private BalanceDTO buildBalanceDTO() {
         return BalanceDTO.builder()
                 .accountId(1)
+                .name("Jose")
                 .balance(new BigDecimal("300"))
                 .clientId(10)
                 .build();
