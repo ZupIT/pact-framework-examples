@@ -37,7 +37,7 @@ yarn test
 yarn pact:publish
 ```
 
-Acesse o Pact Broker (`http://localhost`) em seu navegador. Você deverá ver o contrato publicado.
+Acesse o Pact Broker (`http://localhost:9292`) em seu navegador. Você deverá ver o contrato publicado.
 
 <img src="../../../imgs/new-pact-contract.png" alt="new pact contract"/>
 

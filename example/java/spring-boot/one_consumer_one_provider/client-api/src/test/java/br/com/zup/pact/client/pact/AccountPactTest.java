@@ -40,9 +40,9 @@ public class AccountPactTest {
     public RequestResponsePact balanceEndpointTest(PactDslWithProvider builder) {
 
         PactDslJsonBody bodyResponse = new PactDslJsonBody()
-                .integerType("accountId", 1)
-                .integerType("clientId", 1)
-                .numberValue("balance", 100.00);
+                .integerType("accountId")
+                .integerType("clientId")
+                .numberType("balance");
 
         return builder
                 .given("get balance of accountId 1")
@@ -73,11 +73,6 @@ public class AccountPactTest {
     void testBalanceWorking(MockServer mockServer) throws IOException {
         HttpResponse httpResponse = Request.Get(mockServer.getUrl() + BALANCE_URL_WORKING).execute().returnResponse();
         assertThat(httpResponse.getStatusLine().getStatusCode(), is(equalTo(200)));
-        final BalanceDTO balanceDTO = gson
-                .fromJson(IOUtils.toString(httpResponse.getEntity().getContent()), BalanceDTO.class);
-        assertThat(balanceDTO.getAccountId(), is(1));
-        assertThat(balanceDTO.getClientId(), is(1));
-        assertThat(balanceDTO.getBalance(), is(new BigDecimal("100")));
     }
 
     @Test
@@ -85,7 +80,6 @@ public class AccountPactTest {
     void testBalanceNotWorking(MockServer mockServer) throws IOException {
         HttpResponse httpResponse = Request.Get(mockServer.getUrl() + BALANCE_URL_NOT_WORKING).execute().returnResponse();
         assertThat(httpResponse.getStatusLine().getStatusCode(), is(equalTo(404)));
-        assertThat(IOUtils.toString(httpResponse.getEntity().getContent()), is(equalTo("")));
     }
 
 }

@@ -38,9 +38,9 @@ public class PrimeAccountDetailsPactTest {
     public RequestResponsePact primeBalanceEndpointTest(PactDslWithProvider builder) {
 
         PactDslJsonBody bodyResponse = new PactDslJsonBody()
-                .integerType("accountId", 1)
-                .booleanType("isPrime", true)
-                .numberValue("discountPercentageFee", 5);
+                .integerType("accountId")
+                .booleanType("isPrime")
+                .numberType("discountPercentageFee");
 
         return builder
                 .given("get prime account details of clientId 1")
@@ -59,11 +59,6 @@ public class PrimeAccountDetailsPactTest {
     void testBalanceWorking(MockServer mockServer) throws IOException {
         HttpResponse httpResponse = Request.Get(mockServer.getUrl() + BALANCE_URL_WORKING).execute().returnResponse();
         assertThat(httpResponse.getStatusLine().getStatusCode(), is(equalTo(200)));
-        final PrimeAccountDetailsDTO primeAccountDetailsDTO = gson
-                .fromJson(IOUtils.toString(httpResponse.getEntity().getContent()), PrimeAccountDetailsDTO.class);
-        assertThat(primeAccountDetailsDTO.getAccountId(), is(1));
-        assertThat(primeAccountDetailsDTO.getIsPrime(), is(true));
-        assertThat(primeAccountDetailsDTO.getDiscountPercentageFee(), is(5));
     }
 
 }

@@ -54,7 +54,7 @@ class ClientResourceEndpointTest {
 
     @Test
     void getAccountDetailsByNonExistentClientId() throws Exception {
-        mockMvc.perform(get("/v1/clients/110"))
+        mockMvc.perform(get("/v1/clients/1000"))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }

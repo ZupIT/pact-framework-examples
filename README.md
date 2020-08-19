@@ -50,7 +50,7 @@ vá até o diretório `infrastructure/pact-broker` e execute o seguinte comando:
 ```shell
 docker-compose up
 ```
-Para validar se o broker está funcionando corretamente, acesse o endereço [localhost](http:localhost). <br>
+Para validar se o broker está funcionando corretamente, acesse o endereço [http://localhost:9292](http://localhost:9292). <br>
 Caso tudo tenha ocorrido conforme planejado, você verá a página inicial do Pact Broker.
 
 ## <a name='links-uteis'>Links Úteis</a>

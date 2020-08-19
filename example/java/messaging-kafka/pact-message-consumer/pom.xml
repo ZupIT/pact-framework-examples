@@ -162,7 +162,7 @@
                 <artifactId>pact-jvm-provider-maven</artifactId>
                 <version>4.0.6</version>
                 <configuration>
-                    <pactBrokerUrl>http://localhost</pactBrokerUrl>
+                    <pactBrokerUrl>http://localhost:9292</pactBrokerUrl>
                     <pactDirectory>target/pacts</pactDirectory>
                     <trimSnapshot>true</trimSnapshot>
                 </configuration>

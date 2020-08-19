@@ -8,9 +8,10 @@ Exemplo da criação de um Pact entre:
 
 ## Ferramentas
 
- - OpenJdk 14
+ - OpenJdk 11
  - Spring Boot
  - Swagger
+ - Lombok
  - Pact JVM
  - Pact Broker
  
@@ -20,7 +21,7 @@ Exemplo da criação de um Pact entre:
 Vide sessão [configuração do Pact Broker](../../../../README.md#config-broker) caso tenha dúvida.
 
 2. Abra os projetos contido neste diretório (`client-api`, `prime-account-details-api` e `account-api`) em sua IDE de preferência e 
-instale suas dependências.
+instale suas dependências. Se estiver usando o IntelliJ, você também precisará instalar o [Plugin do Lombok](https://projectlombok.org/setup/intellij).
 
 3. Para gerar o contrato, basta rodar os testes Junit do projeto `client-api`. <br>
 Obtendo sucesso, o plugin maven do Pact irá gerar um arquivo json contendo o contrato entre as APIs.
@@ -42,7 +43,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `client-ap
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker (`http://localhost`).
+Em seguida, você poderá ver o contrato publicado no Pact Broker (`http://localhost:9292`).
 
 5. Com o contrato publicado no Broker, agora validaremos se a API provedora (provider) 
 está aderente ao contrato.

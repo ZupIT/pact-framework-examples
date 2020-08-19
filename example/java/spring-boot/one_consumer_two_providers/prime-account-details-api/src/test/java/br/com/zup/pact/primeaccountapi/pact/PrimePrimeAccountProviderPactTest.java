@@ -23,7 +23,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @Provider("PrimeAccountDetailsProvider")
-@PactBroker(host = "localhost", port = "80")
+@PactBroker(host = "localhost", port = "9292")
 @VerificationReports
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)

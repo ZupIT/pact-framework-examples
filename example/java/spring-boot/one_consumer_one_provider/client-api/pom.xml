@@ -15,7 +15,7 @@
     <description>Client Api</description>
 
     <properties>
-        <java.version>14</java.version>
+        <java.version>11</java.version>
         <checkstyle-maven-plugin.version>3.1.1</checkstyle-maven-plugin.version>
     </properties>
 
@@ -148,7 +148,7 @@
                 <artifactId>pact-jvm-provider-maven</artifactId>
                 <version>4.0.6</version>
                 <configuration>
-                    <pactBrokerUrl>http://localhost</pactBrokerUrl>
+                    <pactBrokerUrl>http://localhost:9292</pactBrokerUrl>
                     <pactDirectory>target/pacts</pactDirectory>
                     <trimSnapshot>true</trimSnapshot>
                 </configuration>
