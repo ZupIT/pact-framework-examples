@@ -22,7 +22,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 @Slf4j
 @Provider("ClientCreationMessageProvider")
-@PactBroker(host = "localhost", port = "9292")
+@PactBroker(host = "localhost", port = "80")
 public class KafkaContractAsyncTest {
 
 
