@@ -54,7 +54,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `client-ap
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker (`http://localhost:9292`).
+Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
 
 5. Para gerar o contrato da segunda API consumidora, basta seguir novamente os passos 4 e 5, mas desta vez com o projeto `common-person-client`.
 
@@ -62,6 +62,14 @@ Em seguida, você poderá ver o contrato publicado no Pact Broker (`http://local
 está aderente ao contrato.
 
 No projeto `account-api`, rode os testes Junit e verifique se eles são concluídos com sucesso. <br>
-Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a API provedora.
+Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a API provedora. <br>
 
-Ao final, podemos conferir o resultado do teste que é publicado no Broker. 
+> Para este passo, configuramos para que a publição do resultado seja feita automaticamente assim que a validação do contrato ocorre. <br>
+> Veja a configuração em: [AccountProviderPactTest.java](./account-api/src/test/java/br/com/zup/pact/accountapi/pact/AccountProviderPactTest.java) linha 41 <br>
+```
+System.setProperty("pact.verifier.publishResults", "true");
+```
+
+Para verificar o resultado, basta acessar novamente o Broker. 
+
+<img src="../../../../imgs/pact-validated.png" alt="Pact validado pelo provider"/>

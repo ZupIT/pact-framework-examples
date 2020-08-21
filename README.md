@@ -5,22 +5,23 @@ Bem vindo ao repositório de exemplos do Pact Framework. <br>
 O objetivo deste repositório é fornecer exemplos de implementações do [PACT Framework](https://docs.pact.io/) 
 em diferentes linguagens como forma de facilitar seu entendimento. 
 
-Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na sess]ão de [links úteis](#links-uteis). 
+Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na sessão de [links úteis](#links-uteis). 
 
 ## <a name='exemplos'>Exemplos neste repositório</a>
 
 Abaixo estão os links dos exemplos que você irá encontrar neste repositório.
 Neles você também irá encontrar detalhes sobre como executá-los.
 
+ - [Integração Continua com Jenkins](example/ci);
  - [Java/Kafka](example/java/messaging-kafka/);
  - Java/Spring Boot:
     * [um consumidor e um provedor](example/java/spring-boot/one_consumer_one_provider).
-    * [um consumidor e dois provedores](example/java/spring-boot/two_consumers_one_provider).
-    * [dois consumidore e um provedor](example/java/spring-boot/one_consumer_two_providers).
+    * [um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).
+    * [dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
  - Node/Express:
     * [um consumidor e um provedor](example/node/one_consumer_one_provider).
-    * [um consumidor e dois provedores](example/node/two_consumers_one_provider).
-    * [dois consumidore e um provedor](example/node/one_consumer_two_providers).
+    * [um consumidor e dois provedores](example/node/one_consumer_two_providers).
+    * [dois consumidores e um provedor](example/node/two_consumers_one_provider).
 
 ## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 
@@ -30,16 +31,16 @@ Todos os exemplos neste repositório seguem, basicamente, o fluxo representado a
 
 O processo de validação dos contratos acontece da seguinte forma:
 
- - A API Consumidor cria em mantém um contrato (em acordo com o Provedor).
+ - O **Consumidor** cria em mantém um contrato (em acordo com o Provedor).
 
- - A API Consumidor verifica que está rodando de forma aderente ao contrato.
+ - O **Consumidor**  realiza testes para verificar se está seguindo o contrato pré-estabelecido.
  
- - A API Consumidor publica o contrato para que o provedor possa acessá-lo.
+ - O **Consumidor** publica o contrato no Broker (explicação a seguir) para que o provedor possa acessá-lo.
 
- - A API Provedor verifica que está rodando de forma aderente ao contrato do(s) consumidor(es).
+ - O **Provedor** verifica que está rodando de forma aderente ao contrato do(s) consumidor(es).
 
-Os contratos são publicados em uma aplicação que chamamos de Pact Broker. <br>
-Para qualquer um dos exemplos deste repositório, precisaremos de uma instância desta aplicação.
+Os contratos são publicados em uma aplicação que chamamos de [Pact Broker](https://github.com/pact-foundation/pact_broker). <br>
+Para qualquer um dos exemplos deste repositório, precisaremos de uma instância desta aplicação. 
 A seguir explicamos como subir o seu próprio broker. 
 
 ## <a name='config-broker'> Configurando o Pact Broker </a>
@@ -76,4 +77,6 @@ https://pactflow.io/how-pact-works/?utm_source=ossdocs&utm_campaign=intro_animat
 - Pact Broker: <br />
 https://github.com/pact-foundation/pact_broker
 
+- Para mais exemplos: <br />
+https://github.com/pact-foundation?q=workshop
 
