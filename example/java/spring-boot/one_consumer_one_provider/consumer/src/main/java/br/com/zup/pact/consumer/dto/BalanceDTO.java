@@ -1,7 +1,6 @@
 package br.com.zup.pact.consumer.dto;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,6 +16,6 @@ public class BalanceDTO implements Serializable {
 
     private Integer clientId;
     private Integer accountId;
-    private BigDecimal balance;
+    private String balance;
 
 }

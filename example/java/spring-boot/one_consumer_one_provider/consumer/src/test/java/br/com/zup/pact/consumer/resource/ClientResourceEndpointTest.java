@@ -103,7 +103,7 @@ class ClientResourceEndpointTest {
     private BalanceDTO buildBalanceDTO() {
         return BalanceDTO.builder()
                 .accountId(1)
-                .balance(new BigDecimal("300"))
+                .balance("mil reais")
                 .clientId(10)
                 .build();
     }

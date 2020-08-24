@@ -49,7 +49,7 @@ public class AccountPactTest {
         PactDslJsonBody bodyResponse = new PactDslJsonBody()
                 .integerType("accountId")
                 .integerType("clientId")
-                .numberType("balance");
+                .stringType("balance");
 
         return builder
                 .given("get balance of accountId 1")
