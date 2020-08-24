@@ -1,56 +1,82 @@
-# Pact workshop with Pact JVM and Junit 5
-
 ![Pact Logo](imgs/pact-logo.png)
+# Exemplos de uso do Pact Framework
 
-This repository contains examples of implementation of Pact Framework in:
- - Java/Spring Boot;
- - Java/Kafka;
- - Node/Express
+Bem vindo ao repositório de exemplos do Pact Framework. <br>
+O objetivo deste repositório é fornecer exemplos de implementações do [PACT Framework](https://docs.pact.io/) 
+em diferentes linguagens como forma de facilitar seu entendimento. 
 
-## Pact concept
+Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na sessão de [links úteis](#links-uteis). 
 
-Pact is a code-first tool for testing HTTP and message integrations using contract tests. Contract tests assert that inter-application messages conform to a shared understanding that is documented in a contract. Without contract testing, the only way to ensure that applications will work correctly together is by using expensive and brittle integration tests.
-Do you set your house on fire to test your smoke alarm? No, you test the contract it holds with your ears by using the testing button. Pact provides that testing button for your code, allowing you to safely confirm that your applications will work together without having to deploy the world first.
+## <a name='exemplos'>Exemplos neste repositório</a>
 
-## Scenario
+Abaixo estão os links dos exemplos que você irá encontrar neste repositório.
+Neles você também irá encontrar detalhes sobre como executá-los.
 
-![Pact Logo](imgs/rest-scenario.png)
+ - [Integração Continua com Jenkins](example/ci);
+ - [Java/Kafka](example/java/messaging-kafka/);
+ - Java/Spring Boot:
+    * [um consumidor e um provedor](example/java/spring-boot/one_consumer_one_provider).
+    * [um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).
+    * [dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
+ - Node/Express:
+    * [um consumidor e um provedor](example/node/one_consumer_one_provider).
+    * [um consumidor e dois provedores](example/node/one_consumer_two_providers).
+    * [dois consumidores e um provedor](example/node/two_consumers_one_provider).
 
-I maked two rest apis called client API and Account API. The client API must call account API to get client balance. This apis have an dependence, that is an simple example to use pact framework to make Consumer Driven Contract Test
+## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 
-## Pact Workflow
+Todos os exemplos neste repositório seguem, basicamente, o fluxo representado abaixo.
 
 ![Pact Workflow](imgs/pact-workflow.png)
 
-The consumer creates and maintains a contract. Both the consumer and provider verify against that contract with every change in their code base.
+O processo de validação dos contratos acontece da seguinte forma:
 
-The process of consumer-driven contracts looks like this:
+ - O **Consumidor** cria em mantém um contrato (em acordo com o Provedor).
 
- - The API consumer creates and maintains a contract (in agreement with the provider).
+ - O **Consumidor**  realiza testes para verificar se está seguindo o contrato pré-estabelecido.
+ 
+ - O **Consumidor** publica o contrato no Broker (explicação a seguir) para que o provedor possa acessá-lo.
 
- - The API consumer verifies that it successfully runs against the contract.
+ - O **Provedor** verifica que está rodando de forma aderente ao contrato do(s) consumidor(es).
 
- - The API consumer publishes the contract.
+Os contratos são publicados em uma aplicação que chamamos de [Pact Broker](https://github.com/pact-foundation/pact_broker). <br>
+Para qualquer um dos exemplos deste repositório, precisaremos de uma instância desta aplicação. 
+A seguir explicamos como subir o seu próprio broker. 
 
- - The API provider verifies that it successfully runs against the contract.
+## <a name='config-broker'> Configurando o Pact Broker </a>
 
-## Examples
+Para configurar uma instancia do Pact Broker em sua máquina local, clone o projeto em sua máquina, <br>
+vá até o diretório `infrastructure/pact-broker` e execute o seguinte comando:
 
-The "integration" folder only have an integration between apis. If you want see full example, please jump to the "example" folder. 
-The example folder has [Java examples](https://github.com/martetech/dtp-pact/tree/master/example/java) and [Node example](https://github.com/martetech/dtp-pact/tree/master/example/node/one_consumer_one_producer).
+```shell
+docker-compose up
+```
+Para validar se o broker está funcionando corretamente, acesse o endereço [http://localhost:9292](http://localhost:9292). <br>
+Caso tudo tenha ocorrido conforme planejado, você verá a página inicial do Pact Broker.
 
-## Links
+## <a name='links-uteis'>Links Úteis</a>
 
- - Documentation: <br />
+- Conceitos do PACT: <br />
+https://www.zup.com.br/blog/testes-de-contratos-com-pact-1-conceitos
+
+- Conceitos do contratos dirigidos a consumidores (Consumer Driven Contract): <br />
+https://www.zup.com.br/blog/testes-de-contratos-com-pact-2-consumer-driven-contract
+
+- Hands On com Pact: <br />
+https://www.zup.com.br/blog/testes-de-contratos-com-pact-framework-3-hands-on
+
+- Documentação do Pact: <br />
 https://docs.pact.io/
 
 - PactFlow: <br />
 https://pactflow.io/
 
- - Pact Benefits: <br />
+- Pact Benefits: <br />
 https://pactflow.io/how-pact-works/?utm_source=ossdocs&utm_campaign=intro_animation#slide-1
 
 - Pact Broker: <br />
 https://github.com/pact-foundation/pact_broker
 
+- Para mais exemplos: <br />
+https://github.com/pact-foundation?q=workshop
 
