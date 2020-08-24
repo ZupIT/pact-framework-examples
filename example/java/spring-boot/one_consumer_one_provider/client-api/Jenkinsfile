@@ -1,0 +1,14 @@
+#!groovy
+pipeline {
+    agent any
+    environment {
+        BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
+    }
+    stages {
+        stage('Build artifact') {
+            steps {
+                sh "chmod +x mvnw"
+            }
+        }
+    }
+}
