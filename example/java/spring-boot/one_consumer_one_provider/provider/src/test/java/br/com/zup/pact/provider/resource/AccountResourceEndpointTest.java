@@ -67,7 +67,6 @@ class AccountResourceEndpointTest {
                 .andExpect(jsonPath("$.[0].balance").exists())
                 .andExpect(jsonPath("$.[0].accountType").exists())
                 .andExpect(jsonPath("$.[0].accountId").value(firstAccountDetailsDTO.getAccountId()))
-                .andExpect(jsonPath("$.[0].balance").value(firstAccountDetailsDTO.getBalance()))
                 .andExpect(jsonPath("$.[0].accountType").value(firstAccountDetailsDTO.getAccountType().toString()))
                 .andExpect(status().isOk());
     }
@@ -88,10 +87,8 @@ class AccountResourceEndpointTest {
                 .andDo(print())
                 .andExpect(jsonPath("$.clientId").exists())
                 .andExpect(jsonPath("$.accountId").exists())
-                .andExpect(jsonPath("$.balance").exists())
                 .andExpect(jsonPath("$.clientId").value(balanceDTO.getClientId()))
                 .andExpect(jsonPath("$.accountId").value(balanceDTO.getAccountId()))
-                .andExpect(jsonPath("$.balance").value(balanceDTO.getBalance()))
                 .andExpect(status().isOk());
     }
 
