@@ -6,6 +6,9 @@ pipeline {
         BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
     }
     stages {
+        stage('Init') {
+            sh 'cd $WORKSPACE'
+        }
         stage('Build artifact') {
             steps {
                 sh "pwd"
