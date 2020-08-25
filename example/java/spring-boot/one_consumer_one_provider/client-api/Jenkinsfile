@@ -6,14 +6,9 @@ pipeline {
         BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
     }
     stages {
-        stage('Init') {
-            steps {
-                sh 'cd $WORKSPACE' 
-            }
-        }
         stage('Build artifact') {
             steps {
-                sh "pwd"
+                sh "cd $WORKSPACE"
                 sh "chmod +x mvnw"
                 sh "./mvnw clean verify"
             }
