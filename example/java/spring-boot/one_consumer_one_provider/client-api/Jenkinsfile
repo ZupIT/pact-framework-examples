@@ -20,7 +20,9 @@ pipeline {
                 ok "Yes, for sure ."
             }
             steps {
-                echo "Publicando Pact no Broker"
+                dir("${env.WORKSPACE}") {
+                    sh './mvnw pact:publish -Dpact.consumer.version=${GIT_COMMIT} -Dpact.tag=${BRANCH_NAME}'
+                }
             }
         }
     }
