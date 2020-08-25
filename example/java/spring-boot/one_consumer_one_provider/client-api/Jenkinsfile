@@ -7,7 +7,9 @@ pipeline {
     }
     stages {
         stage('Init') {
-            sh 'cd $WORKSPACE'
+            steps {
+                sh 'cd $WORKSPACE' 
+            }
         }
         stage('Build artifact') {
             steps {
