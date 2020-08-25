@@ -8,7 +8,18 @@ pipeline {
         stage('Build artifact') {
             steps {
                 sh "chmod +x mvnw"
+                sh "./mvnw clean verify"
             }
         }
+        stage('Publish to Pact') {
+            input {
+                message "Publish Pact to Broker?"
+                ok "Yes, for sure ."
+            }
+            steps {
+                echo "Publicando Pact no Broker"
+            }
+        }
+
     }
 }
