@@ -1,5 +1,5 @@
 # Starting off with the Jenkins base Image
-FROM jenkins/jenkins:2.230-jdk11
+FROM jenkins/jenkins:jdk11
  
 # Installing the plugins we need using the in-built install-plugins.sh script
 RUN JENKINS_UC_DOWNLOAD=http://archives.jenkins-ci.org /usr/local/bin/install-plugins.sh git matrix-auth workflow-aggregator \
