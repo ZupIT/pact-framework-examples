@@ -5,22 +5,24 @@ pipeline {
         WORKSPACE="${WORKSPACE}/example/java/spring-boot/one_consumer_one_provider/client-api"
         BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
     }
-    stages {
-        stage('Build artifact') {
-            steps {
-                sh "chmod +x $WORKSPACE/mvnw"
-                sh "$WORKSPACE/mvnw clean verify"
+    dir($WORKSPACE) {
+        stages {
+            stage('Build artifact') {
+                steps {
+                    sh "chmod +x mvnw"
+                    sh "mvnw clean verify"
+                }
             }
-        }
-        stage('Publish to Pact') {
-            input {
-                message "Publish Pact to Broker?"
-                ok "Yes, for sure ."
+            stage('Publish to Pact') {
+                input {
+                    message "Publish Pact to Broker?"
+                    ok "Yes, for sure ."
+                }
+                steps {
+                    echo "Publicando Pact no Broker"
+                }
             }
-            steps {
-                echo "Publicando Pact no Broker"
-            }
-        }
 
+        }
     }
 }
