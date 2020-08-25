@@ -7,43 +7,39 @@ services:
             dockerfile: Dockerfile
         image: jenkins-pact-ci
         container_name: jenkins-pact-ci
-        restart: always
         ports:
             - '8080:8080'
             - '50000:50000'
         volumes:
             - "./jenkins_home:/var/jenkins_home"
             - "$HOME/.m2:/var/jenkins_home/.m2:rw"
-        networks: 
-            - "pact"
             
     postgres:
-        image: postgres:10.5
+        image: postgres
         healthcheck:
             test: psql postgres --command "select 1" -U postgres
         ports:
             - "5432:5432"
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: password
             POSTGRES_DB: postgres
-        networks: 
-            - "pact"
-    
-    pact_broker:
-        image: dius/pact-broker:2.27.2-1
+    pact-broker:
+        image: pactfoundation/pact-broker:2
         ports:
-            - "80:80"
-        links:
+            - "9292:9292"
+        depends_on:
             - postgres
         environment:
-            PACT_BROKER_DATABASE_USERNAME: postgres
-            PACT_BROKER_DATABASE_PASSWORD: password
-            PACT_BROKER_DATABASE_HOST: postgres
-            PACT_BROKER_DATABASE_NAME: postgres
-            PACT_BROKER_WEBHOOK_SCHEME_WHITELIST: http https
-        networks: 
-            - "pact"
+            PACT_BROKER_PORT: '9292'
+            PACT_BROKER_DATABASE_URL: "postgres://postgres:password@postgres/postgres"
+            PACT_BROKER_LOG_LEVEL: INFO
+            PACT_BROKER_SQL_LOG_LEVEL: DEBUG  
 
 networks: 
-    pact:
+    pact: 
+
+volumes:
+    postgres-volume:
