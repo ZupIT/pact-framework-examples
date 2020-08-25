@@ -2,12 +2,10 @@
 pipeline {
     agent any
     environment {
+        WORKSPACE="${WORKSPACE}/example/java/spring-boot/one_consumer_one_provider/client-api"
         BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
     }
     stages {
-        dir('./example/java/spring-boot/one_consumer_one_provider/client-api') {
-            echo "Working on dir `pwd`"
-        }
         stage('Build artifact') {
             steps {
                 sh "pwd"
