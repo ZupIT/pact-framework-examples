@@ -8,10 +8,10 @@ pipeline {
     dir($WORKSPACE) {
         stages {
             stage('Build artifact') {
-                steps {
+                dir($WORKSPACE) {
                     sh "chmod +x mvnw"
-                    sh "mvnw clean verify"
-                }
+                    sh "./mvnw clean verify"
+                }                
             }
             stage('Publish to Pact') {
                 input {
