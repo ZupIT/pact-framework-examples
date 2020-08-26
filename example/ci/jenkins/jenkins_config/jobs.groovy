@@ -6,7 +6,7 @@ def participants = [
         repository: {
             git {
                 id("consumer-sample")
-                remote("https://github.com/ZupIT/dtp-pact-examples")
+                remote("https://github.com/ZupIT/pact-framework-examples")
                 credentialsId("githubCredentials")
             }
         }
