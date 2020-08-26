@@ -1,99 +1,83 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { Matchers } from '@pact-foundation/pact';
-import { PactWeb } from '@pact-foundation/pact-web';
-import { resolve } from 'path';
-import { ProductService } from './product.service';
+import { Matchers, PactWeb } from '@pact-foundation/pact-web';
+import { Product, ProductService } from './product.service';
+import { map } from 'rxjs/operators';
 
-describe('Api Pact test', () => {
+
+describe('ProductServicePact', () => {
+
   let provider;
+
+  // Setup Pact mock server for this service
   beforeAll(async () => {
-    const provider = new PactWeb({
-      host: 'http://localhost',
-      port: 1234,
-      // consumer: 'Consumer',
-      // provider: 'Provider',
-      log: resolve(process.cwd(), 'logs', 'pact.log'),
-      dir: resolve(process.cwd(), 'pacts'),
-      spec: 3,
+
+    provider = await new PactWeb({
+      consumer: 'ui-karma',
+      provider: 'productservice',
+      port: 1234
     });
 
-    // provider = new Pact({
-    //   host: 'http://localhost',
-    //   port: 1234,
-    //   consumer: 'Consumer',
-    //   provider: 'Provider',
-    //   log: resolve(process.cwd(), 'logs', 'pact.log'),
-    //   dir: resolve(process.cwd(), 'pacts'),
-    //   spec: 3,
-    // });
+    // required for slower CI environments
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // await provider.setup();
+    // Required if run with `singleRun: false`
+    await provider.removeInteractions();
   });
-  afterEach(() => provider.verify());
-  afterAll(() => provider.finalize());
+
+  // Configure Angular Testbed for this service
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientModule],
-      providers: [ProductService],
+      imports: [ HttpClientModule ],
+      providers: [ ProductService ]
     });
   });
 
-  describe('getting all products', () => {
-    it('products exists', async () => {
+  // Verify mock service
+  afterEach(async () => {
+    await provider.verify();
+  });
+
+  // Create contract
+  afterAll(async () => {
+    await provider.finalize();
+  });
+
+  describe('getAll', () => {
+
+    let productService: ProductService;
+
+    beforeAll(async () => {
       await provider.addInteraction({
-        state: 'products exists',
-        uponReceiving: 'get all products',
+        state: `list products`,
+        uponReceiving: 'a request to GET a list of products',
         withRequest: {
           method: 'GET',
-          path: '/products',
+          path: `/api/products`
         },
         willRespondWith: {
           status: 200,
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-          },
           body: Matchers.eachLike({
             id: Matchers.integer(),
             type: Matchers.string(),
             name: Matchers.string(),
-          }),
-        },
+          })
+        }
       });
-      const productService: ProductService = TestBed.get(ProductService);
 
-      productService.getAllProducts().subscribe((res) => {
-        console.log(res);
-        expect(res).toBeGreaterThan(1);
+    });
+    
+    beforeEach( async () => {
+        productService = TestBed.inject(ProductService);
+    })
+
+    it('should get a list of products', async () => {
+      await productService.getAll().pipe(
+          map( it => it.status)
+      ).toPromise().then( status => {
+        expect(status).toBe(200);
       });
     });
-
-    // it('no products exists', async () => {
-    //   await provider.addInteraction({
-    //     state: 'products exists',
-    //     uponReceiving: 'get all products',
-    //     withRequest: {
-    //       method: 'GET',
-    //       path: '/products',
-    //     },
-    //     willRespondWith: {
-    //       status: 200,
-    //       headers: {
-    //         'Content-Type': 'application/json; charset=utf-8',
-    //       },
-    //       body: [],
-    //     },
-    //   });
-
-    //   const productService: ProductService = TestBed.get(ProductService);
-
-    //   // const products = await productService.getAllProducts();
-
-    //   // const products = await axios.get(
-    //   //   `${provider.mockService.baseUrl}/products`
-    //   // );
-
-    //   expect(products.data.length).toEqual([]);
-    // });
   });
+
 });
