@@ -54,7 +54,7 @@ No projeto `provider`, rode os testes Junit e verifique se eles são concluídos
 Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a API provedora. <br>
 
 > Para este passo, configuramos para que a publição do resultado seja feita automaticamente assim que a validação do contrato ocorre. <br>
-> Veja a configuração em: [AccountProviderPactTest.java](./provider/src/test/java/br/com/zup/pact/accountapi/pact/AccountProviderPactTest.java) linha 41 <br>
+> Veja a configuração em: [AccountProviderPactTest.java](./provider/src/test/java/br/com/zup/pact/provider/pact/AccountProviderPactTest.java) linha 41 <br>
 ```
 System.setProperty("pact.verifier.publishResults", "true");
 ```
