@@ -1,7 +1,7 @@
 def participants = [
     [
-        name: "client-api",
-        description: "Client microservice",
+        name: "one-consumer-one-provider (consumer)",
+        description: "Consumer API",
         jenkinsfilePath: "example/java/spring-boot/one_consumer_one_provider/client-api/Jenkinsfile",
         repository: {
             git {

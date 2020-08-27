@@ -26,6 +26,7 @@ services:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: password
             POSTGRES_DB: postgres
+            
     pact-broker:
         image: pactfoundation/pact-broker:2
         ports:
@@ -36,10 +37,7 @@ services:
             PACT_BROKER_PORT: '9292'
             PACT_BROKER_DATABASE_URL: "postgres://postgres:password@postgres/postgres"
             PACT_BROKER_LOG_LEVEL: INFO
-            PACT_BROKER_SQL_LOG_LEVEL: DEBUG  
-
-networks: 
-    pact: 
-
+            PACT_BROKER_SQL_LOG_LEVEL: DEBUG 
+            
 volumes:
     postgres-volume:
