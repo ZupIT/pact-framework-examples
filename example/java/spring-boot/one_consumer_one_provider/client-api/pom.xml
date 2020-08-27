@@ -17,6 +17,7 @@
     <properties>
         <java.version>11</java.version>
         <checkstyle-maven-plugin.version>3.1.1</checkstyle-maven-plugin.version>
+        <pact-broker-host>localhost</pact-broker-host>
     </properties>
 
     <dependencies>
@@ -148,7 +149,7 @@
                 <artifactId>pact-jvm-provider-maven</artifactId>
                 <version>4.0.6</version>
                 <configuration>
-                    <pactBrokerUrl>http://localhost:9292</pactBrokerUrl>
+                    <pactBrokerUrl>http://${pact-broker-host}:9292</pactBrokerUrl>
                     <pactDirectory>target/pacts</pactDirectory>
                     <trimSnapshot>true</trimSnapshot>
                 </configuration>
