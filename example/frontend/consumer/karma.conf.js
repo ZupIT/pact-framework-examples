@@ -31,6 +31,8 @@ module.exports = function (config) {
     restartOnFileChange: true,
     pact: [
       {
+        consumer: 'AngularProductApp',
+        provider: 'NodeProductApi',
         cors: true,
         port: 1234,
         log: 'pact.log',

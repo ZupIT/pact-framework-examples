@@ -1,7 +1,7 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Matchers, PactWeb } from '@pact-foundation/pact-web';
-import { Product, ProductService } from './product.service';
+import { ProductService } from './product.service';
 import { map } from 'rxjs/operators';
 
 
@@ -12,11 +12,7 @@ describe('ProductServicePact', () => {
   // Setup Pact mock server for this service
   beforeAll(async () => {
 
-    provider = await new PactWeb({
-      consumer: 'ui-karma',
-      provider: 'productservice',
-      port: 1234
-    });
+    provider = await new PactWeb();
 
     // required for slower CI environments
     await new Promise(resolve => setTimeout(resolve, 1000));

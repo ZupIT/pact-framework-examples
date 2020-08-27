@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "pact:publish": "node publish-pact.js" 
+    "pact:publish": "node publish-pact.js"
   },
   "private": true,
   "dependencies": {
@@ -45,7 +45,7 @@
     "tslint": "~6.1.0",
     "typescript": "~3.9.5",
     "@pact-foundation/karma-pact": "^2.3.1",
-    "@pact-foundation/pact-node": "^10.7.1",
-    "@pact-foundation/pact-web": "^9.8.2"
+    "@pact-foundation/pact-node": "^10.10.1",
+    "@pact-foundation/pact-web": "^9.11.1"
   }
 }
