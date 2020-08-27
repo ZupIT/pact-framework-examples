@@ -1,21 +1,18 @@
 import { HttpClientModule } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Matchers, PactWeb } from '@pact-foundation/pact-web';
-import { ProductService } from './product.service';
 import { map } from 'rxjs/operators';
-
+import { ProductService } from './product.service';
 
 describe('ProductServicePact', () => {
-
   let provider;
 
   // Setup Pact mock server for this service
   beforeAll(async () => {
-
-    provider = await new PactWeb();
+    provider = new PactWeb({ spec: Number('3.0.0') });
 
     // required for slower CI environments
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Required if run with `singleRun: false`
     await provider.removeInteractions();
@@ -24,8 +21,8 @@ describe('ProductServicePact', () => {
   // Configure Angular Testbed for this service
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientModule ],
-      providers: [ ProductService ]
+      imports: [HttpClientModule],
+      providers: [ProductService],
     });
   });
 
@@ -40,7 +37,6 @@ describe('ProductServicePact', () => {
   });
 
   describe('getAll', () => {
-
     let productService: ProductService;
 
     beforeAll(async () => {
@@ -49,7 +45,7 @@ describe('ProductServicePact', () => {
         uponReceiving: 'a request to GET a list of products',
         withRequest: {
           method: 'GET',
-          path: `/api/products`
+          path: `/api/products`,
         },
         willRespondWith: {
           status: 200,
@@ -57,23 +53,23 @@ describe('ProductServicePact', () => {
             id: Matchers.integer(),
             type: Matchers.string(),
             name: Matchers.string(),
-          })
-        }
+          }),
+        },
       });
-
     });
-    
-    beforeEach( async () => {
-        productService = TestBed.inject(ProductService);
-    })
+
+    beforeEach(async () => {
+      productService = TestBed.inject(ProductService);
+    });
 
     it('should get a list of products', async () => {
-      await productService.getAll().pipe(
-          map( it => it.status)
-      ).toPromise().then( status => {
-        expect(status).toBe(200);
-      });
+      await productService
+        .getAll()
+        .pipe(map((it) => it.status))
+        .toPromise()
+        .then((status) => {
+          expect(status).toBe(200);
+        });
     });
   });
-
 });
