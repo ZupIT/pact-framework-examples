@@ -5,14 +5,6 @@ import { Product } from '../models/product';
 import { repository } from '../controller/product-controller';
 
 describe("Pact Verification", () => {
-  let app: any;
-
-  beforeAll(async () => {
-    app = express()
-      .use(routes)
-      .listen(3333, () => console.log("Provider listening on port 3333"));
-  });
-
   it("validates the expectations of ProductService", () => {
     const opts: VerifierOptions = {
       logLevel: "info",
@@ -56,6 +48,5 @@ describe("Pact Verification", () => {
       .then((output) => {
         console.log(output);
       })
-      .finally(() => app.close());
   });
 });
