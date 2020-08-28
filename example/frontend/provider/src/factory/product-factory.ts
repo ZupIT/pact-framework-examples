@@ -1,4 +1,4 @@
-import { Product } from "../models/product";
+import { Product } from "../domain/models/product";
 
 export const makeProducts = (): any => {
   return new Map([

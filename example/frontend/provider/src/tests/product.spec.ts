@@ -1,7 +1,7 @@
 import { Verifier, VerifierOptions, StateHandlers } from '@pact-foundation/pact';
 import express, { Request, Response } from 'express';
 import routes from '../routes/products';
-import { Product } from '../models/product';
+import { Product } from '../domain/models/product';
 import { repository } from '../controller/product-controller';
 
 describe("Pact Verification", () => {

@@ -1,4 +1,4 @@
-import { Product } from '../models/product';
+import { Product } from '../domain/models/product';
 
 export class ProductRepository {
   public products: any = new Map([
