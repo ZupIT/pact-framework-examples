@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "pact:publish": "node publish-pact.js"
+    "pact:publish": "node publish-pact.js http://localhost:9292"
   },
   "private": true,
   "dependencies": {

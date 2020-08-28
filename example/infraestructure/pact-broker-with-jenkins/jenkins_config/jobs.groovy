@@ -1,22 +1,35 @@
 def participants = [
     [
-        name: "one-consumer-one-provider (consumer)",
-        description: "Consumer API",
-        jenkinsfilePath: "example/java/spring-boot/one_consumer_one_provider/client-api/Jenkinsfile",
+        name: "exemplo frontend (consumer)",
+        description: "Consumer Angular APP",
+        jenkinsfilePath: "example/frontend/consumer/Jenkinsfile",
         repository: {
             git {
                 id("consumer-sample")
                 remote("https://github.com/ZupIT/pact-framework-examples")
-                credentialsId("githubCredentials")
+            }
+        }
+    ],
+    [
+        name: "exemplo backend (provider)",
+        description: "Provider Node APP",
+        jenkinsfilePath: "example/frontend/old_provider/Jenkinsfile",
+        repository: {
+            git {
+                id("provider-sample")
+                remote("https://github.com/ZupIT/pact-framework-examples")
             }
         }
     ]
 ]
 
 participants.each { service ->
-    println("Criando multipipeline for:: $service.name")
+    println("Criando multipipeline para:: $service.name")
 
     multibranchPipelineJob("${service.name}") {
+
+        displayName(service.name)
+
         description(service.description)
 
         branchSources service.repository
