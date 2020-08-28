@@ -1,0 +1,18 @@
+{
+  "name": "provider",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "test": "npx jest",
+    "test:pact": "npx jest --testMatch \"**/*.pact.test.js\""
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "@pact-foundation/pact": "^9.11.1",
+    "jest": "^26.4.2"
+  },
+  "devDependencies": {}
+}
