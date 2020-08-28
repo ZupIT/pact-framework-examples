@@ -1,13 +1,8 @@
-import { Product } from '../domain/models/product';
+import { makeProducts } from '../factory/product-factory';
 
 export class ProductRepository {
-  public products: any = new Map([
-    ["09", new Product(9, "CREDIT_CARD", "Gem Visa")],
-    ["10", new Product(10, "CREDIT_CARD", "28 Degrees")],
-    ["11", new Product(11, "PERSONAL_LOAN", "MyFlexiPay")],
-  ])
-
-  constructor() {}
+  
+  constructor(public products: any = makeProducts()) {}
 
   async fetchAll() {
     return [...this.products.values()]

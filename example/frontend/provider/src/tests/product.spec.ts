@@ -1,6 +1,5 @@
 import { Verifier, VerifierOptions, StateHandlers } from '@pact-foundation/pact';
-import express, { Request, Response } from 'express';
-import routes from '../routes/products';
+import { Request, Response } from 'express';
 import { Product } from '../domain/models/product';
 import { repository } from '../controller/product-controller';
 
@@ -13,7 +12,6 @@ describe("Pact Verification", () => {
       providerVersion: "1.0.0",
       pactBrokerUrl: "http://localhost:9292",
       publishVerificationResult: true,
-      // [name: string]: () => Promise<any>;
       stateHandlers: {
         'product with ID 10 exists': async () => {
           repository.products = new Map([
