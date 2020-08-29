@@ -2,7 +2,11 @@ import { makeProducts } from '../util/factory/product-factory';
 
 class ProductRepository {
 
-  constructor(public products: any = makeProducts()) {}
+  private products: any = makeProducts();
+
+  setProducts(products: any) {
+    this.products = products;
+  }
 
   async fetchAll() {
     return [...this.products.values()];

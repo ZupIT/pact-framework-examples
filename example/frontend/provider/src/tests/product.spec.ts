@@ -17,21 +17,21 @@ describe('Pact Verification', () => {
       publishVerificationResult: true,
       stateHandlers: {
         'product with ID 10 exists': async () => {
-          ProductRepository.products = new Map([
+          ProductRepository.setProducts(new Map([
             ['10', new Product(10, 'CREDIT_CARD', '28 Degrees')],
-          ]);
+          ]))
         },
         'products exist': async () => {
-          ProductRepository.products = new Map([
+          ProductRepository.setProducts(new Map([
             ['09', new Product(9, 'CREDIT_CARD', 'Gem Visa')],
             ['10', new Product(10, 'CREDIT_CARD', '28 Degrees')],
-          ]);
+          ]))
         },
         'no products exist': async () => {
-          ProductRepository.products = new Map();
+          ProductRepository.setProducts(new Map());
         },
         'product with ID 11 does not exist': async () => {
-          ProductRepository.products = new Map();
+          ProductRepository.setProducts(new Map());
         },
       },
 
