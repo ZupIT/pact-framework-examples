@@ -3,11 +3,11 @@ import {
   VerifierOptions,
 } from '@pact-foundation/pact';
 import { Request, Response } from 'express';
-import { Product } from '../domain/models/product';
-import { repository } from '../controller/product-controller';
+import { Product } from '../domain/product';
+import ProductRepository from '../repository/product-repository';
 
 describe('Pact Verification', () => {
-  it('validates the expectations of ProductService', () => {
+  it('validates the expectations of ProductService', async () => {
     const opts: VerifierOptions = {
       logLevel: 'info',
       providerBaseUrl: 'http://localhost:3333',
@@ -17,21 +17,21 @@ describe('Pact Verification', () => {
       publishVerificationResult: true,
       stateHandlers: {
         'product with ID 10 exists': async () => {
-          repository.products = new Map([
+          ProductRepository.products = new Map([
             ['10', new Product(10, 'CREDIT_CARD', '28 Degrees')],
           ]);
         },
         'products exist': async () => {
-          repository.products = new Map([
+          ProductRepository.products = new Map([
             ['09', new Product(9, 'CREDIT_CARD', 'Gem Visa')],
             ['10', new Product(10, 'CREDIT_CARD', '28 Degrees')],
           ]);
         },
         'no products exist': async () => {
-          repository.products = new Map();
+          ProductRepository.products = new Map();
         },
         'product with ID 11 does not exist': async () => {
-          repository.products = new Map();
+          ProductRepository.products = new Map();
         },
       },
 

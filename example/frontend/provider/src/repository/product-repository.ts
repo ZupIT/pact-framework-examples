@@ -1,6 +1,6 @@
-import { makeProducts } from '../factory/product-factory';
+import { makeProducts } from '../util/factory/product-factory';
 
-export class ProductRepository {
+class ProductRepository {
 
   constructor(public products: any = makeProducts()) {}
 
@@ -12,3 +12,4 @@ export class ProductRepository {
     return this.products.get(id);
   }
 }
+export default new ProductRepository();
