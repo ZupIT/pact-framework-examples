@@ -20,7 +20,7 @@ pipeline {
     success {
       script {
         echo "Contract Generated Successful, now trigger Provider check!"
-        build job: 'exemplo CI Jenkins - passo 2 - (provider)', propagate: true
+        build job: "exemplo CI Jenkins - passo 2 - (provider)/${BRANCH_NAME}", propagate: true, wait: true
       }
     }
   }
