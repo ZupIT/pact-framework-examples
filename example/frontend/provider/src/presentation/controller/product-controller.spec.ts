@@ -31,6 +31,10 @@ const makeProductRepository = (): any => {
     async store(id: number, type: string, name: string): Promise<Product> {
       return makeFakeProduct()
     }
+
+    async update(id: number, type: string, name: string): Promise<Product> {
+      return new Product(1, 'updated_type', 'updated_name')
+    }
   }
   return new ProductRepositoryStub()
 }
@@ -123,6 +127,21 @@ describe('Product Controller', () => {
       }
       const httpResponse = await sut.save(httpRequest)
       expect(httpResponse).toEqual(success(makeFakeProduct()))
+    });
+  });
+
+  describe('update product', () => {
+    it('should return 200 if product is updated', async () => {
+      const { sut } = makeSut()
+      const httpRequest = {
+        body: {
+          id: 1,
+          type: 'updated_type',
+          name: 'updated_name'
+        }
+      }
+      const httpResponse = await sut.update(httpRequest)
+      expect(httpResponse).toEqual(success({ id: 1, type: 'updated_type', name: 'updated_name' }));
     });
   });
 });
