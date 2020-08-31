@@ -45,10 +45,12 @@ export class ProductController implements Controller {
     return success(product);
   }
 
-  async delete(req: Request, res: Response) {
-    const id = parseInt(req.params.id);
-    return ProductRepository.delete(id) 
-    ? res.status(200).send({ message: 'Produto excluído' })
-    : res.status(404).send({ message: 'Erro ao excluir produto' })
+  async delete(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const { id } = httpRequest.params;
+    const deleted = this.repository.delete(id);
+    if (deleted) {
+      return success('Produto excluído com sucesso');
+    }
+    return null;
   }
 }
