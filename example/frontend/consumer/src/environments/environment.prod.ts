@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  PACT_BROKER_URL: 'http://pact-broker:9292'
 };

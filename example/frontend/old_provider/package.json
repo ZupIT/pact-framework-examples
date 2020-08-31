@@ -5,8 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "node server.js",
-    "test": "npx jest",
-    "test:pact": "npx jest --testMatch \"**/*.pact.test.js\""
+    "test": "npx jest"
   },
   "dependencies": {
     "cors": "^2.8.5",

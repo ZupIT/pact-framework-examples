@@ -12,7 +12,7 @@ Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na
 Abaixo estão os links dos exemplos que você irá encontrar neste repositório.
 Neles você também irá encontrar detalhes sobre como executá-los.
 
- - [Integração Continua com Jenkins](example/ci);
+ - [Integração Continua com Jenkins](example/ci/jenkins);
  - [Java/Kafka](example/java/messaging-kafka/);
  - Java/Spring Boot:
     * [um consumidor e um provedor](example/java/spring-boot/one_consumer_one_provider).
