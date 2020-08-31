@@ -15,7 +15,11 @@ router.get("/api/products", async (req: Request, res: Response) => {
   res.status(response.statusCode).json(response.body)
 });
 
-router.post("/api/product", productController.store)
+router.post("/api/product", async (req: Request, res: Response) => {
+  const response = await productController.save({ body: req.body })
+  res.status(response.statusCode).json(response.body)
+})
+
 router.put("/api/product", productController.update)
 router.delete("/api/product/:id", productController.delete)
 
