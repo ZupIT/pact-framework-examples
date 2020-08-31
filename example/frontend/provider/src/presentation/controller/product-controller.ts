@@ -39,10 +39,10 @@ export class ProductController implements Controller {
     return success(product)
   }
 
-  async update(req: Request, res: Response) {
-    const { id, type, name } = req.body;
-    const product = await ProductRepository.update(id, type, name);
-    product ? res.send(product.get(id)) : res.status(404).send({ message: 'Erro ao atualizar produto' })
+  async update(httpRequest: HttpRequest): Promise<HttpResponse> {
+    const { id, type, name } = httpRequest.body;
+    const product = await this.repository.update(id, type, name);
+    return success(product);
   }
 
   async delete(req: Request, res: Response) {
