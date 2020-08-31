@@ -2,8 +2,12 @@ const { Verifier } = require("@pact-foundation/pact");
 const controller = require("./product.controller");
 const Product = require("./product");
 const express = require("express");
-const authMiddleware = require("../middleware/auth.middleware");
 const routes = require("./product.routes");
+
+const param = process.argv.filter( it => it.includes("pact-broker-url"))
+            .map( it => it.split("=")[1])[0];
+
+const pactBrokerUrl = param || "http://localhost:9292";
 
 describe("Pact Verification", () => {
   let app;
@@ -20,7 +24,7 @@ describe("Pact Verification", () => {
       providerBaseUrl: "http://localhost:3333",
       provider: "NodeProductApi",
       providerVersion: "1.0.0",
-      pactBrokerUrl: "http://localhost:9292",
+      pactBrokerUrl,
       publishVerificationResult: true,
       stateHandlers: {
         "product with ID 10 exists": () => {
