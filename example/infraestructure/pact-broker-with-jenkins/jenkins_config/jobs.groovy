@@ -24,7 +24,7 @@ def participants = [
     [
         name: "exemplo CI Jenkins - passo 1 - (consumer)",
         description: "Java Consumer API",
-        jenkinsfilePath: "example/ci/jenkins/pact-consumer-sample/Jenkinsfile-generate-and-publish-contract",
+        jenkinsfilePath: "example/ci/jenkins/pact-consumer-sample/Jenkinsfile",
         repository: {
             git {
                 id("ci-jenkins-consumer-sample")
