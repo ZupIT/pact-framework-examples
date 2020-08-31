@@ -70,4 +70,18 @@ describe('Product Controller', () => {
       expect(httpResponse).toEqual(success(makeProductsMap()));
     });
   });
+
+  describe('save product', () => {
+    it('should return 400 if no id is provided', async () => {
+      const { sut } = makeSut()
+      const httpRequest: HttpRequest = {
+        body: {
+          type: 'any_type',
+          name: 'any_name'
+        }
+      }
+      const httpResponse = await sut.save(httpRequest)
+      expect(httpResponse).toEqual(badRequest(new MissingParamError('id')))
+    });
+  });
 });
