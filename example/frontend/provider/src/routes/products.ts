@@ -7,5 +7,6 @@ router.get("/api/product/:id", ProductController.getById);
 router.get("/api/products", ProductController.getAll);
 router.post("/api/product", ProductController.store)
 router.put("/api/product", ProductController.update)
+router.delete("/api/product/:id", ProductController.delete)
 
 export default router;

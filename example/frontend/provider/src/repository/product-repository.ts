@@ -31,5 +31,9 @@ class ProductRepository {
     const product = this.products.set(id, new Product(id, type, name))
     return product
   }
+
+  async delete(id: number): Promise<boolean> {
+    return this.products.delete(id)
+  }
 }
 export default new ProductRepository();
