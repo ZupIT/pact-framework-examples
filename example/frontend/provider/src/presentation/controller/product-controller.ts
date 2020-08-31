@@ -5,7 +5,7 @@ import { badRequest, success, notFound } from '../helpers/http-helpers';
 import { MissingParamError } from '../errors/missing-param';
 
 interface Controller {
-  getAll(req: Request, res: Response): Promise<any>
+  getAll(): Promise<HttpResponse>
   getById(httpRequest: HttpRequest): Promise<HttpResponse>
 }
 
@@ -13,8 +13,9 @@ export class ProductController implements Controller {
   
   constructor(private readonly repository: Repository) {}
   
-  async getAll(req: Request, res: Response) {
-    res.send(await this.repository.getAll());
+  async getAll(): Promise<HttpResponse> {
+    const products = await this.repository.getAll()
+    return success(products)
   };
 
   async getById(httpRequest: HttpRequest): Promise<HttpResponse> {
