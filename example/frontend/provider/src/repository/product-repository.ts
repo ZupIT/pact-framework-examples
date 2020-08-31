@@ -1,11 +1,6 @@
 import { makeProducts } from '../util/factory/product-factory';
 import { Product } from '../domain/product';
 
-interface ProductModel {
-  type: string
-  name: string
-}
-
 class ProductRepository {
 
   private products: Map<number, Product> = makeProducts();

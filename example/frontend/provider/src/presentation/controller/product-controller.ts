@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 class ProductController {
 
-  async getAll(req: any, res: any) {
+  async getAll(req: Request, res: Response) {
     res.send(await ProductRepository.getAll());
   };
 
