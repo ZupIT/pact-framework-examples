@@ -35,6 +35,10 @@ const makeProductRepository = (): any => {
     async update(id: number, type: string, name: string): Promise<Product> {
       return new Product(1, 'updated_type', 'updated_name')
     }
+
+    async delete(id: number): Promise<boolean> {
+      return true
+    }
   }
   return new ProductRepositoryStub()
 }
@@ -142,6 +146,17 @@ describe('Product Controller', () => {
       }
       const httpResponse = await sut.update(httpRequest)
       expect(httpResponse).toEqual(success({ id: 1, type: 'updated_type', name: 'updated_name' }));
+    });
+  });
+
+  describe('delete product', () => {
+    it('should return 200 if product is deleted', async () => {
+      const { sut } = makeSut()
+      const httpRequest = {
+        params: 1
+      }
+      const httpResponse = await sut.delete(httpRequest)
+      expect(httpResponse).toEqual(success('Produto excluído com sucesso'));
     });
   });
 });
