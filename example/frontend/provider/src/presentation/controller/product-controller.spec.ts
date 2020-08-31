@@ -5,7 +5,6 @@ import { MissingParamError } from "../errors/missing-param";
 import { Product } from "../../domain/product";
 import { Repository } from "../../repository/usecase/repository";
 
-
 export const makeProductsMap = (): any => {
   return new Map([
     [9, new Product(9, "CREDIT_CARD", "Gem Visa")],
@@ -156,7 +155,7 @@ describe('Product Controller', () => {
         params: 1
       }
       const httpResponse = await sut.delete(httpRequest)
-      expect(httpResponse).toEqual(success('Produto excluído com sucesso'));
+      expect(httpResponse).toEqual(success({ body: 'Produto excluído com sucesso' }));
     });
   });
 });

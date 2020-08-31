@@ -1,7 +1,5 @@
-import ProductRepository from '../../repository/product/product-repository';
-import { Request, Response } from 'express';
 import { HttpRequest, HttpResponse } from '../protocols/http';
-import { badRequest, success, notFound } from '../helpers/http-helpers';
+import { badRequest, success, notFound, serverError } from '../helpers/http-helpers';
 import { MissingParamError } from '../errors/missing-param';
 import { Controller } from '../protocols/controller';
 import { Repository } from '../../repository/usecase/repository';
@@ -47,10 +45,10 @@ export class ProductController implements Controller {
 
   async delete(httpRequest: HttpRequest): Promise<HttpResponse> {
     const { id } = httpRequest.params;
-    const deleted = this.repository.delete(id);
-    if (deleted) {
-      return success('Produto excluído com sucesso');
+    const deleted = await this.repository.delete(parseInt(id));
+    if (!deleted) {
+      return serverError({ body: 'Erro inesperado' });
     }
-    return null;
+    return success({ body: 'Produto excluído com sucesso' });
   }
 }
