@@ -27,6 +27,10 @@ const makeProductRepository = (): any => {
     async getAll(): Promise<Product[]> {
       return makeProductsMap()
     }
+
+    async store(id: number, type: string, name: string): Promise<Product> {
+      return makeFakeProduct()
+    }
   }
   return new ProductRepositoryStub()
 }
@@ -106,6 +110,19 @@ describe('Product Controller', () => {
       }
       const httpResponse = await sut.save(httpRequest)
       expect(httpResponse).toEqual(badRequest(new MissingParamError('name')))
+    });
+
+    it('should return 200 if save product success', async () => {
+      const { sut } = makeSut()
+      const httpRequest: HttpRequest = {
+        body: {
+          id: 1,
+          type: 'any_type',
+          name: 'any_name'
+        }
+      }
+      const httpResponse = await sut.save(httpRequest)
+      expect(httpResponse).toEqual(success(makeFakeProduct()))
     });
   });
 });
