@@ -1,5 +1,7 @@
 import productController from "./product-controller";
 import { HttpRequest } from "../helpers/http";
+import { badRequest } from "../helpers/http-errors";
+import { MissingParamError } from "../errors/missing-param";
 
 
 describe('Product Controller', () => {
@@ -9,7 +11,7 @@ describe('Product Controller', () => {
         body: 'any_body'
       }
       const httpResponse = await productController.getById(httpRequest)
-      expect(httpResponse).toEqual({ statusCode: 400, body: 'Missing param error: id' })
+      expect(httpResponse).toEqual(badRequest(new MissingParamError('id')))
     });
   });
   

@@ -1,6 +1,8 @@
 import ProductRepository from '../../repository/product-repository';
 import { Request, Response } from 'express';
 import { HttpRequest, HttpResponse } from '../helpers/http';
+import { badRequest } from '../helpers/http-errors';
+import { MissingParamError } from '../errors/missing-param';
 
 class ProductController {
 
@@ -11,10 +13,7 @@ class ProductController {
   async getById(httpRequest: HttpRequest): Promise<HttpResponse> {
     
     if (!httpRequest.params) {
-      return {
-        statusCode: 400,
-        body: 'Missing param error: id'
-      }
+      return badRequest(new MissingParamError('id'))
     }
     const { id } = httpRequest.params.id;
     const product = await ProductRepository.getById(parseInt(id));
