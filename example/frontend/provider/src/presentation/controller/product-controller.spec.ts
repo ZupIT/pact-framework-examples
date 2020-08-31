@@ -83,5 +83,17 @@ describe('Product Controller', () => {
       const httpResponse = await sut.save(httpRequest)
       expect(httpResponse).toEqual(badRequest(new MissingParamError('id')))
     });
+
+    it('should return 400 if no type is provided', async () => {
+      const { sut } = makeSut()
+      const httpRequest: HttpRequest = {
+        body: {
+          id: 1,
+          name: 'any_name'
+        }
+      }
+      const httpResponse = await sut.save(httpRequest)
+      expect(httpResponse).toEqual(badRequest(new MissingParamError('type')))
+    });
   });
 });
