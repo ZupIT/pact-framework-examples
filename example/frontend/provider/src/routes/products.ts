@@ -5,5 +5,6 @@ const router = Router();
 
 router.get("/api/product/:id", ProductController.getById);
 router.get("/api/products", ProductController.getAll);
+router.post("/api/product", ProductController.store)
 
 export default router;

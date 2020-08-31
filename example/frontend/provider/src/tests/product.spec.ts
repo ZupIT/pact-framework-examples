@@ -18,13 +18,13 @@ describe('Pact Verification', () => {
       stateHandlers: {
         'product with ID 10 exists': async () => {
           ProductRepository.setProducts(new Map([
-            ['10', new Product(10, 'CREDIT_CARD', '28 Degrees')],
+            [10, new Product(10, 'CREDIT_CARD', '28 Degrees')],
           ]))
         },
         'products exist': async () => {
           ProductRepository.setProducts(new Map([
-            ['09', new Product(9, 'CREDIT_CARD', 'Gem Visa')],
-            ['10', new Product(10, 'CREDIT_CARD', '28 Degrees')],
+            [9, new Product(9, 'CREDIT_CARD', 'Gem Visa')],
+            [10, new Product(10, 'CREDIT_CARD', '28 Degrees')],
           ]))
         },
         'no products exist': async () => {
