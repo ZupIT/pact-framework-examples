@@ -1,0 +1,46 @@
+#!groovy
+pipeline {
+  agent any
+  environment {
+      BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
+      WORKSPACE="${WORKSPACE}/example/ci/jenkins/pact-consumer-sample"
+  }
+  stages {
+    stage('Build') {
+      steps {
+        dir("${env.WORKSPACE}") {
+          sh "chmod +x mvnw"
+          sh './mvnw clean verify'
+        }
+      }
+    }
+    stage('Publish Pacts') {
+      steps {
+        dir("${env.WORKSPACE}") {
+          sh "chmod +x mvnw"
+          sh './mvnw pact:publish -Dpact.consumer.version=${GIT_COMMIT} -Dpact.tag=${BRANCH_NAME}'
+        }
+      }
+    }
+    stage('Run Pact Verifications') {
+      steps {
+        dir("${env.WORKSPACE}") {
+          sh 'curl -LO https://github.com/pact-foundation/pact-ruby-standalone/releases/download/v1.82.3/pact-1.82.3-linux-x86_64.tar.gz'
+          sh 'tar xzf pact-1.82.3-linux-x86_64.tar.gz'
+        } 
+        dir("${env.WORKSPACE}/pact/bin") {
+          sh "./pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10 -a AccountBalanceConsumer -b http://pact-broker:9292 -e ${GIT_COMMIT}"
+        }
+      }
+    }
+    stage('Deploy') {
+      when {
+        branch 'master'
+      }
+      steps {
+        echo 'Deploying to prod now...'
+      }
+    }
+  }
+
+}
