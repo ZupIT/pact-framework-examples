@@ -5,6 +5,13 @@ import { MissingParamError } from "../errors/missing-param";
 import { Product } from "../../domain/product";
 import { Repository } from "../../repository/product-repository";
 
+export const makeProductsMap = (): any => {
+  return new Map([
+    [9, new Product(9, "CREDIT_CARD", "Gem Visa")],
+    [10, new Product(10, "CREDIT_CARD", "28 Degrees")],
+    [11, new Product(11, "PERSONAL_LOAN", "MyFlexiPay")],
+  ]);
+}
 
 const makeFakeProduct = (): Product => {
   return new Product(1, 'any_type', 'any_name')
@@ -17,7 +24,7 @@ const makeProductRepository = (): any => {
     }
 
     async getAll(): Promise<Product[]> {
-      return null
+      return makeProductsMap()
     }
   }
   return new ProductRepositoryStub()
@@ -49,6 +56,13 @@ describe('Product Controller', () => {
       expect(httpResponse).toEqual(success(makeFakeProduct()))
     });
 
+  });
 
+  describe('get all products', () => {
+    it('should return all products', async () => {
+      const { sut } = makeSut()
+      const httpResponse = await sut.getAll()
+      expect(httpResponse).toEqual(success(makeProductsMap()));
+    });
   });
 });
