@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 class ProductController {
 
   async getAll(req: any, res: any) {
-    res.send(await ProductRepository.fetchAll());
+    res.send(await ProductRepository.getAll());
   };
 
   async getById(req: Request, res: Response) {

@@ -14,7 +14,7 @@ class ProductRepository {
     this.products = products;
   }
 
-  async fetchAll() {
+  async getAll() {
     return [...this.products.values()];
   }
 
