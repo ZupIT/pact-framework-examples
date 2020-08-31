@@ -1,10 +1,6 @@
-import { makeProducts } from '../util/factory/product-factory';
-import { Product } from '../domain/product';
-
-export interface Repository {
-  getAll(): Promise<Product[]>
-  getById(id: number): Promise<Product>
-}
+import { makeProducts } from '../../util/factory/product-factory';
+import { Product } from '../../domain/product';
+import { Repository } from '../usecase/repository';
 
 class ProductRepository implements Repository {
 

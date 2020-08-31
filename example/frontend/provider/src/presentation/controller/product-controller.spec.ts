@@ -3,7 +3,8 @@ import { HttpRequest } from "../protocols/http";
 import { badRequest, success } from "../helpers/http-helpers";
 import { MissingParamError } from "../errors/missing-param";
 import { Product } from "../../domain/product";
-import { Repository } from "../../repository/product-repository";
+import { Repository } from "../../repository/usecase/repository";
+
 
 export const makeProductsMap = (): any => {
   return new Map([
@@ -30,7 +31,11 @@ const makeProductRepository = (): any => {
   return new ProductRepositoryStub()
 }
 
-const makeSut = (): any => {
+interface SutTypes {
+  sut: ProductController
+}
+
+const makeSut = (): SutTypes => {
   const sut = new ProductController(makeProductRepository())
   return { sut }
 }

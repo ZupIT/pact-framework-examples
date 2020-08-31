@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import { ProductController } from '../presentation/controller/product-controller';
-import productRepository from '../repository/product-repository';
+import productRepository from '../repository/product/product-repository';
 
 const productController = new ProductController(productRepository);
 const router = Router();

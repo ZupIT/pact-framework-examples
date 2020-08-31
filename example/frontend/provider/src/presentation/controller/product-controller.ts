@@ -1,13 +1,10 @@
-import ProductRepository, { Repository } from '../../repository/product-repository';
+import ProductRepository from '../../repository/product/product-repository';
 import { Request, Response } from 'express';
 import { HttpRequest, HttpResponse } from '../protocols/http';
 import { badRequest, success, notFound } from '../helpers/http-helpers';
 import { MissingParamError } from '../errors/missing-param';
-
-interface Controller {
-  getAll(): Promise<HttpResponse>
-  getById(httpRequest: HttpRequest): Promise<HttpResponse>
-}
+import { Controller } from '../protocols/controller';
+import { Repository } from '../../repository/usecase/repository';
 
 export class ProductController implements Controller {
   
