@@ -1,7 +1,7 @@
 import ProductRepository, { Repository } from '../../repository/product-repository';
 import { Request, Response } from 'express';
 import { HttpRequest, HttpResponse } from '../protocols/http';
-import { badRequest, success } from '../helpers/http-helpers';
+import { badRequest, success, notFound } from '../helpers/http-helpers';
 import { MissingParamError } from '../errors/missing-param';
 
 interface Controller {
@@ -22,9 +22,11 @@ export class ProductController implements Controller {
       return badRequest(new MissingParamError('id'))
     }
     const { id } = httpRequest.params;
-    const product = await this.repository.getById(parseInt(id));
+    const product = await this.repository.getById(id);
+    if (!product) {
+      return notFound('Nenhum produto encontrado')
+    }
     return success(product)
-    // product ? res.send(product) : res.status(404).send({ message: 'Produto não encontrado' });
   };
 
   async store(req: Request, res: Response) {
