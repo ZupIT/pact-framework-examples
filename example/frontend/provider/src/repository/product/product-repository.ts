@@ -18,9 +18,9 @@ class ProductRepository implements Repository {
     return this.products.get(id);
   }
 
-  async store(id: number, type: string, name: string): Promise<Map<number, Product>> {
+  async store(id: number, type: string, name: string): Promise<Product> {
     const product = this.products.set(id, new Product(id, type, name))
-    return product;
+    return product.get(id);
   }
 
   async update(id: number, type: string, name: string): Promise<Map<number, Product>> {

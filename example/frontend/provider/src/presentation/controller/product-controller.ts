@@ -35,9 +35,8 @@ export class ProductController implements Controller {
       }
     }
     const { id, type, name } = httpRequest.body;
-    const product = await ProductRepository.store(id, type, name);
-    return null
-    // product ? res.send(product.get(id)) : res.status(404).send({ message: 'Erro ao adicionar produto' })
+    const product = await this.repository.store(id, type, name);
+    return success(product)
   }
 
   async update(req: Request, res: Response) {
