@@ -1,23 +1,29 @@
-import ProductRepository from '../../repository/product-repository';
+import ProductRepository, { Repository } from '../../repository/product-repository';
 import { Request, Response } from 'express';
-import { HttpRequest, HttpResponse } from '../helpers/http';
-import { badRequest } from '../helpers/http-errors';
+import { HttpRequest, HttpResponse } from '../protocols/http';
+import { badRequest, success } from '../helpers/http-helpers';
 import { MissingParamError } from '../errors/missing-param';
 
-class ProductController {
+interface Controller {
+  getAll(req: Request, res: Response): Promise<any>
+  getById(httpRequest: HttpRequest): Promise<HttpResponse>
+}
 
+export class ProductController implements Controller {
+  
+  constructor(private readonly repository: Repository) {}
+  
   async getAll(req: Request, res: Response) {
-    res.send(await ProductRepository.getAll());
+    res.send(await this.repository.getAll());
   };
 
   async getById(httpRequest: HttpRequest): Promise<HttpResponse> {
-    
     if (!httpRequest.params) {
       return badRequest(new MissingParamError('id'))
     }
-    const { id } = httpRequest.params.id;
-    const product = await ProductRepository.getById(parseInt(id));
-    return null
+    const { id } = httpRequest.params;
+    const product = await this.repository.getById(parseInt(id));
+    return success(product)
     // product ? res.send(product) : res.status(404).send({ message: 'Produto não encontrado' });
   };
 
@@ -40,5 +46,3 @@ class ProductController {
     : res.status(404).send({ message: 'Erro ao excluir produto' })
   }
 }
-
-export default new ProductController();

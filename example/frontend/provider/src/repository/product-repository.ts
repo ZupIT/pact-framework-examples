@@ -1,7 +1,12 @@
 import { makeProducts } from '../util/factory/product-factory';
 import { Product } from '../domain/product';
 
-class ProductRepository {
+export interface Repository {
+  getAll(): Promise<Product[]>
+  getById(id: number): Promise<Product>
+}
+
+class ProductRepository implements Repository {
 
   private products: Map<number, Product> = makeProducts();
 
