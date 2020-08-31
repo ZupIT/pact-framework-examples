@@ -20,7 +20,11 @@ router.post("/api/product", async (req: Request, res: Response) => {
   res.status(response.statusCode).json(response.body)
 })
 
-router.put("/api/product", productController.update)
+router.put("/api/product", async (req: Request, res: Response) => {
+  const response = await productController.update({ body: req.body, params: req.params })
+  res.status(response.statusCode).json(response.body)
+})
+
 router.delete("/api/product/:id", productController.delete)
 
 export default router;
