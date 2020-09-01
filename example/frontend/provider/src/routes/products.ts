@@ -5,7 +5,7 @@ import productRepository from '../repository/product/product-repository';
 const productController = new ProductController(productRepository);
 const router = Router();
 
-router.get("/api/product/:id", async (req: Request, res: Response) => {
+router.get("/api/products/:id", async (req: Request, res: Response) => {
   const response = await productController.getById({ body: req.body, params: req.params })
   res.status(response.statusCode).json(response.body)
 });
@@ -15,17 +15,17 @@ router.get("/api/products", async (req: Request, res: Response) => {
   res.status(response.statusCode).json(response.body)
 });
 
-router.post("/api/product", async (req: Request, res: Response) => {
+router.post("/api/products", async (req: Request, res: Response) => {
   const response = await productController.save({ body: req.body })
   res.status(response.statusCode).json(response.body)
 })
 
-router.put("/api/product", async (req: Request, res: Response) => {
+router.put("/api/products", async (req: Request, res: Response) => {
   const response = await productController.update({ body: req.body, params: req.params })
   res.status(response.statusCode).json(response.body)
 })
 
-router.delete("/api/product/:id", async (req: Request, res: Response) => {
+router.delete("/api/products/:id", async (req: Request, res: Response) => {
   const response = await productController.delete({ params: req.params })
   res.status(response.statusCode).json(response.body)
 })
