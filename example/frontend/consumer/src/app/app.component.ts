@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from './product.service';
+import { Product, ProductService } from './product.service';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +7,9 @@ import { Product } from './product.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  products: Product[] = [];
+  constructor(private productService: ProductService) {}
+
+  products: Product[];
 
   isEditing: boolean;
 
@@ -15,30 +17,44 @@ export class AppComponent implements OnInit {
   name: string;
   type: string;
 
-  saveProduct() {
+  async saveProduct() {
     if (this.isEditing) {
-      const product = this.products.find((product) => product.id === this.id);
-
-      product.name = this.name;
-      product.type = this.type;
+      await this.productService
+        .update(this.id, { name: this.name, type: this.type })
+        .toPromise();
     } else {
-      this.products.push({ id: this.id, name: this.name, type: this.type });
+      await this.productService
+        .create({
+          id: this.id,
+          name: this.name,
+          type: this.type,
+        })
+        .toPromise();
     }
 
+    await this.listAll();
     this.changeEdit(false);
     this.clearFields();
   }
 
-  removeProduct(id: number) {
-    this.products = this.products.filter((product) => product.id !== id);
+  async listAll() {
+    this.productService
+      .getAll()
+      .toPromise()
+      .then((res) => (this.products = res.body));
+  }
+
+  async removeProduct(id: number) {
+    await this.productService.delete(id).toPromise();
+    await this.listAll();
   }
 
   changeEdit(value: boolean) {
     this.isEditing = value;
   }
 
-  editProduct(id: number) {
-    const product: Product = this.products.find((product) => product.id === id);
+  async editProduct(id: number) {
+    let product: Product = this.products.find((product) => product.id === id);
 
     this.changeEdit(true);
     this.id = id;
@@ -57,7 +73,8 @@ export class AppComponent implements OnInit {
     this.type = null;
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.listAll();
     this.isEditing = false;
     this.clearFields();
   }
