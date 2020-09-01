@@ -1,0 +1,26 @@
+#!groovy
+pipeline {
+  agent any
+  environment {
+    WORKSPACE="${WORKSPACE}/example/ci/jenkins/cenario_3/pact-consumer-sample"
+  }
+  stages {
+    stage('Build and Publish Pacts') {
+      steps {
+        dir("${env.WORKSPACE}") {
+          sh "chmod +x mvnw"
+          sh './mvnw clean verify pact:publish -Dpact.consumer.version=${GIT_COMMIT} -Dpact.tag=CONTRACT-TEST'
+        } 
+      }
+    }
+  }
+
+  post {
+    success {
+      script {
+        echo "Contract Generated Successful, now trigger Provider check!"
+        build job: "CI_JENKINS_cenario_3_passo_2", propagate: true
+      }
+    }
+  }
+}

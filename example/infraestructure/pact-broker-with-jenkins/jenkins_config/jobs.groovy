@@ -1,86 +1,131 @@
-def participants = [
+def repository = "https://github.com/ZupIT/pact-framework-examples";
+def workbranch = "refatoracao_ci";
+
+def jobs = [
     [
-        name: "exemplo frontend (consumer)",
+        name: "EXEMPLO_FRONTEND_Consumer",
         description: "Consumer Angular APP",
-        jenkinsfilePath: "example/frontend/consumer/Jenkinsfile",
-        repository: {
-            git {
-                id("frontend-consumer-sample")
-                remote("https://github.com/ZupIT/pact-framework-examples")
+        scriptPath: "example/frontend/consumer/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
             }
+            branch("${workbranch}")
+            extensions {}
         }
     ],
     [
-        name: "exemplo frontend (provider)",
+        name: "EXEMPLO_FRONTEND_Provider",
         description: "Provider Node APP",
-        jenkinsfilePath: "example/frontend/old_provider/Jenkinsfile",
-        repository: {
-            git {
-                id("frontend-provider-sample")
-                remote("https://github.com/ZupIT/pact-framework-examples")
+        scriptPath: "example/frontend/old_provider/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
             }
+            branch("${workbranch}")
+            extensions {}
         }
     ],
     [
-        name: "exemplo CI Jenkins - passo 1 - (consumer)",
-        description: "Java Consumer API",
-        jenkinsfilePath: "example/ci/jenkins/pact-consumer-sample/Jenkinsfile",
-        repository: {
-            git {
-                id("ci-jenkins-consumer-sample")
-                remote("https://github.com/ZupIT/pact-framework-examples")
+        name: "CI_JENKINS_cenario_1_passo_1",
+        description: "Consumidor cria contrato e publica no Pact Broker",
+        scriptPath: "example/ci/jenkins/cenario_1/pact-consumer-sample/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
             }
+            branch("${workbranch}")
+            extensions {}
         }
     ],
     [
-        name: "exemplo CI Jenkins - passo 2 - (provider)",
-        description: "Java Provider API",
-        jenkinsfilePath: "example/ci/jenkins/pact-provider-sample/Jenkinsfile",
-        repository: {
-            git {
-                id("ci-jenkins-provider-sample")
-                remote("https://github.com/ZupIT/pact-framework-examples")
+        name: "CI_JENKINS_cenario_1_passo_2",
+        description: "O provider testa a validade do contrato e publica o resultado no Pact Broker",
+        scriptPath: "example/ci/jenkins/cenario_1/pact-provider-sample/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
             }
+            branch("${workbranch}")
+            extensions {}
         }
     ],
     [
-        name: "exemplo CI Jenkins - passo 3 - can I deploy (consumer)",
-        description: "Java Consumer API - Can I Deploy?",
-        jenkinsfilePath: "example/ci/jenkins/pact-consumer-sample/Jenkinsfile-can-i-deploy",
-        repository: {
-            git {
-                id("ci-jenkins-consumer-sample")
-                remote("https://github.com/ZupIT/pact-framework-examples")
+        name: "CI_JENKINS_cenario_2",
+        description: "O provider altera sua API e valida novamente os contratos",
+        scriptPath: "example/ci/jenkins/cenario_2/pact-provider-sample/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
             }
+            branch("${workbranch}")
+            extensions {}
         }
     ],
     [
-        name: "exemplo CI Jenkins - check integration (provider)",
-        description: "Java provider API - check integration",
-        jenkinsfilePath: "example/ci/jenkins/pact-provider-sample/Jenkinsfile-can-i-deploy",
-        repository: {
-            git {
-                id("ci-jenkins-provider-sample")
-                remote("https://github.com/ZupIT/pact-framework-examples")
+        name: "CI_JENKINS_cenario_3_passo_1",
+        description: "Consumidor altera seu contrato e publica no Pact Broker",
+        scriptPath: "example/ci/jenkins/cenario_3/pact-consumer-sample/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
             }
+            branch("${workbranch}")
+            extensions {}
+        }
+    ],
+    [
+        name: "CI_JENKINS_cenario_3_passo_2",
+        description: "O provider altera novamente e testa a validade do contrato",
+        scriptPath: "example/ci/jenkins/cenario_3/pact-provider-sample/Jenkinsfile",
+        resources: {
+            remote {
+                url(repository)
+            }
+            branch("${workbranch}")
+            extensions {}
+        }
+    ],
+    [
+        name: "CI_JENKINS_can-i-deploy_Consumer",
+        description: "Utilitário can-i-deploy diz se o contrato está seguro",
+        scriptPath: "example/ci/jenkins/cenario_1/pact-consumer-sample/Jenkinsfile-can-i-deploy",
+        resources: {
+            remote {
+                url(repository)
+            }
+            branch("${workbranch}")
+            extensions {}
+        }
+    ],
+    [
+        name: "CI_JENKINS_can-i-deploy_Provider",
+        description: "Utilitário can-i-deploy diz se o contrato está seguro",
+        scriptPath: "example/ci/jenkins/cenario_1/pact-provider-sample/Jenkinsfile-can-i-deploy",
+        resources: {
+            remote {
+                url(repository)
+            }
+            branch("${workbranch}")
+            extensions {}
         }
     ],
 ]
 
-participants.each { service ->
-    println("Criando multipipeline para:: $service.name")
+jobs.each { job ->
 
-    multibranchPipelineJob("${service.name}") {
+    println("Criando pipeline para: ${job.name}")
 
-        displayName(service.name)
+    pipelineJob(job.name) {
 
-        description(service.description)
-
-        branchSources service.repository
-
-        factory {
-            workflowBranchProjectFactory {
-                scriptPath(service.jenkinsfilePath)
+        displayName(job.name)
+        description(job.description)
+        definition {
+            cpsScm {
+                scm {
+                    git job.resources
+                }
+                scriptPath(job.scriptPath)
             }
         }
     }

@@ -48,11 +48,29 @@ A seguir explicamos como subir o seu próprio broker.
 Para configurar uma instancia do Pact Broker em sua máquina local, clone o projeto em sua máquina, <br>
 vá até o diretório `infrastructure/pact-broker` e execute o seguinte comando:
 
+> Caso o exemplo for relacionado a Integração Continua, utilize o diretõrio `infrastructure/pact-broker-with-jenkins`
+
 ```shell
 docker-compose up
 ```
 Para validar se o broker está funcionando corretamente, acesse o endereço [http://localhost:9292](http://localhost:9292). <br>
 Caso tudo tenha ocorrido conforme planejado, você verá a página inicial do Pact Broker.
+
+Se estiver utilizando o compose com Jenkins, você poderá acessá-lo no endereço [http://localhost:8080](http://localhost:8080)
+
+Credenciais para acesso ao Jenkins:
+```bash
+user:admin
+pass:admin
+```
+
+> Caso tenha alguma dificuldade para subir o container `jenkins_pact_broker`, verifique se o diretório `jenkins_home` possui permissões de escrita. 
+> Caso não tenha permissão, podemos conceder da seguinte forma:
+```
+sudo chown $USER:$USER jenkins_home -R
+```
+
+Para demais informações, acesse a [documentação do Jenkins](https://www.jenkins.io/doc/).
 
 ## <a name='links-uteis'>Links Úteis</a>
 
