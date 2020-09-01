@@ -18,7 +18,7 @@ export class ProductController implements Controller {
       return badRequest(new MissingParamError('id'))
     }
     const { id } = httpRequest.params;
-    const product = await this.repository.getById(id);
+    const product = await this.repository.getById(parseInt(id));
     if (!product) {
       return notFound('Nenhum produto encontrado')
     }
