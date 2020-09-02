@@ -3,8 +3,8 @@ import {
   VerifierOptions,
 } from '@pact-foundation/pact';
 import { Request, Response } from 'express';
-import { Product } from '../domain/product';
 import ProductRepository from '../repository/product/product-repository';
+import { makeFakeProductsTests } from './product-factory-tests';
 
 
 const param = process.argv.filter( it => it.includes("pact-broker-url"))
@@ -22,22 +22,20 @@ describe('Pact Verification', () => {
       pactBrokerUrl,
       publishVerificationResult: true,
       stateHandlers: {
-        'product with ID 10 exists': async () => {
-          ProductRepository.setProducts(new Map([
-            [10, new Product(10, 'CREDIT_CARD', '28 Degrees')],
-          ]))
+        'list products': async () => {
+          ProductRepository.setProducts(makeFakeProductsTests())
         },
-        'products exist': async () => {
-          ProductRepository.setProducts(new Map([
-            [9, new Product(9, 'CREDIT_CARD', 'Gem Visa')],
-            [10, new Product(10, 'CREDIT_CARD', '28 Degrees')],
-          ]))
+        'list one product': async () => {
+          ProductRepository.setProducts(makeFakeProductsTests())
         },
-        'no products exist': async () => {
-          ProductRepository.setProducts(new Map());
+        'create a product': async () => {
+          ProductRepository.setProducts(makeFakeProductsTests());
         },
-        'product with ID 11 does not exist': async () => {
-          ProductRepository.setProducts(new Map());
+        'update a product': async () => {
+          ProductRepository.setProducts(makeFakeProductsTests());
+        },
+        'delete a product': async () => {
+          ProductRepository.setProducts(makeFakeProductsTests());
         },
       },
 
