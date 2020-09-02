@@ -22,4 +22,9 @@ describe('Product Repository', () => {
     const product = await productRepository.getById(2)
     expect(product).toEqual({ id: 2, type: 'Any_Updated', name: 'Any_Updated' })
   });
+
+  it('should delete a product', async () => {
+    const product = await productRepository.delete(5);
+    expect(product).toBeTruthy()
+  });
 });
