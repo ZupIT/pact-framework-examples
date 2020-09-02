@@ -1,47 +1,74 @@
-import { async, TestBed } from '@angular/core/testing';
+import { HttpResponse } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ProductService } from './product.service';
+import { async, TestBed, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import { Product } from './product.service';
+import { of } from 'rxjs';
+
+const PRODUCT_SAMPLE: Product = {
+  id: 1,
+  name: 'product',
+  type: 'Type 1'
+}
 
 describe('AppComponent', () => {
+
+  let fixture: ComponentFixture<AppComponent>;
+  let service: ProductService;
+  let app: AppComponent;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
+      providers: [
+        {
+          provide: ProductService,
+          useValue: {
+            update: () => of({}),
+            create: () => of({}),
+            getAll: () => of({}),
+            delete: () => of({})
+          }
+        }
+      ],
+      imports: [FormsModule]
     }).compileComponents();
   }));
 
+  beforeEach(() => {
+    service = TestBed.inject(ProductService);
+    fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    app = fixture.componentInstance;
+  });
+
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('should create a product', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-
-    app.id = 1;
-    app.name = 'Product 1';
-    app.type = 'Type 1';
+  it('should create a product', fakeAsync(() => {
+    spyOn(service, 'getAll').and.returnValue(of(new HttpResponse({ body: [PRODUCT_SAMPLE] })));
 
     app.saveProduct();
+    tick();
+
     expect(app.products.length).toEqual(1);
-  });
+  }));
 
-  it('should remove a product', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
+  it('should remove a product', fakeAsync(() => {
+    spyOn(service, 'getAll').and.returnValue(of(new HttpResponse()));
+    spyOn(service, 'delete').and.returnValue(of(new HttpResponse()));
 
-    const product: Product = { id: 1, name: 'name', type: 'type' };
-    app.products.push(product);
+    app.removeProduct(1);
+    tick();
 
-    app.removeProduct(product.id);
-    expect(app.products.length).toEqual(0);
-  });
+    expect(service.delete).toHaveBeenCalledWith(1);
+    expect(service.getAll).toHaveBeenCalled();
+    
+  }));
 
   it('should edit a product', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-
     const product: Product = { id: 1, name: 'name', type: 'type' };
     app.products.push(product);
 
@@ -54,9 +81,6 @@ describe('AppComponent', () => {
   });
 
   it('should change editing value ', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-
     app.changeEdit(true);
 
     expect(app.isEditing).toEqual(true);
@@ -67,9 +91,6 @@ describe('AppComponent', () => {
   });
 
   it('should cancel editing product', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-
     app.isEditing = true;
     app.id = 1;
     app.name = 'name';
@@ -84,9 +105,6 @@ describe('AppComponent', () => {
   });
 
   it('should clear fields', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-
     app.id = 1;
     app.name = 'name';
     app.type = 'type';

@@ -7,15 +7,22 @@ import { Product, ProductService } from './product.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  constructor(private productService: ProductService) {}
-
-  products: Product[];
+  
+  products: Product[] = [];
 
   isEditing: boolean;
 
   id: number;
   name: string;
   type: string;
+
+  constructor(private productService: ProductService) {}
+
+  ngOnInit() {
+    this.listAll().then();
+    this.isEditing = false;
+    this.clearFields();
+  }
 
   async saveProduct() {
     if (this.isEditing) {
@@ -37,8 +44,8 @@ export class AppComponent implements OnInit {
     this.clearFields();
   }
 
-  async listAll() {
-    this.productService
+  listAll() {
+    return this.productService
       .getAll()
       .toPromise()
       .then((res) => (this.products = res.body));
@@ -71,11 +78,5 @@ export class AppComponent implements OnInit {
     this.id = null;
     this.name = null;
     this.type = null;
-  }
-
-  async ngOnInit() {
-    await this.listAll();
-    this.isEditing = false;
-    this.clearFields();
   }
 }
