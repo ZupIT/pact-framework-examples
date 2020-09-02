@@ -2,9 +2,10 @@ import {
   Verifier,
   VerifierOptions,
 } from '@pact-foundation/pact';
-import { Request, Response } from 'express';
+import express, { Request, Response, json } from 'express';
 import ProductRepository from '../repository/product/product-repository';
 import { makeFakeProductsTests } from './product-factory-tests';
+import routes from '../routes/products'
 
 
 const param = process.argv.filter( it => it.includes("pact-broker-url"))
@@ -13,6 +14,15 @@ const param = process.argv.filter( it => it.includes("pact-broker-url"))
 const pactBrokerUrl = param || "http://localhost:9292";
 
 describe('Pact Verification', () => {
+  let app:any;
+
+  beforeAll(async () => {
+    app = express()
+    .use(json())
+    .use(routes)
+    .listen(3333, () => console.log(`Provider listening on port ${3333}`))
+  })
+
   it('validates the expectations of ProductService', async () => {
     const opts: VerifierOptions = {
       logLevel: 'info',
@@ -51,6 +61,7 @@ describe('Pact Verification', () => {
 
     return new Verifier(opts).verifyProvider().then((output) => {
       console.log(output);
-    });
+    })
+    .finally(() => app.close());
   });
 });
