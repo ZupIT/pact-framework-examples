@@ -4,7 +4,7 @@ import {
 } from '@pact-foundation/pact';
 import { Request, Response } from 'express';
 import { Product } from '../domain/product';
-import ProductRepository from '../repository/product-repository';
+import ProductRepository from '../repository/product/product-repository';
 
 describe('Pact Verification', () => {
   it('validates the expectations of ProductService', async () => {

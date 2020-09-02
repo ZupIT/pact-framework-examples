@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  PACT_BROKER_URL: 'http://localhost:9292'
+  PACT_BROKER_URL: 'http://localhost:9292',
+  BASE_URL: 'http://localhost:3333/api',
 };
 
 /*

@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
     "dev:server": "sucrase-node src/server.ts",
     "jest": "jest",
-    "test": "npm-run-all --parallel dev:server jest"
+    "test:integration": "npm-run-all --parallel dev:server jest"
   },
   "dependencies": {
     "@pact-foundation/pact": "^9.11.1",

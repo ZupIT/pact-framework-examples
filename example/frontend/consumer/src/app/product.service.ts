@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../environments/environment';
 
 export interface Product {
   id: number;
@@ -11,7 +12,7 @@ export interface Product {
   providedIn: 'root',
 })
 export class ProductService {
-  private BASE_URL = '/api/products';
+  private BASE_URL = `${environment.BASE_URL}/products`;
 
   constructor(private httpClient: HttpClient) {}
 
