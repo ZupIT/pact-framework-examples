@@ -14,6 +14,7 @@ Neles você também irá encontrar detalhes sobre como executá-los.
 
  - [Integração Continua com Jenkins](example/ci/jenkins);
  - [Java/Kafka](example/java/messaging-kafka/);
+ - [Frontend Angular](example/frontend);
  - Java/Spring Boot:
     * [um consumidor e um provedor](example/java/spring-boot/one_consumer_one_provider).
     * [um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).

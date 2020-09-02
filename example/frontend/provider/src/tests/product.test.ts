@@ -6,6 +6,12 @@ import { Request, Response } from 'express';
 import { Product } from '../domain/product';
 import ProductRepository from '../repository/product/product-repository';
 
+
+const param = process.argv.filter( it => it.includes("pact-broker-url"))
+            .map( it => it.split("=")[1])[0];
+
+const pactBrokerUrl = param || "http://localhost:9292";
+
 describe('Pact Verification', () => {
   it('validates the expectations of ProductService', async () => {
     const opts: VerifierOptions = {
@@ -13,7 +19,7 @@ describe('Pact Verification', () => {
       providerBaseUrl: 'http://localhost:3333',
       provider: 'NodeProductApi',
       providerVersion: '1.0.0',
-      pactBrokerUrl: 'http://localhost:9292',
+      pactBrokerUrl,
       publishVerificationResult: true,
       stateHandlers: {
         'product with ID 10 exists': async () => {

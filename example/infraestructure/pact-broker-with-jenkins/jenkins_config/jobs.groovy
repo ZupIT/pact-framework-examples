@@ -17,7 +17,7 @@ def jobs = [
     [
         name: "EXEMPLO_FRONTEND_Provider",
         description: "Provider Node APP",
-        scriptPath: "example/frontend/old_provider/Jenkinsfile",
+        scriptPath: "example/frontend/provider/Jenkinsfile",
         resources: {
             remote {
                 url(repository)
