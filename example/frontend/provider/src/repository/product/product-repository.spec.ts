@@ -5,4 +5,9 @@ describe('Product Repository', () => {
     const products = await productRepository.getAll()
     expect(products).toBeTruthy()
   });
+
+  it('should get a product of list products', async () => {
+    const product = await productRepository.getById(1)
+    expect(product).toEqual({ id: 1, type: 'CREDIT_CARD', name: 'Gem Visa' })
+  });
 });
