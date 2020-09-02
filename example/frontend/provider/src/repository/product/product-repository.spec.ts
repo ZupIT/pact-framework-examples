@@ -10,4 +10,10 @@ describe('Product Repository', () => {
     const product = await productRepository.getById(1)
     expect(product).toEqual({ id: 1, type: 'CREDIT_CARD', name: 'Gem Visa' })
   });
+
+  it('should save new product in list products', async () => {
+    await productRepository.store(10, 'Any_Type', 'Any_Name');
+    const product = await productRepository.getById(10)
+    expect(product).toEqual({ id: 10, type: 'Any_Type', name: 'Any_Name' })
+  });
 });
