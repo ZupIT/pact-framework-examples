@@ -41,7 +41,6 @@ describe('ProductServicePact', () => {
         uponReceiving: 'a request to GET a list of products',
         withRequest: {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
           path: `/api/products`,
         },
         willRespondWith: {
@@ -70,7 +69,6 @@ describe('ProductServicePact', () => {
         uponReceiving: 'a request to GET a one product',
         withRequest: {
           method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
           path: `/api/products/1`,
         },
         willRespondWith: {
@@ -177,7 +175,6 @@ describe('ProductServicePact', () => {
         uponReceiving: 'a request to DELETE a product',
         withRequest: {
           method: 'DELETE',
-          headers: { 'Content-Type': 'application/json' },
           path: `/api/products/1`,
         },
         willRespondWith: {
