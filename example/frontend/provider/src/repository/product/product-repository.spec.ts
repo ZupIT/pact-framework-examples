@@ -16,4 +16,10 @@ describe('Product Repository', () => {
     const product = await productRepository.getById(10)
     expect(product).toEqual({ id: 10, type: 'Any_Type', name: 'Any_Name' })
   });
+
+  it('should update a product', async () => {
+    await productRepository.update(2, 'Any_Updated', 'Any_Updated');
+    const product = await productRepository.getById(2)
+    expect(product).toEqual({ id: 2, type: 'Any_Updated', name: 'Any_Updated' })
+  });
 });

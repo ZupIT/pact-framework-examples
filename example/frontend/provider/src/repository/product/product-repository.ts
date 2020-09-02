@@ -24,6 +24,9 @@ class ProductRepository implements Repository {
   }
 
   async update(id: number, type: string, name: string): Promise<Product> {
+    if (!this.products.get(id)) {
+      return null
+    }
     const product = this.products.set(id, new Product(id, type, name))
     return product.get(id)
   }
