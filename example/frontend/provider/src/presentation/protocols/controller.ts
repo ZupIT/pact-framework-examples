@@ -1,8 +1,9 @@
-import { HttpResponse, HttpRequest } from "./http";
+import { Request, Response } from "express";
 
 export interface Controller {
-  getAll(): Promise<HttpResponse>
-  getById(httpRequest: HttpRequest): Promise<HttpResponse>
-  save(httpRequest: HttpRequest): Promise<HttpResponse>
-  update(httpRequest: HttpRequest): Promise<HttpResponse>
+  getAll(req: Request, res: Response): Promise<any>
+  getById(req: Request, res: Response): Promise<any>
+  save(req: Request, res: Response): Promise<any>
+  update(req: Request, res: Response): Promise<any>
+  deleteById(req: Request, res: Response): Promise<any>
 }

@@ -1,54 +1,34 @@
-import { HttpRequest, HttpResponse } from '../protocols/http';
-import { badRequest, success, notFound, serverError } from '../helpers/http-helpers';
-import { MissingParamError } from '../errors/missing-param';
+import { Request, Response } from 'express';
+import productRepository from '../../repository/product/product-repository';
 import { Controller } from '../protocols/controller';
-import { Repository } from '../../repository/usecase/repository';
 
-export class ProductController implements Controller {
+class ProductController implements Controller {
   
-  constructor(private readonly repository: Repository) {}
+  async getAll(req: Request, res: Response) {
+    res.send(await productRepository.getAll())
+  }
   
-  async getAll(): Promise<HttpResponse> {
-    const products = await this.repository.getAll()
-    return success(products)
-  };
-
-  async getById(httpRequest: HttpRequest): Promise<HttpResponse> {
-    if (!httpRequest.params) {
-      return badRequest(new MissingParamError('id'))
-    }
-    const { id } = httpRequest.params;
-    const product = await this.repository.getById(parseInt(id));
-    if (!product) {
-      return notFound('Nenhum produto encontrado')
-    }
-    return success(product)
-  };
-
-  async save(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const requiredFields = ['id', 'type', 'name'];
-    for(const field of requiredFields) {
-      if(!httpRequest.body[field]) {
-        return badRequest(new MissingParamError(field))
-      }
-    }
-    const { id, type, name } = httpRequest.body;
-    const product = await this.repository.store(id, type, name);
-    return success(product)
+  async getById(req: Request, res: Response) {
+    const product = await productRepository.getById(parseInt(req.params.id))
+    product ? res.send(product) : res.status(404).send({message: "Product not found"})
   }
-
-  async update(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { id, type, name } = httpRequest.body;
-    const product = await this.repository.update(id, type, name);
-    return success(product);
+  
+  async save(req: Request, res: Response) {
+    const { id, name, type } = req.body
+    const product = await productRepository.store(parseInt(id), type, name)
+    product ? res.status(200).send(product) : res.status(404).send({message: "Product not created"})
   }
-
-  async delete(httpRequest: HttpRequest): Promise<HttpResponse> {
-    const { id } = httpRequest.params;
-    const deleted = await this.repository.delete(parseInt(id));
-    if (!deleted) {
-      return serverError({ body: 'Erro inesperado' });
-    }
-    return success({ body: 'Produto excluído com sucesso' });
+  
+  async deleteById(req: Request, res: Response) {
+    const product = await productRepository.delete(parseInt(req.params.id))
+    product ? res.status(200).send() : res.status(404).send({message: "Product not found"})
+  }
+  
+  async update(req: Request, res: Response) {
+    const { name, type } = req.body
+    const product = await productRepository.update(parseInt(req.params.id), type, name)
+    product ? res.status(200).send(product) : res.status(404).send({message: "Product not found"})
   }
 }
+
+export default new ProductController()
