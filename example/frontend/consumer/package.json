@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test -c=pact",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "pact:publish": "node publish-pact.js http://localhost:9292"
