@@ -32,6 +32,9 @@ class ProductRepository implements Repository {
   }
 
   async delete(id: number): Promise<boolean> {
+    if (!this.products.get(id)) {
+      return null
+    }
     return this.products.delete(id)
   }
 }
