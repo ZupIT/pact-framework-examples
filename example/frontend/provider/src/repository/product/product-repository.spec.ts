@@ -45,8 +45,8 @@ describe('Product Repository', () => {
 
   it('should delete a product', async () => {
 
-    const product = await productRepository.delete(5);
+    const isDeleted = await productRepository.delete(5);
 
-    expect(product).toBeTruthy()
+    expect(isDeleted).toBeTruthy()
   });
 });
