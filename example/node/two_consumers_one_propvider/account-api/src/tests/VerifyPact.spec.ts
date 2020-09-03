@@ -1,7 +1,25 @@
-import { Verifier, MockService } from '@pact-foundation/pact';
-import { APP_URL, PACT_BROKER_URL } from '../constants';
+import { Verifier } from '@pact-foundation/pact';
+import express from 'express';
+import { Server } from 'http';
+import { APP_PORT, APP_URL, PACT_BROKER_URL } from '../constants';
+import routes from '../routes';
 
 describe('Pact verification', () => {
+  let app: Server;
+
+  beforeAll(async () => {
+    app = express()
+      .use(express.json())
+      .use(routes)
+      .listen(APP_PORT, () =>
+        console.log(`AccountApi listening on port ${APP_PORT}`),
+      );
+  });
+
+  afterAll(async () => {
+    app.close();
+  });
+
   it('checking if provider agrees with consumer', async () => {
     const verify = new Verifier({
       providerBaseUrl: APP_URL,
