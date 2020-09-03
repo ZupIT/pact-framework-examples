@@ -34,7 +34,7 @@ locals {
 resource "aws_security_group" "default" {
 
   name        = var.aws_ec2_security_group
-  description = "AWS security group for Pact Broker"
+  description = "AWS security group for Pact Broker - Discovery"
   vpc_id      = var.vpc_id
 
   ingress {
