@@ -1,6 +1,6 @@
 import { Product } from '../domain/product';
 
-export const makeFakeProductsTests = (): any => {
+export const makeProductsMock = (): any => {
   return new Map([
     [1, new Product(1, "CREDIT_CARD", "Gem Visa")],
     [2, new Product(2, "CREDIT_CARD", "28 Degrees")],

@@ -4,7 +4,7 @@ import {
 } from '@pact-foundation/pact';
 import express, { Request, Response, json } from 'express';
 import ProductRepository from '../repository/product/product-repository';
-import { makeFakeProductsTests } from './product-factory-tests';
+import { makeProductsMock } from './products-mock';
 import routes from '../routes/products'
 
 
@@ -33,19 +33,19 @@ describe('Pact Verification', () => {
       publishVerificationResult: true,
       stateHandlers: {
         'list products': async () => {
-          ProductRepository.setProducts(makeFakeProductsTests())
+          ProductRepository.setProducts(makeProductsMock())
         },
         'list one product': async () => {
-          ProductRepository.setProducts(makeFakeProductsTests())
+          ProductRepository.setProducts(makeProductsMock())
         },
         'create a product': async () => {
-          ProductRepository.setProducts(makeFakeProductsTests());
+          ProductRepository.setProducts(makeProductsMock());
         },
         'update a product': async () => {
-          ProductRepository.setProducts(makeFakeProductsTests());
+          ProductRepository.setProducts(makeProductsMock());
         },
         'delete a product': async () => {
-          ProductRepository.setProducts(makeFakeProductsTests());
+          ProductRepository.setProducts(makeProductsMock());
         },
       },
 
