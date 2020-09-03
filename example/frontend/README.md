@@ -64,8 +64,7 @@ npm run test
 Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a API.
 Ao final, podemos conferir o resultado do teste que é publicado no Broker. 
 
-<!-- TODO: imagem do broker com sucesso do provider -->
-<img src="../../../imgs/validated-pact-contract.png" alt="new pact contract"/>
+![pact contract](../../imgs/pact-verified.png)
 
 ### Com CI via Jenkins
 
