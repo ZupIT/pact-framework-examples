@@ -1,7 +1,7 @@
 import { Verifier } from '@pact-foundation/pact';
 import express from 'express';
 import { Server } from 'http';
-import { APP_PORT, APP_URL, PACT_BROKER_URL } from '../constants';
+import { APP_PORT, APP_URL, PACT_BROKER_URL, accountMocked } from '../constants';
 import routes from '../routes';
 
 describe('Pact verification', () => {
@@ -23,6 +23,9 @@ describe('Pact verification', () => {
       provider: 'AccountApi',
       publishVerificationResult: true,
       providerVersion: '1.0.0',
+      stateHandlers: {
+        'one client with your account': async () => accountMocked
+      }
     });
     await verify
       .verifyProvider()
