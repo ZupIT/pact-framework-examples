@@ -1,7 +1,7 @@
 import { Verifier } from '@pact-foundation/pact';
 import express from 'express';
 import { Server } from 'http';
-import { APP_PORT, APP_URL, PACT_BROKER_URL } from '../constants';
+import { APP_PORT, APP_URL, PACT_BROKER_URL, primeAccountMocked } from '../constants';
 import routes from '../routes';
 
 describe('Pact verification', () => {
@@ -16,10 +16,6 @@ describe('Pact verification', () => {
       );
   });
 
-  afterAll(async () => {
-    app.close();
-  });
-
   it('checking if provider agrees with consumer', async () => {
     const verify = new Verifier({
       providerBaseUrl: APP_URL,
@@ -27,11 +23,15 @@ describe('Pact verification', () => {
       provider: 'PrimeAccountDetailsApi',
       publishVerificationResult: true,
       providerVersion: '1.0.0',
+      stateHandlers: {
+        'one client with your account': async () => primeAccountMocked
+      }
     });
 
     await verify
       .verifyProvider()
       .then(() => console.log('Pact verification complete'))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => app.close());
   });
 });

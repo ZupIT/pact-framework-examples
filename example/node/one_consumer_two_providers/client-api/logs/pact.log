@@ -1,5 +1,5 @@
-I, [2020-08-11T19:59:13.933653 #22063]  INFO -- : Registered expected interaction GET /prime/1
-D, [2020-08-11T19:59:13.934559 #22063] DEBUG -- : {
+I, [2020-09-04T13:41:58.235443 #20537]  INFO -- : Registered expected interaction GET /prime/1
+D, [2020-09-04T13:41:58.237417 #20537] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -12,14 +12,20 @@ D, [2020-08-11T19:59:13.934559 #22063] DEBUG -- : {
       "Content-Type": "application/json; charset=utf-8"
     },
     "body": {
-      "isPrime": true,
-      "discountPercentageFee": 2
+      "isPrime": {
+        "json_class": "Pact::SomethingLike",
+        "contents": true
+      },
+      "discountPercentageFee": {
+        "json_class": "Pact::SomethingLike",
+        "contents": 13.01
+      }
     }
   },
   "metadata": null
 }
-I, [2020-08-11T19:59:13.942997 #22063]  INFO -- : Received request GET /prime/1
-D, [2020-08-11T19:59:13.943603 #22063] DEBUG -- : {
+I, [2020-09-04T13:41:58.247566 #20537]  INFO -- : Received request GET /prime/1
+D, [2020-09-04T13:41:58.248509 #20537] DEBUG -- : {
   "path": "/prime/1",
   "query": "",
   "method": "get",
@@ -31,17 +37,23 @@ D, [2020-08-11T19:59:13.943603 #22063] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-08-11T19:59:13.944824 #22063]  INFO -- : Found matching response for GET /prime/1
-D, [2020-08-11T19:59:13.945290 #22063] DEBUG -- : {
+I, [2020-09-04T13:41:58.249527 #20537]  INFO -- : Found matching response for GET /prime/1
+D, [2020-09-04T13:41:58.250050 #20537] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
   },
   "body": {
-    "isPrime": true,
-    "discountPercentageFee": 2
+    "isPrime": {
+      "json_class": "Pact::SomethingLike",
+      "contents": true
+    },
+    "discountPercentageFee": {
+      "json_class": "Pact::SomethingLike",
+      "contents": 13.01
+    }
   }
 }
-I, [2020-08-11T19:59:13.957961 #22063]  INFO -- : Verifying - interactions matched
-I, [2020-08-11T19:59:13.970402 #22063]  INFO -- : Cleared interactions
-I, [2020-08-11T19:59:13.984802 #22063]  INFO -- : Writing pact for PrimeAccountDetailsApi to /workspace/dtp-pact-examples/example/node/one_consumer_two_producer/client-api/pacts/clientapi-primeaccountdetailsapi.json
+I, [2020-09-04T13:41:58.257209 #20537]  INFO -- : Verifying - interactions matched
+I, [2020-09-04T13:41:58.262495 #20537]  INFO -- : Cleared interactions
+I, [2020-09-04T13:41:58.268749 #20537]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/tony.silva/Documents/PACT/pact-framework-examples/example/node/one_consumer_two_providers/client-api/pacts/clientapi-primeaccountdetailsapi.json

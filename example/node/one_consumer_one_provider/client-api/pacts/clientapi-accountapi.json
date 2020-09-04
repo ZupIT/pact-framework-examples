@@ -19,9 +19,20 @@
           "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
-          "clientID": 1,
-          "accountID": 10,
-          "balance": 100
+          "clientID": 13,
+          "accountID": 13,
+          "balance": 13.01
+        },
+        "matchingRules": {
+          "$.body.clientID": {
+            "match": "type"
+          },
+          "$.body.accountID": {
+            "match": "type"
+          },
+          "$.body.balance": {
+            "match": "type"
+          }
         }
       }
     }
