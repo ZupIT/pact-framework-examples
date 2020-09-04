@@ -100,9 +100,9 @@ describe('ProductServicePact', () => {
           headers: { 'Content-Type': 'application/json' },
           path: `/api/products`,
           body: {
-            id: Matchers.integer(),
-            type: Matchers.string(),
-            name: Matchers.string(),
+            id: Matchers.integer().getValue(),
+            type: Matchers.string().getValue(),
+            name: Matchers.string().getValue(),
           },
         },
         willRespondWith: {
@@ -156,13 +156,14 @@ describe('ProductServicePact', () => {
     });
 
     it('should update a product', async () => {
-      const product: Omit<Product, 'id'> = {
+      const product: Product = {
+        id: 1,
         type: Matchers.string().getValue(),
         name: Matchers.string().getValue(),
       };
 
       await productService
-        .update(1, product)
+        .update(product)
         .toPromise()
         .then((res) => expect(res.status).toBe(200));
     });

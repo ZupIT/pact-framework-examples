@@ -1,19 +1,17 @@
 import { HttpResponse } from '@angular/common/http';
+import {
+  async,
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ProductService } from './product.service';
-import { async, TestBed, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { Product } from './product.service';
 import { of } from 'rxjs';
-
-const PRODUCT_SAMPLE: Product = {
-  id: 1,
-  name: 'product',
-  type: 'Type 1'
-}
+import { AppComponent } from './app.component';
+import { Product, ProductService } from './product.service';
 
 describe('AppComponent', () => {
-
   let fixture: ComponentFixture<AppComponent>;
   let service: ProductService;
   let app: AppComponent;
@@ -28,11 +26,11 @@ describe('AppComponent', () => {
             update: () => of({}),
             create: () => of({}),
             getAll: () => of({}),
-            delete: () => of({})
-          }
-        }
+            delete: () => of({}),
+          },
+        },
       ],
-      imports: [FormsModule]
+      imports: [FormsModule],
     }).compileComponents();
   }));
 
@@ -47,13 +45,43 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
+  it('should list products on component init', () => {
+    spyOn(service, 'getAll').and.returnValue(of(new HttpResponse()));
+
+    app.ngOnInit();
+
+    expect(service.getAll).toHaveBeenCalled();
+  });
+
+  it('should list all products', fakeAsync(() => {
+    spyOn(service, 'getAll').and.returnValue(
+      of(new HttpResponse({ body: [] }))
+    );
+
+    app.listAll();
+    tick();
+
+    expect(service.getAll).toHaveBeenCalled();
+  }));
+
   it('should create a product', fakeAsync(() => {
-    spyOn(service, 'getAll').and.returnValue(of(new HttpResponse({ body: [PRODUCT_SAMPLE] })));
+    app.isEditing = false;
+    spyOn(service, 'create').and.returnValue(of(new HttpResponse()));
 
     app.saveProduct();
     tick();
 
-    expect(app.products.length).toEqual(1);
+    expect(service.create).toHaveBeenCalled();
+  }));
+
+  it('should save a product that already exist', fakeAsync(() => {
+    app.isEditing = true;
+    spyOn(service, 'update').and.returnValue(of(new HttpResponse()));
+
+    app.saveProduct();
+    tick();
+
+    expect(service.update).toHaveBeenCalled();
   }));
 
   it('should remove a product', fakeAsync(() => {
@@ -65,7 +93,6 @@ describe('AppComponent', () => {
 
     expect(service.delete).toHaveBeenCalledWith(1);
     expect(service.getAll).toHaveBeenCalled();
-    
   }));
 
   it('should edit a product', () => {

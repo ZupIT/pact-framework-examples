@@ -34,10 +34,14 @@ export class ProductService {
     });
   }
 
-  update(id: number, product: Omit<Product, 'id'>) {
-    return this.httpClient.put<Product>(`${this.BASE_URL}/${id}`, product, {
-      observe: 'response',
-    });
+  update(product: Product) {
+    return this.httpClient.put<Product>(
+      `${this.BASE_URL}/${product.id}`,
+      { name: product.name, type: product.type },
+      {
+        observe: 'response',
+      }
+    );
   }
 
   delete(id: number) {

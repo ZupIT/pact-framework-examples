@@ -7,7 +7,6 @@ import { Product, ProductService } from './product.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  
   products: Product[] = [];
 
   isEditing: boolean;
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit {
   async saveProduct() {
     if (this.isEditing) {
       await this.productService
-        .update(this.id, { name: this.name, type: this.type })
+        .update({ id: this.id, name: this.name, type: this.type })
         .toPromise();
     } else {
       await this.productService
@@ -44,7 +43,7 @@ export class AppComponent implements OnInit {
     this.clearFields();
   }
 
-  listAll() {
+  async listAll() {
     return this.productService
       .getAll()
       .toPromise()
