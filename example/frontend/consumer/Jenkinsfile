@@ -1,0 +1,26 @@
+#!groovy
+pipeline {
+    agent any
+    tools {nodejs "nodeV12"}
+    environment {
+        WORKSPACE="${WORKSPACE}/example/frontend/consumer"
+        BRANCH_NAME=env.GIT_BRANCH.replace("origin/", "")
+    }
+    stages {
+        stage('Generate Contract') {
+            steps {
+                dir("${env.WORKSPACE}") {
+                    sh 'npm i --unsafe-perm'
+                    sh 'npm run test'
+                }
+            }
+        }
+        stage('Publish Contract to Pact Broker') {
+            steps {
+                dir("${env.WORKSPACE}") {
+                    sh "node publish-pact.js http://pact-broker:9292"
+                }
+            }
+        }
+    }
+}
