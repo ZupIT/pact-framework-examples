@@ -20,7 +20,15 @@
         },
         "body": {
           "isPrime": true,
-          "discountPercentageFee": 2
+          "discountPercentageFee": 13.01
+        },
+        "matchingRules": {
+          "$.body.isPrime": {
+            "match": "type"
+          },
+          "$.body.discountPercentageFee": {
+            "match": "type"
+          }
         }
       }
     }
