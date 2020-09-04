@@ -1,7 +1,21 @@
 import { Verifier } from '@pact-foundation/pact';
-import { APP_URL, PACT_BROKER_URL } from '../constants';
+import express from 'express';
+import { Server } from 'http';
+import { APP_PORT, APP_URL, PACT_BROKER_URL, accountMocked } from '../constants';
+import routes from '../routes';
 
 describe('Pact verification', () => {
+  let app: Server;
+
+  beforeAll(async () => {
+    app = express()
+      .use(express.json())
+      .use(routes)
+      .listen(APP_PORT, () =>
+        console.log(`AccountApi listening on port ${APP_PORT}`),
+      );
+  });
+
   it('checking if provider agrees with consumer', async () => {
     const verify = new Verifier({
       providerBaseUrl: APP_URL,
@@ -9,11 +23,15 @@ describe('Pact verification', () => {
       provider: 'AccountApi',
       publishVerificationResult: true,
       providerVersion: '1.0.0',
+      stateHandlers: {
+        'one client with your account': async () => accountMocked
+      }
     });
 
     await verify
       .verifyProvider()
       .then(() => console.log('Pact verification complete'))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => app.close());
   });
 });

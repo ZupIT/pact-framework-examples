@@ -1,5 +1,5 @@
-I, [2020-08-26T08:37:43.015843 #9034]  INFO -- : Registered expected interaction GET /balance/1
-D, [2020-08-26T08:37:43.016391 #9034] DEBUG -- : {
+I, [2020-09-04T11:53:29.999434 #7587]  INFO -- : Registered expected interaction GET /balance/1
+D, [2020-09-04T11:53:29.999763 #7587] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -28,8 +28,8 @@ D, [2020-08-26T08:37:43.016391 #9034] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2020-08-26T08:37:43.021084 #9034]  INFO -- : Received request GET /balance/1
-D, [2020-08-26T08:37:43.021265 #9034] DEBUG -- : {
+I, [2020-09-04T11:53:30.001693 #7587]  INFO -- : Received request GET /balance/1
+D, [2020-09-04T11:53:30.001931 #7587] DEBUG -- : {
   "path": "/balance/1",
   "query": "",
   "method": "get",
@@ -41,8 +41,8 @@ D, [2020-08-26T08:37:43.021265 #9034] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-08-26T08:37:43.021671 #9034]  INFO -- : Found matching response for GET /balance/1
-D, [2020-08-26T08:37:43.021880 #9034] DEBUG -- : {
+I, [2020-09-04T11:53:30.002148 #7587]  INFO -- : Found matching response for GET /balance/1
+D, [2020-09-04T11:53:30.002280 #7587] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
@@ -62,6 +62,6 @@ D, [2020-08-26T08:37:43.021880 #9034] DEBUG -- : {
     }
   }
 }
-I, [2020-08-26T08:37:43.027424 #9034]  INFO -- : Verifying - interactions matched
-I, [2020-08-26T08:37:43.031764 #9034]  INFO -- : Cleared interactions
-I, [2020-08-26T08:37:43.037535 #9034]  INFO -- : Writing pact for AccountApi to /workspace/dtp-pact-examples/example/node/one_consumer_one_provider/client-api/pacts/clientapi-accountapi.json
+I, [2020-09-04T11:53:30.005450 #7587]  INFO -- : Verifying - interactions matched
+I, [2020-09-04T11:53:30.008428 #7587]  INFO -- : Cleared interactions
+I, [2020-09-04T11:53:30.012137 #7587]  INFO -- : Writing pact for AccountApi to /home/tony.silva/Documents/PACT/pact-framework-examples/example/node/one_consumer_one_provider/client-api/pacts/clientapi-accountapi.json
