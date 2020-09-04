@@ -16,10 +16,6 @@ describe('Pact verification', () => {
       );
   });
 
-  afterAll(async () => {
-    app.close();
-  });
-
   it('checking if provider agrees with consumer', async () => {
     const verify = new Verifier({
       providerBaseUrl: APP_URL,
@@ -32,6 +28,7 @@ describe('Pact verification', () => {
     await verify
       .verifyProvider()
       .then(() => console.log('Pact verification complete'))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => app.close());
   });
 });
