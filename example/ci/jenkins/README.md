@@ -1,14 +1,16 @@
 # Exemplo de Integração Contínua com Jenkins
 
 Exemplo da criação de um Pact entre:
-* 1 consumidor ([pact-consumer-sample](https://github.com/vinirib/pact-consumer-sample))
-* 1 provedor ([pact-provider-sample](https://github.com/vinirib/pact-provider-sample))
+* 1 consumidor (pact-consumer-sample)
+* 1 provedor (pact-provider-sample)
 
 ## Ferramentas
 
  - Jenkins
  - Postgresql
  - Pact Broker
+ - OpenJdk 11
+ - Spring Boot
 
 
 Índice
@@ -20,7 +22,7 @@ Exemplo da criação de um Pact entre:
       * [Primeiro cenário](#Primeiro-cenário)
       * [Segundo cenário](#Segundo-cenário)
       * [Terceiro cenário](#Terceiro-cenário)
-   * [Configurações do Jenkins](#Configurações-do-Jenkins)
+   * [Como executar](#Como-executar)
    * [Observações](#Observações)
 <!--ts -->
 
@@ -40,6 +42,7 @@ Ao iniciar, o Jenkins irá baixar as APIs de seus respectivos repositórios em b
 Este exemplo contém três cenários. Neles, descreveremos as interações mais comuns em que você pode combinar o Pact Broker e Jenkins com seus testes de contrato.
 
 ### Primeiro cenário 
+pipeline inicial: `CI_JENKINS_cenario_1_passo_1`
 diretório: cenario_1
 
 Este cenário representa o fluxo básico. O consumidor cria um código para testar a integração com seu provedor e gerar o contrato com o Pact Framework. No entanto, neste caso temos também alguns arquivos Jenkins no repositório do consumidor para disparar eventos da integração contínua. Desta forma, conseguimos rodar os testes JUnit, gerar o contrato e fazer sua publicação no Pact Broker de forma automatizada.
@@ -51,6 +54,7 @@ Por fim, o último Job será disparado para executar o `can-i-deploy` e, então,
 ![Pact First Scenario](imgs/PACT-FIRST-SCENARIO.png)
 
 ### Segundo cenário
+pipeline inicial: `CI_JENKINS_cenario_2`
 diretório: cenario_2
 
 No segundo cenário, o provedor realizou alterações no enpoint que o consumidor utiliza (sem aviso prévio). Assim, quando o CI for disparado, 
@@ -59,39 +63,25 @@ o Pact entre eles irá resultar em falha.
 ![Pact Second Scenario](imgs/PACT-SECOND-SCENARIO.png)
 
 ### Terceiro cenário
+pipeline inicial: `CI_JENKINS_cenario_3_passo_1`
 diretório: cenario_3
 
 No terceiro cenário, o consumidor fez algumas melhorias e disparou o CI para verificar alterações na integração. Porém, para nossa surpresa, o provedor fez novas alterações que irão implicar na falha de integridade do contrato.
 
 ![Pact Third Scenario](imgs/PACT-THIRD-SCENARIO.png)
 
-## Configurações do Jenkins
+## Como executar
 
-> As configurações do Jenkins são específicas para cada cenário. Siga as instruções abaixo para cada um destes cenários.
-> Entre um cenário e outro, remova os containers criados executando: `sudo docker-compose down`.
+1. Garanta que você tenha uma instância do Pact Broker com Jenkins rodando localmente. 
+Para maiores informações, vide sessão [configuração do Pact Broker](../../../README.md#config-broker).
 
-No diretório do cenário, jenkins_config, arquivo jobs.groovy, temos alguns jobs configurados para nosso teste. Estes Jobs devem executar nossos testes de forma automatizada. 
-
-Para da inicio a automação, basta rodar o comando:
-```
-sudo docker-compose up
-```
-
-Com o containers rodando, poderemos ver o dashboad do Jenkins ([http://localhost:8080](http://localhost:8080)) com os Jobs CI pré-configurados e interconectados. 
+Com o containers rodando, poderemos ver o dashboad do Jenkins com os Jobs pré-configurados. 
 
 ![Jenkins Dashboard](imgs/Jenkins-dashboard.png)
 
-Para acesso ao Jenkins:
-```bash
-user:admin
-pass:admin
-```
-
-> Caso tenha alguma dificuldade para subir o container `jenkins_pact_broker`, verifique se o diretório `jenkins_home` possui permissões de escrita. 
-> Caso não tenha permissão, podemos conceder da seguinte forma:
-```
-sudo chown $USER:$USER jenkins_home -R
-```
+2. Os pipelines estão nomeados de acordo com sua função, cenário e etapa. 
+Para iniciar a esteira de um cenário, basta clicar no ícone de agendamento (destacado em vermelho na imagem acima) do pipeline na etapa 1 do mesmo. As demais etapas do cenário serão disparadas automaticamente.
+Faça isto para os cenários de 1 à 3, em ordem, e acompanhe os resultados no Pact Broker para facilitar o entendimento.
 
 ## Observações
 

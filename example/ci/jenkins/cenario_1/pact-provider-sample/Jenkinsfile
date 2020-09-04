@@ -1,0 +1,31 @@
+#!groovy
+pipeline {
+  agent any
+  environment {
+    WORKSPACE="${WORKSPACE}/example/ci/jenkins/cenario_1/pact-provider-sample"
+  }
+  parameters {
+    string(name: 'pactConsumerTags', defaultValue: 'CONTRACT-TEST', description: 'Tags to verify')
+  }
+  stages {
+    stage ('Run Contract Tests'){
+      steps {
+        dir("${env.WORKSPACE}") {
+          sh "chmod +x mvnw"
+          sh "./mvnw clean verify " +
+                  "-Dpact.provider.version=${GIT_COMMIT} " +
+                  "-Dpact.verifier.publishResults=true " +
+                  "-Dpact.provider.tag=${params.pactConsumerTags}"
+        }
+      }
+    }
+  }
+  post {
+    success {
+      script {
+        echo "Contract Generated Successful, now trigger Provider check!"
+        build job: "CI_JENKINS_can-i-deploy_Consumer", propagate: true
+      }
+    }
+  }
+}

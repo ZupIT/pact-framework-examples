@@ -9,6 +9,7 @@ Exemplo da criação de um Pact entre:
 
 ## Ferramentas
 
+- Node + npm
 - Express
 - Typescript
 - Jest
@@ -31,11 +32,11 @@ Em seguida, precisamos gerar o contrato do PACT para a nossa API consumidora e o
 No mesmo diretório, execute os seguintes comandos:
 
 ```shell
-yarn test
+npm run test
 ```
 
 ```shell
-yarn pact:publish
+npm run pact:publish
 ```
 
 Acesse o Pact Broker (`http://localhost:9292`) em seu navegador. Você deverá ver o contrato publicado.
@@ -55,7 +56,7 @@ Para testarmos o contrato com a API consumidora, precisamos apenas rodar o teste
 Para isto, execute:
 
 ```shell
-yarn test
+npm run test
 ```
 
 Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a API.

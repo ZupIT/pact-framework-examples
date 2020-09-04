@@ -1,0 +1,43 @@
+version: '3.3'
+
+services:
+    jenkins:
+        build:
+            context: ./jenkins_config
+            dockerfile: Dockerfile
+        image: jenkins-pact-ci
+        container_name: jenkins-pact-ci
+        ports:
+            - '8080:8080'
+            - '50000:50000'
+        volumes:
+            - "./jenkins_home:/var/jenkins_home"
+            - "$HOME/.m2:/var/jenkins_home/.m2:rw"
+            
+    postgres:
+        image: postgres
+        healthcheck:
+            test: psql postgres --command "select 1" -U postgres
+        ports:
+            - "5432:5432"
+        volumes:
+            - postgres-volume:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: postgres
+            
+    pact-broker:
+        image: pactfoundation/pact-broker:2
+        ports:
+            - "9292:9292"
+        depends_on:
+            - postgres
+        environment:
+            PACT_BROKER_PORT: '9292'
+            PACT_BROKER_DATABASE_URL: "postgres://postgres:password@postgres/postgres"
+            PACT_BROKER_LOG_LEVEL: INFO
+            PACT_BROKER_SQL_LOG_LEVEL: DEBUG 
+            
+volumes:
+    postgres-volume:
