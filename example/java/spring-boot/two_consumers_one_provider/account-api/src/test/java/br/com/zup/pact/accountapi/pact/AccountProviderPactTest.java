@@ -57,7 +57,7 @@ public class AccountProviderPactTest {
         final BalanceDTO balanceDTO = BalanceDTO
                 .builder()
                 .name("João")
-                .fantasyName("Itau Unibanco")
+                .fantasyName("EmpresaX")
                 .clientId(1)
                 .accountId(1)
                 .balance(new BigDecimal("100.00"))
