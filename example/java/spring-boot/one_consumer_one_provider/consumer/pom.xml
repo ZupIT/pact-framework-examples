@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.com.zup.pact.consumer</groupId>
     <artifactId>consumer</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <name>consumer</name>
     <description>Consumer</description>
 
@@ -151,6 +151,9 @@
                 <configuration>
                     <pactBrokerUrl>http://${pact-broker-host}:9292</pactBrokerUrl>
                     <pactDirectory>target/pacts</pactDirectory>
+                    <tags>
+                        <tag>feature/supper-dupper-feature-X</tag>
+                    </tags>
                     <trimSnapshot>true</trimSnapshot>
                 </configuration>
             </plugin>

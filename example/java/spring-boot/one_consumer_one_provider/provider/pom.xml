@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.com.zup.pact</groupId>
     <artifactId>provider</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>provider</name>
     <description>Provider</description>
 
@@ -145,6 +145,8 @@
                     <systemPropertyVariables>
                         <pact.provider.name>${pact.application.name}</pact.provider.name>
                         <pact.verifier.publishResults>true</pact.verifier.publishResults>
+                        <pact.provider.tag>master</pact.provider.tag>
+                        <pact.provider.version>${project.version}</pact.provider.version>
                     </systemPropertyVariables>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
