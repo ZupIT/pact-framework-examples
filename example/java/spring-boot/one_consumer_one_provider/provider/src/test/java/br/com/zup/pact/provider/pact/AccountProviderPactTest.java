@@ -61,7 +61,6 @@ public class AccountProviderPactTest {
                 .builder()
                 .clientId(1)
                 .accountId(1)
-                .balance(new BigDecimal("100.00"))
                 .build();
         given(accountService.getBalanceByClientId(eq(1))).willReturn(Optional.of(balanceDTO));
 
