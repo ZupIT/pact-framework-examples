@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
   pact-broker:
-    image: pactfoundation/pact-broker:2
+    image: pactfoundation/pact-broker:2.60.1.0
     links:
       - postgres
     environment:
