@@ -20,7 +20,7 @@
         <java.version>11</java.version>
         <checkstyle-maven-plugin.version>3.1.1</checkstyle-maven-plugin.version>
         <pact.version>4.0.10</pact.version>
-        <pact.application.name>AccountBalanceProvider</pact.application.name>
+        <pact.application.name>${project.name}</pact.application.name>
     </properties>
 
     <dependencies>

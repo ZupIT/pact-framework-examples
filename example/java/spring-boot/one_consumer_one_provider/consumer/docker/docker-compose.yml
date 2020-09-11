@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  pact-broker-cli:
+    container_name: client-service-publish-pact
+    image: pactfoundation/pact-cli:0.12.3.0
+    volumes:
+      - $WORKING_DIR/target/pacts/:/tmp/client-service/pacts
+    command: >
+      publish
+        /tmp/client-service/pacts
+        --consumer-app-version $CONSUMER_APP_VERSION
+        --broker-base-url $PACT_BROKER_BASE_URL
+        --tag $PACT_TAG_NAME
