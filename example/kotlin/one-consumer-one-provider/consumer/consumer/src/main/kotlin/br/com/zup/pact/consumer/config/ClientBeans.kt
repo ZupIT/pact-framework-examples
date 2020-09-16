@@ -7,10 +7,10 @@ import org.springframework.web.client.RestTemplate
 
 @Configuration
 class ClientBeans {
-    @Bean
-    fun gson(): GsonJsonParser {
-        return GsonJsonParser()
-    }
+//    @Bean
+//    fun gson(): GsonJsonParser {
+//        return GsonJsonParser()
+//    }
 
     @Bean
     fun getRestTemplate(): RestTemplate {
