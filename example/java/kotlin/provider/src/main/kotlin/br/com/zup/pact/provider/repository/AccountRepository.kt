@@ -11,6 +11,15 @@ import java.util.*
 @Component
 class AccountRepository(@Autowired val accountStub: AccountStub) {
 
+    fun findByClientId(clientId: Int): Optional<AccountDetailsDTO> {
+        return Optional.ofNullable(
+                accountStub.accounts.values
+                        .filter { entity -> entity.accountId == clientId }
+                        .map(AccountEntity::toAccountDetailsDTO)
+                        .getOrNull(0)
+        )
+    }
+
     fun getAll(): List<AccountDetailsDTO> {
         return accountStub.getAllStubsDTOFormat()
     }
