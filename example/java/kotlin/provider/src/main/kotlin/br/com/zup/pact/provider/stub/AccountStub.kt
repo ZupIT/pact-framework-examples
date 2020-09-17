@@ -19,13 +19,13 @@ class AccountStub {
     private fun createStubs() {
         accounts.putAll(
                 (1..numberOfStubs)
-                        .map { item -> AccountEntity(item, item, initialBalance, initialAccountType) }
+                        .map { AccountEntity(it, it, initialBalance, initialAccountType) }
                         .associateBy({ it.accountId }, { it })
         )
     }
 
     fun getAllStubsDTOFormat(): List<AccountDetailsDTO> {
-       return accounts.values.map(AccountEntity::toDto)
+       return accounts.values.map(AccountEntity::toAccountDetailsDTO)
     }
 
 }
