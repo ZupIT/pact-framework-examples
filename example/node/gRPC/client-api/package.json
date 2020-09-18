@@ -11,12 +11,12 @@
     "pact:publish": "ts-node-dev src/services/PublishPact.ts"
   },
   "dependencies": {
+    "@grpc/grpc-js": "^1.1.6",
     "@grpc/proto-loader": "^0.5.5",
     "@pact-foundation/pact": "^9.11.0",
     "axios": "^0.19.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "grpc": "^1.24.3"
+    "express": "^4.17.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",

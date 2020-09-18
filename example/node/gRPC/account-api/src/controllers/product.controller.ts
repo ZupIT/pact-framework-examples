@@ -1,4 +1,4 @@
-var grpc = require('grpc');
+var grpc = require('@grpc/grpc-js');
 var protoLoader = require('@grpc/proto-loader');
 
 var PROTO_PATH = __dirname + '/../../../pb/products.proto';
@@ -14,7 +14,7 @@ export function loadProtoFile() {
         });
     
     // Load proto file
-    return grpc.loadPackageDefinition(packageDefinition).grpcsample.product;
+    return grpc.loadPackageDefinition(packageDefinition).grpcproduct;
 }
 
 /**

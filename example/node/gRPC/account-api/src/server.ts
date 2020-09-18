@@ -1,4 +1,4 @@
-var grpc = require('grpc');
+import { Server, ServerCredentials } from '@grpc/grpc-js';
 var { loadProtoFile, findById } = require('./controllers/product.controller');
 
 /**
@@ -8,11 +8,12 @@ var { loadProtoFile, findById } = require('./controllers/product.controller');
 function main() {
 
     // Instantiate the server 
-    var server = new grpc.Server();
+    var server = new Server();
     var protofile = loadProtoFile();
     server.addService(protofile.ProductEndPoint.service, {findById});
-    server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
-    server.start();
+    server.bindAsync('0.0.0.0:50051', ServerCredentials.createInsecure(), () => {
+        server.start();
+    });
 }
 
 main();

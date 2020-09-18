@@ -1,9 +1,7 @@
 syntax = "proto3";
 
-package grpcsample.product;
+package grpcproduct;
 import "google/protobuf/wrappers.proto";
-
-option java_package = "com.example.proto";
 
 message Product {
     string id = 1;

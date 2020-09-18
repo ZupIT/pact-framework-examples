@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import findProductById from '../services/product.service';
+import { findProductById } from '../services/product.service';
 
 const routes = Router();
 
