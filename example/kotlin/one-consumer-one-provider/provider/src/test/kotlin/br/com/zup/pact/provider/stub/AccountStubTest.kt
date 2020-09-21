@@ -1,5 +1,6 @@
 package br.com.zup.pact.provider.stub
 
+import br.com.zup.pact.provider.dto.AccountDetailsDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import org.assertj.core.api.Assertions
@@ -26,6 +27,22 @@ class AccountStubTest {
         (1..numberOfStubs).forEach { id ->
             Assertions.assertThat(AccountEntity(id, id, initialBalance, initialAccountType))
                     .isEqualTo(result[id])
+        }
+    }
+
+    @Test
+    fun `Method getAllStubsDTOFormat should return the AccountDetailsDTO list`() {
+        val numberOfStubs = 10
+        val initialBalance = 100.0
+        val initialAccountType = AccountType.COMMON
+
+        val result: List<AccountDetailsDTO> = accountStub.getAllStubsDTOFormat()
+
+        Assertions.assertThat(result).hasSize(numberOfStubs)
+
+        (0 until numberOfStubs).forEach { index ->
+            Assertions.assertThat(AccountDetailsDTO(index + 1, initialBalance, initialAccountType))
+                    .isEqualTo(result[index])
         }
     }
 }
