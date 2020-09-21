@@ -45,4 +45,25 @@ class AccountServiceImplTest {
         )
     }
 
+    @Test
+    fun `Method getAll should return getAll from the repository`() {
+
+        every { accountRepositoryMock.getAll() }
+                .returns(listOf(AccountDetailsDTO(
+                        accountId = 1,
+                        balance = 100.0,
+                        accountType = AccountType.MASTER
+                )))
+
+        val expectedAccountDetailsDTO = accountService.getAll()
+
+        Assertions.assertThat(expectedAccountDetailsDTO).isEqualTo(
+                listOf(AccountDetailsDTO(
+                        accountId = 1,
+                        balance = 100.0,
+                        accountType = AccountType.MASTER
+                ))
+        )
+    }
+
 }
