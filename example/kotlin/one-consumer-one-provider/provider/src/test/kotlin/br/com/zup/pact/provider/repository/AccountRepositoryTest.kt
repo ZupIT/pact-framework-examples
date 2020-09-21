@@ -1,6 +1,7 @@
 package br.com.zup.pact.provider.repository
 
 import br.com.zup.pact.provider.dto.AccountDetailsDTO
+import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import br.com.zup.pact.provider.stub.AccountStub
@@ -10,6 +11,7 @@ import io.mockk.mockk
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import java.util.*
 
 @ExtendWith(MockKExtension::class)
 class AccountRepositoryTest {
@@ -29,6 +31,25 @@ class AccountRepositoryTest {
         //  Then
         Assertions.assertThat(actualReturn)
                 .containsExactly(createAccountDetailsDTOList(), createAccountDetailsDTOList())
+    }
+
+    @Test
+    fun `Method getBalanceByClientId should return the BalanceDTO list when stub return AccountEntity list`() {
+        //  Given -> dado
+        every { accountStubMock.accounts }
+                .returns(
+                        mutableMapOf(
+                                1 to createAccountEntity(1),
+                                2 to createAccountEntity(2)
+                        )
+                )
+        val expectBalanceDTO = Optional.of(BalanceDTO(1, 100, 100.0))
+
+        //  When -> quando
+        val actualReturn = accountRepository.getBalanceByClientId(1)
+
+        //  Then -> então
+        Assertions.assertThat(actualReturn).isEqualTo(expectBalanceDTO)
     }
 
     private fun createAccountEntity(

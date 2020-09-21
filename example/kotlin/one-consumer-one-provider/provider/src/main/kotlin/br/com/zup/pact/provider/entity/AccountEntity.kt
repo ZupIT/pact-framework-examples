@@ -18,7 +18,11 @@ data class AccountEntity(
         )
     }
 
-//    fun toBalanceDTO(): BalanceDTO {
-//
-//    }
+    fun toBalanceDTO(): BalanceDTO {
+        return BalanceDTO(
+                accountId = accountId,
+                clientId = clientId,
+                balance = balance
+        )
+    }
 }
