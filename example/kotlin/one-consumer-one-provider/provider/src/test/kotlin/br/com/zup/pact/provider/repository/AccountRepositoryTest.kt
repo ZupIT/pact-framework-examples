@@ -5,10 +5,12 @@ import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import br.com.zup.pact.provider.stub.AccountStub
+import io.mockk.clearMocks
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import org.assertj.core.api.Assertions
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import java.util.*
@@ -17,6 +19,11 @@ import java.util.*
 class AccountRepositoryTest {
     private val accountStubMock: AccountStub = mockk()
     private val accountRepository: AccountRepository = AccountRepository(accountStubMock)
+
+    @BeforeEach
+    fun setUp() {
+        clearMocks(accountStubMock)
+    }
 
     @Test
     fun `Method getAll should return the AccountDetailsDTO objects returned by the stub`() {
