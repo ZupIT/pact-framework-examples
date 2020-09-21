@@ -18,7 +18,7 @@ class AccountServiceImpl(@Autowired val accountRepository: AccountRepository): A
     }
 
     override fun getBalanceByClientId(clientId: Int): Optional<BalanceDTO> {
-        TODO("Not yet implemented")
+        return accountRepository.getBalanceByClientId(clientId)
     }
 
 }

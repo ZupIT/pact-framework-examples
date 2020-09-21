@@ -1,6 +1,7 @@
 package br.com.zup.pact.provider.service
 
 import br.com.zup.pact.provider.dto.AccountDetailsDTO
+import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.enum.AccountType
 import br.com.zup.pact.provider.repository.AccountRepository
 import io.mockk.clearMocks
@@ -66,4 +67,24 @@ class AccountServiceImplTest {
         )
     }
 
+    @Test
+    fun `Method getBalanceByClientId should return getBalanceByClientId from the repository`() {
+
+        every { accountRepositoryMock.getBalanceByClientId(1) }
+                .returns(Optional.of(BalanceDTO(
+                        accountId = 1,
+                        clientId = 1,
+                        balance = 100.0
+                )))
+
+        val expectedBalanceDTO = accountService.getBalanceByClientId(1)
+
+        Assertions.assertThat(expectedBalanceDTO).isEqualTo(
+                Optional.of(BalanceDTO(
+                        accountId = 1,
+                        clientId = 1,
+                        balance = 100.0
+                ))
+        )
+    }
 }
