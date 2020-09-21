@@ -1,5 +1,6 @@
 package br.com.zup.pact.provider.stub
 
+import br.com.zup.pact.provider.dto.AccountDetailsDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import org.springframework.stereotype.Component
@@ -12,4 +13,7 @@ class AccountStub {
 
     val accounts = mutableMapOf<Int, AccountEntity>()
 
+    fun getAllStubsDTOFormat(): List<AccountDetailsDTO> {
+        return accounts.values.map(AccountEntity::toAccountDetailsDTO)
+    }
 }
