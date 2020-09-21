@@ -52,6 +52,25 @@ class AccountRepositoryTest {
         Assertions.assertThat(actualReturn).isEqualTo(expectBalanceDTO)
     }
 
+    @Test
+    fun `Method getBalanceByClientId should return Optional empty when stub does not have the ClientId`() {
+        //  Given -> dado
+        every { accountStubMock.accounts }
+                .returns(
+                        mutableMapOf<Int, AccountEntity>(
+                                1 to createAccountEntity(1),
+                                2 to createAccountEntity(2)
+                        )
+                )
+        val expectedBalanceDTO = Optional.empty<BalanceDTO>()
+
+        //  When -> quando
+        val actualReturn = accountRepository.getBalanceByClientId(3)
+
+        //  Then -> então
+        Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
+    }
+
     private fun createAccountEntity(
             accountId: Int,
             clientId: Int = 100,
