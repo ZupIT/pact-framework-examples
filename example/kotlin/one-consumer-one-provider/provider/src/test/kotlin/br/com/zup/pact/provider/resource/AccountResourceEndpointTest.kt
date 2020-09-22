@@ -3,18 +3,16 @@ package br.com.zup.pact.provider.resource
 import br.com.zup.pact.provider.dto.AccountDetailsDTO
 import br.com.zup.pact.provider.enum.AccountType
 import br.com.zup.pact.provider.service.AccountService
-import io.mockk.MockKAnnotations
+import io.mockk.Matcher
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import org.junit.jupiter.api.BeforeEach
+import org.assertj.core.api.Assertions
+import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
-import org.mockito.Mock
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Bean
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -52,6 +50,30 @@ class AccountResourceEndpointTest(
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").value(accountId))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.balance").value(balance))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountType").value(accountType.toString()))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun getAll() {
+        val accountDetailsDTO1 = AccountDetailsDTO(1, 5.0, AccountType.COMMON)
+        val accountDetailsDTO2 = AccountDetailsDTO(2, 6.0, AccountType.COMMON)
+        val accountDetailsDTO3 = AccountDetailsDTO(3, 8.0, AccountType.COMMON)
+        val accountDetailsDTO4 = AccountDetailsDTO(4, 90.0, AccountType.COMMON)
+
+        val accountDetailsDTOList: List<AccountDetailsDTO> = arrayListOf(
+                accountDetailsDTO1, accountDetailsDTO2, accountDetailsDTO3, accountDetailsDTO4)
+
+        every { accountService.getAll() }
+                .returns(accountDetailsDTOList)
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(accountDetailsDTOList.size))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountId").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].balance").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountType").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountId").value(accountDetailsDTO1.accountId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].balance").value(accountDetailsDTO1.balance))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountType").value(accountDetailsDTO1.accountType.toString()))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
 }

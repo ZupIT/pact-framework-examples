@@ -16,7 +16,6 @@ import java.util.*
 @RestController
 @RequestMapping("/v1/accounts")
 class AccountResourceEndpoint(val accountService: AccountService) {
-
     @GetMapping("/{clientId}")
     @ApiOperation(value = "Get Account Details by client id", response = AccountDetailsDTO::class)
     @ApiResponses(
@@ -26,6 +25,21 @@ class AccountResourceEndpoint(val accountService: AccountService) {
     fun getAccountDetailsByClientId(@PathVariable("clientId") clientId: Int): ResponseEntity<AccountDetailsDTO>{
         val accountDetailsDTO: Optional<AccountDetailsDTO> = accountService.getAccountDetailsByClientId(clientId);
         return if (accountDetailsDTO.isPresent) ResponseEntity(accountDetailsDTO.get(), HttpStatus.OK)
+            else ResponseEntity(HttpStatus.NOT_FOUND)
+    }
+
+    @GetMapping
+    @ApiOperation(notes = "Return all Accounts",
+            value = "Get all Accounts Details",
+            nickname = "getAll",
+            response = AccountDetailsDTO::class)
+    @ApiResponses(
+            ApiResponse(code = 200, message = "AccountReturned", response = AccountDetailsDTO::class),
+            ApiResponse(code = 404, message = "Account not found")
+    )
+    fun getAll(): ResponseEntity<List<AccountDetailsDTO>> {
+        val allAccounts: List<AccountDetailsDTO> = accountService.getAll()
+        return if (allAccounts.isNotEmpty()) ResponseEntity(allAccounts, HttpStatus.OK)
             else ResponseEntity(HttpStatus.NOT_FOUND)
     }
 }
