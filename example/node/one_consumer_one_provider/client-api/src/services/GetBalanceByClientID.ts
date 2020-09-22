@@ -5,7 +5,7 @@ interface Response extends AxiosResponse {
   data: Account;
 }
 
-interface Account {
+export interface Account {
   clientID: number;
   accountID: number;
   balance: number;
