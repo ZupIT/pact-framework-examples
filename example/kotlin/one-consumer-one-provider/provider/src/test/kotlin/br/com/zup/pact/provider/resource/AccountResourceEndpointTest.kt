@@ -4,11 +4,8 @@ import br.com.zup.pact.provider.dto.AccountDetailsDTO
 import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.enum.AccountType
 import br.com.zup.pact.provider.service.AccountService
-import io.mockk.Matcher
 import io.mockk.every
 import io.mockk.mockk
-import org.assertj.core.api.Assertions
-import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -85,6 +82,18 @@ class AccountResourceEndpointTest(
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].balance").value(accountDetailsDTO1.balance))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountType").value(accountDetailsDTO1.accountType.toString()))
                 .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun getAllByNonExistentClients() {
+        val allAccounts: List<AccountDetailsDTO> = arrayListOf()
+        every { accountService.getAll() }.returns(allAccounts)
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].balance").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.[0].accountType").doesNotExist())
+                .andExpect(MockMvcResultMatchers.status().`is`(404))
     }
 
     @Test
