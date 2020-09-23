@@ -55,6 +55,15 @@ class AccountResourceEndpointTest(
     }
 
     @Test
+    fun getAccountDetailsByNonExistentClientId() {
+        every { accountService.getAccountDetailsByClientId(any()) }
+                .returns(Optional.empty())
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().`is`(404))
+    }
+
+    @Test
     fun getAll() {
         val accountDetailsDTO1 = AccountDetailsDTO(1, 5.0, AccountType.COMMON)
         val accountDetailsDTO2 = AccountDetailsDTO(2, 6.0, AccountType.COMMON)
@@ -97,4 +106,5 @@ class AccountResourceEndpointTest(
                 .andExpect(MockMvcResultMatchers.jsonPath("$.balance").value(balance))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
+
 }
