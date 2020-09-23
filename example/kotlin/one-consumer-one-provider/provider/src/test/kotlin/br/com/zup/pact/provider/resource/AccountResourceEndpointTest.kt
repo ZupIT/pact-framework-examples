@@ -116,4 +116,17 @@ class AccountResourceEndpointTest(
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
+    @Test
+    fun getBalanceByNonExistentClientId() {
+        every { accountService.getBalanceByClientId(any()) }
+                .returns(Optional.empty())
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/balance/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.balance").doesNotExist())
+                .andExpect(MockMvcResultMatchers.status().`is`(404))
+    }
+
 }
