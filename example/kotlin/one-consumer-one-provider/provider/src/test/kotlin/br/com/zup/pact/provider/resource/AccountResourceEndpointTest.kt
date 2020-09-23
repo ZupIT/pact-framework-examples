@@ -57,6 +57,9 @@ class AccountResourceEndpointTest(
                 .returns(Optional.empty())
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/1"))
                 .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.balance").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountType").doesNotExist())
                 .andExpect(MockMvcResultMatchers.status().`is`(404))
     }
 
