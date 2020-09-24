@@ -17,21 +17,23 @@ import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.context.TestConfiguration
+import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.net.URL
 import java.util.*
 
-
 @Provider("AccountBalanceProvider")
 @PactBroker(host = "localhost", port = "9292")
-//  @PactBroker
 @VerificationReports
 @ExtendWith(SpringExtension::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AccountProviderPactTest {
     @Autowired
     private lateinit var accountService: AccountService
+
+    @LocalServerPort
+    private var localPort: Int? = null
 
     @TestConfiguration
     class AccountResourceEndpointTestConfig {
@@ -41,7 +43,7 @@ class AccountProviderPactTest {
 
     @BeforeEach
     fun setUp(context: PactVerificationContext) {
-        context.target = HttpTestTarget.fromUrl(URL("http://localhost:" + 9292))
+        context.target = HttpTestTarget.fromUrl(URL("http://localhost:$localPort"))
     }
 
     @TestTemplate
@@ -52,17 +54,17 @@ class AccountProviderPactTest {
 
     @State("No accounts exist from accountId 1000")
     fun getBalanceDTONotWorking() {
-        every { accountService.getBalanceByClientId(1) }
+        every { accountService.getBalanceByClientId(1000) }
                 .returns(Optional.empty())
     }
 
-//    @State("get balance of accountId 1")
-//    fun getBalanceDTO() {
-//        val accountId = 1
-//        val clientId = 1
-//        val balance = 100.0
-//        val balanceDTO = BalanceDTO(accountId, clientId, balance)
-//        every { accountService.getBalanceByClientId(1) }
-//                .returns(Optional.ofNullable(balanceDTO))
-//    }
+    @State("get balance of accountId 1")
+    fun getBalanceDTO() {
+        val accountId = 1
+        val clientId = 1
+        val balance = 100.0
+        val balanceDTO = BalanceDTO(accountId, clientId, balance)
+        every { accountService.getBalanceByClientId(1) }
+                .returns(Optional.ofNullable(balanceDTO))
+    }
 }
