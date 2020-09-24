@@ -28,12 +28,12 @@ class AccountRepositoryTest {
     @Test
     fun `Method getAll should return the AccountDetailsDTO objects returned by the stub`() {
         //  Given
-        every { accountStubMock.getAllStubsDTOFormat() }.returns(mutableListOf(
+        every { accountStubMock.getAllStubsAccountDTOFormat() }.returns(mutableListOf(
                 createAccountDetailsDTOList(), createAccountDetailsDTOList()
         ))
 
         //  When
-        val actualReturn = accountRepository.getAll()
+        val actualReturn = accountRepository.getAllAccounts()
 
         //  Then
         Assertions.assertThat(actualReturn)
@@ -85,7 +85,7 @@ class AccountRepositoryTest {
                 .returns(
                         mutableMapOf<Int, AccountEntity>()
                 )
-        val expectedBalanceDTO = Optional.empty<BalanceDTO>()
+        val expectedBalanceDTO: BalanceDTO? = null
 
         //  When
         val actualReturn = accountRepository.getBalanceByClientId(3)

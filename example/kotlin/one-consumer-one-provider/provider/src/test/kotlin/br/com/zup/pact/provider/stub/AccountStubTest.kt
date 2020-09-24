@@ -36,7 +36,7 @@ class AccountStubTest {
         val initialBalance = 100.0
         val initialAccountType = AccountType.COMMON
 
-        val result: List<AccountDetailsDTO> = accountStub.getAllStubsDTOFormat()
+        val result: List<AccountDetailsDTO> = accountStub.getAllStubsAccountDTOFormat()
 
         Assertions.assertThat(result).hasSize(numberOfStubs)
 

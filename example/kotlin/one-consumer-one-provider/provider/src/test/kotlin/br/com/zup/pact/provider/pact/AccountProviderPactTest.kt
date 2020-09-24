@@ -55,7 +55,7 @@ class AccountProviderPactTest {
     @State("No accounts exist from accountId 1000")
     fun getBalanceDTONotWorking() {
         every { accountService.getBalanceByClientId(1000) }
-                .returns(Optional.empty())
+                .returns(null)
     }
 
     @State("get balance of accountId 1")
@@ -65,6 +65,6 @@ class AccountProviderPactTest {
         val balance = 100.0
         val balanceDTO = BalanceDTO(accountId, clientId, balance)
         every { accountService.getBalanceByClientId(1) }
-                .returns(Optional.ofNullable(balanceDTO))
+                .returns(balanceDTO)
     }
 }

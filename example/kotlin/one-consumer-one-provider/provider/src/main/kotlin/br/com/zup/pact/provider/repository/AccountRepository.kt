@@ -11,25 +11,20 @@ import java.util.*
 @Component
 class AccountRepository (@Autowired val accountStub: AccountStub) {
 
-    fun findByClientId(clientId: Int): Optional<AccountDetailsDTO> {
-        return Optional.ofNullable(
-                accountStub.accounts.values
-                        .filter { entity -> entity.accountId == clientId }
-                        .map(AccountEntity::toAccountDetailsDTO)
-                        .getOrNull(0)
-        )
+    fun findByClientId(clientId: Int): AccountDetailsDTO? {
+        return getAllAccounts().firstOrNull { entity -> entity.accountId == clientId }
     }
 
-    fun getAll(): List<AccountDetailsDTO> {
-        return accountStub.getAllStubsDTOFormat()
+    fun getAllAccounts(): List<AccountDetailsDTO> {
+        return accountStub.getAllStubsAccountDTOFormat()
     }
 
-    fun getBalanceByClientId(clientId: Int): Optional<BalanceDTO> {
-        return Optional.ofNullable(
-                accountStub.accounts.values.filter { entity -> entity.accountId == clientId }
-                        .map { accountEntity -> accountEntity.toBalanceDTO() }
-                        //.map(AccountEntity::toBalanceDTO)
-                        .getOrNull(index = 0)
-        )
+    fun getAllAccountBalance(): List<BalanceDTO> {
+        return accountStub.getAllStubsBalanceDTOFormat()
+    }
+
+    fun getBalanceByClientId(clientId: Int): BalanceDTO? {
+        return getAllAccountBalance().firstOrNull { entity -> entity.accountId == clientId }
+
     }
 }
