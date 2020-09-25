@@ -27,22 +27,20 @@ class AccountRepositoryTest {
 
     @Test
     fun `Method getAll should return the AccountDetailsDTO objects returned by the stub`() {
-        //  Given
+
         every { accountStubMock.getAllStubsDTOFormat() }.returns(mutableListOf(
                 createAccountDetailsDTOList(), createAccountDetailsDTOList()
         ))
 
-        //  When
         val actualReturn = accountRepository.getAll()
 
-        //  Then
         Assertions.assertThat(actualReturn)
                 .containsExactly(createAccountDetailsDTOList(), createAccountDetailsDTOList())
     }
 
     @Test
     fun `Method getBalanceByClientId should return the BalanceDTO list when stub return AccountEntity list`() {
-        //  Given -> dado
+
         every { accountStubMock.accounts }
                 .returns(
                         mutableMapOf(
@@ -52,16 +50,14 @@ class AccountRepositoryTest {
                 )
         val expectBalanceDTO = Optional.of(BalanceDTO(1, 100, 100.0))
 
-        //  When -> quando
         val actualReturn = accountRepository.getBalanceByClientId(1)
 
-        //  Then -> então
         Assertions.assertThat(actualReturn).isEqualTo(expectBalanceDTO)
     }
 
     @Test
     fun `Method getBalanceByClientId should return Optional empty when stub does not have the ClientId`() {
-        //  Given -> dado
+
         every { accountStubMock.accounts }
                 .returns(
                         mutableMapOf<Int, AccountEntity>(
@@ -71,26 +67,22 @@ class AccountRepositoryTest {
                 )
         val expectedBalanceDTO = Optional.empty<BalanceDTO>()
 
-        //  When -> quando
         val actualReturn = accountRepository.getBalanceByClientId(3)
 
-        //  Then -> então
         Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
     }
 
     @Test
     fun `Method getBalanceByClientId should return Optional empty when stub returns is empty`() {
-        //  Given
+
         every { accountStubMock.accounts }
                 .returns(
                         mutableMapOf<Int, AccountEntity>()
                 )
         val expectedBalanceDTO = Optional.empty<BalanceDTO>()
 
-        //  When
         val actualReturn = accountRepository.getBalanceByClientId(3)
 
-        //  Then
         Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
     }
 

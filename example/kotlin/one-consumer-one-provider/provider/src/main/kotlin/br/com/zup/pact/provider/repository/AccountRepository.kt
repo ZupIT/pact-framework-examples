@@ -27,8 +27,7 @@ class AccountRepository (@Autowired val accountStub: AccountStub) {
     fun getBalanceByClientId(clientId: Int): Optional<BalanceDTO> {
         return Optional.ofNullable(
                 accountStub.accounts.values.filter { entity -> entity.accountId == clientId }
-                        .map { accountEntity -> accountEntity.toBalanceDTO() }
-                        //.map(AccountEntity::toBalanceDTO)
+                        .map(AccountEntity::toBalanceDTO)
                         .getOrNull(index = 0)
         )
     }
