@@ -4,8 +4,4 @@ export const APP_URL = `http://localhost:${APP_PORT}`;
 
 export const PACT_BROKER_URL = 'http://localhost:9292';
 
-export const accountMocked = {
-  clientID: 1,
-  accountID: 10,
-  balance: 100,
-};
+export const GRPC_SERVER_URL = 'http://localhost:50051';
