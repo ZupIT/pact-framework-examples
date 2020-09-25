@@ -1,5 +1,5 @@
-I, [2020-08-12T08:49:51.977987 #17997]  INFO -- : Registered expected interaction GET /balance/1
-D, [2020-08-12T08:49:51.978315 #17997] DEBUG -- : {
+I, [2020-09-25T16:47:00.074863 #265616]  INFO -- : Registered expected interaction GET /balance/1
+D, [2020-09-25T16:47:00.075319 #265616] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -12,15 +12,24 @@ D, [2020-08-12T08:49:51.978315 #17997] DEBUG -- : {
       "Content-Type": "application/json; charset=utf-8"
     },
     "body": {
-      "clientID": 1,
-      "accountID": 10,
-      "balance": 100
+      "clientID": {
+        "json_class": "Pact::SomethingLike",
+        "contents": 13.01
+      },
+      "fantasyName": {
+        "json_class": "Pact::SomethingLike",
+        "contents": "iloveorange"
+      },
+      "balance": {
+        "json_class": "Pact::SomethingLike",
+        "contents": 13.01
+      }
     }
   },
   "metadata": null
 }
-I, [2020-08-12T08:49:51.980770 #17997]  INFO -- : Received request GET /balance/1
-D, [2020-08-12T08:49:51.981033 #17997] DEBUG -- : {
+I, [2020-09-25T16:47:00.078492 #265616]  INFO -- : Received request GET /balance/1
+D, [2020-09-25T16:47:00.078663 #265616] DEBUG -- : {
   "path": "/balance/1",
   "query": "",
   "method": "get",
@@ -32,18 +41,27 @@ D, [2020-08-12T08:49:51.981033 #17997] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-08-12T08:49:51.981314 #17997]  INFO -- : Found matching response for GET /balance/1
-D, [2020-08-12T08:49:51.981417 #17997] DEBUG -- : {
+I, [2020-09-25T16:47:00.078999 #265616]  INFO -- : Found matching response for GET /balance/1
+D, [2020-09-25T16:47:00.079217 #265616] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
   },
   "body": {
-    "clientID": 1,
-    "accountID": 10,
-    "balance": 100
+    "clientID": {
+      "json_class": "Pact::SomethingLike",
+      "contents": 13.01
+    },
+    "fantasyName": {
+      "json_class": "Pact::SomethingLike",
+      "contents": "iloveorange"
+    },
+    "balance": {
+      "json_class": "Pact::SomethingLike",
+      "contents": 13.01
+    }
   }
 }
-I, [2020-08-12T08:49:51.989328 #17997]  INFO -- : Verifying - interactions matched
-I, [2020-08-12T08:49:51.993789 #17997]  INFO -- : Cleared interactions
-I, [2020-08-12T08:49:51.999955 #17997]  INFO -- : Writing pact for AccountApi to /home/iann/dev/projects/dtp-pact-examples/example/node/two_consumer_one_producer/legal-person-client/pacts/legalpersonclient-accountapi.json
+I, [2020-09-25T16:47:00.084998 #265616]  INFO -- : Verifying - interactions matched
+I, [2020-09-25T16:47:00.089705 #265616]  INFO -- : Cleared interactions
+I, [2020-09-25T16:47:00.095218 #265616]  INFO -- : Writing pact for AccountApi to /home/iann/dev/projects/pact-framework-examples/example/node/two_consumers_one_provider/legal-person-client/pacts/legalpersonclient-accountapi.json

@@ -8,7 +8,7 @@ describe('Pact', () => {
     log: path.resolve(process.cwd(), 'logs', 'pact.log'),
     dir: path.resolve(process.cwd(), 'pacts'),
     provider: 'AccountApi',
-    consumer: 'CommonPersonClient',
+    consumer: 'LegalPersonClient',
   });
 
   describe('Given an existing ID', () => {
@@ -25,8 +25,9 @@ describe('Pact', () => {
             status: 200,
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
             body: {
+              clientID: Matchers.decimal(),
+              fantasyName: Matchers.string(),
               balance: Matchers.decimal(),
-              name: Matchers.string(),
             },
           },
         });
