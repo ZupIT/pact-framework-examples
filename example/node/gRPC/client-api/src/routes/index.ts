@@ -7,6 +7,8 @@ const productService = new ProductController();
 routes.use((req, _res, next) => {
   const { method, url } = req;
 
+  console.log(req.path);
+
   console.log(`[${method.toUpperCase()}] ${url}`);
 
   return next();

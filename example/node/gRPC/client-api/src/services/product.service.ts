@@ -5,7 +5,7 @@ export const PROTO_PATH = __dirname + '/../../../pb/products.proto';
 
 export class ProductService {
 
-  options?: ClientOptions;
+  options?: ClientOptions = {};
   client: any;
 
   constructor(options?: ClientOptions) {
@@ -19,7 +19,7 @@ export class ProductService {
     return new Promise((resolve, reject) => {
       this.client.findById({value: `${id}`}, (err: any, response: any) => err ? reject(err) : resolve(response));
     });
-
+    
   }
 
   private createClient() {

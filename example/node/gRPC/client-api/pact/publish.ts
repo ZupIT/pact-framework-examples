@@ -1,6 +1,6 @@
 import { Publisher } from '@pact-foundation/pact';
 import path from 'path';
-import { PACT_BROKER_URL } from '../constants';
+import { PACT_BROKER_URL } from '../src/constants';
 
 const publish = new Publisher({
   pactBroker: PACT_BROKER_URL,
