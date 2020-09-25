@@ -12,12 +12,17 @@ export class HtttpRequester implements Partial<FullRequester> {
     }
 
     sendMessage = (message: any, next: (message: any) => void ) => {
-        axios.get(`${this.mockServerBaseUrl}/grpc${this.options.method_definition.path}/1`)
+
+        const url = `${this.mockServerBaseUrl}/grpc${this.options.method_definition.path}`;
+
+        console.log(`Executing request for ${url}`)
+
+        axios.post(url, message)
+        .then(() => next(message))
         .then(() => console.log('GRPC <-> MOCK_SERVER : Success ! '))
         .catch( error => { 
             console.log('GRPC <-> MOCK_SERVER : ERROR ! ');
             console.log(error);
-        })
-        .then(() => next(message));
+        });
     };
 }

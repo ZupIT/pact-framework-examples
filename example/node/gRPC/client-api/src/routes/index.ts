@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { findProductById } from '../services/product.service';
+import ProductController from '../controlles/product.controller';
 
 const routes = Router();
+const productService = new ProductController();
 
 routes.use((req, _res, next) => {
   const { method, url } = req;
@@ -11,18 +12,6 @@ routes.use((req, _res, next) => {
   return next();
 });
 
-routes.get('/product/:id', async (req, res) => {
-  
-  const productId = req.params.id;
-
-  try {
-    const response = await findProductById(Number(productId));
-    return res.status(200).json(response);
-  } catch (error) {
-    console.log(error);
-    return res.status(500);
-  }
-
-});
+routes.get('/product/:id', productService.findById );
 
 export default routes;

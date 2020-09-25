@@ -4,7 +4,7 @@ import { PACT_BROKER_URL } from '../constants';
 
 const publish = new Publisher({
   pactBroker: PACT_BROKER_URL,
-  pactFilesOrDirs: [path.resolve(process.cwd(), 'pacts')],
+  pactFilesOrDirs: [path.resolve(process.cwd(), 'pact/pacts')],
   consumerVersion: process.version,
 });
 
