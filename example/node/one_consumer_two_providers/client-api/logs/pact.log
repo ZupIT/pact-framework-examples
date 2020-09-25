@@ -1,5 +1,5 @@
-I, [2020-09-04T13:41:58.235443 #20537]  INFO -- : Registered expected interaction GET /prime/1
-D, [2020-09-04T13:41:58.237417 #20537] DEBUG -- : {
+I, [2020-09-24T15:50:47.012973 #181875]  INFO -- : Registered expected interaction GET /prime/1
+D, [2020-09-24T15:50:47.013448 #181875] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -24,8 +24,8 @@ D, [2020-09-04T13:41:58.237417 #20537] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2020-09-04T13:41:58.247566 #20537]  INFO -- : Received request GET /prime/1
-D, [2020-09-04T13:41:58.248509 #20537] DEBUG -- : {
+I, [2020-09-24T15:50:47.016361 #181875]  INFO -- : Received request GET /prime/1
+D, [2020-09-24T15:50:47.016588 #181875] DEBUG -- : {
   "path": "/prime/1",
   "query": "",
   "method": "get",
@@ -37,8 +37,8 @@ D, [2020-09-04T13:41:58.248509 #20537] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-09-04T13:41:58.249527 #20537]  INFO -- : Found matching response for GET /prime/1
-D, [2020-09-04T13:41:58.250050 #20537] DEBUG -- : {
+I, [2020-09-24T15:50:47.017311 #181875]  INFO -- : Found matching response for GET /prime/1
+D, [2020-09-24T15:50:47.017583 #181875] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
@@ -54,6 +54,6 @@ D, [2020-09-04T13:41:58.250050 #20537] DEBUG -- : {
     }
   }
 }
-I, [2020-09-04T13:41:58.257209 #20537]  INFO -- : Verifying - interactions matched
-I, [2020-09-04T13:41:58.262495 #20537]  INFO -- : Cleared interactions
-I, [2020-09-04T13:41:58.268749 #20537]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/tony.silva/Documents/PACT/pact-framework-examples/example/node/one_consumer_two_providers/client-api/pacts/clientapi-primeaccountdetailsapi.json
+I, [2020-09-24T15:50:47.021644 #181875]  INFO -- : Verifying - interactions matched
+I, [2020-09-24T15:50:47.025434 #181875]  INFO -- : Cleared interactions
+I, [2020-09-24T15:50:47.029690 #181875]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/iann/dev/projects/pact-framework-examples/example/node/one_consumer_two_providers/client-api/pacts/clientapi-primeaccountdetailsapi.json

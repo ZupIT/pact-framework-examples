@@ -1,7 +1,7 @@
 import { Verifier } from '@pact-foundation/pact';
 import express from 'express';
 import { Server } from 'http';
-import { APP_PORT, APP_URL, PACT_BROKER_URL, primeAccountMocked } from '../constants';
+import { ACCOUNTS, APP_PORT, APP_URL, PACT_BROKER_URL } from '../constants';
 import routes from '../routes';
 
 describe('Pact verification', () => {
@@ -12,20 +12,22 @@ describe('Pact verification', () => {
       .use(express.json())
       .use(routes)
       .listen(APP_PORT, () =>
-        console.log(`PrimeAccountDetailsApi listening on port ${APP_PORT}`),
+        console.log(`AccountApi listening on port ${APP_PORT}`),
       );
   });
 
   it('checking if provider agrees with consumer', async () => {
+    const account = ACCOUNTS.find(acc => acc.clientID === 1);
+
     const verify = new Verifier({
       providerBaseUrl: APP_URL,
       pactBrokerUrl: PACT_BROKER_URL,
-      provider: 'PrimeAccountDetailsApi',
+      provider: 'AccountApi',
       publishVerificationResult: true,
       providerVersion: '1.0.0',
       stateHandlers: {
-        'one client with your account': async () => primeAccountMocked
-      }
+        'one client with your account': async () => account,
+      },
     });
 
     await verify
