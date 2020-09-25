@@ -5,7 +5,7 @@ import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import java.util.*
 
 interface ClientService {
-    fun getClientDetailsByClientId(clientId: Int): Optional<ClientDetailsDTO>
+    fun getClientDetails(clientId: Int): Optional<ClientDetailsDTO>
     fun getAll(): List<ClientDetailsDTO>
-    fun getBalanceByClientId(clientId: Int): Optional<BalanceDTO>
+    fun getBalance(clientId: Int): Optional<BalanceDTO>
 }

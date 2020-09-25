@@ -56,9 +56,9 @@ class ClientStubTest() {
                     .usingRecursiveComparison()
                     .ignoringFields("name", "finalName", "age")
                     .isEqualTo(actualEntity)
-            Assertions.assertThat(actualEntity?.name).isNotBlank()
-            Assertions.assertThat(actualEntity?.finalName).isNotBlank()
-            Assertions.assertThat(actualEntity?.age).isBetween(minAge, maxAge)
+            Assertions.assertThat(actualEntity.name).isNotBlank()
+            Assertions.assertThat(actualEntity.finalName).isNotBlank()
+            Assertions.assertThat(actualEntity.age).isBetween(minAge, maxAge)
         }
     }
 }

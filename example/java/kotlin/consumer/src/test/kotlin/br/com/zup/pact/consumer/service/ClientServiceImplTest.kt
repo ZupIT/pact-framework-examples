@@ -31,12 +31,12 @@ class ClientServiceImplTest {
     }
 
     @Test
-    fun `Method getClientDetailsByClientId should return findByClientId from the repository`() {
+    fun `Method getClientDetails should return findByClientId from the repository`() {
 
         every { clientRepositoryMock.findByClientId(1) }
                 .returns(Optional.of(createClientDetailsDTO(accountId = 1)))
 
-        val expectedAccountDetailsDTO = clientService.getClientDetailsByClientId(1)
+        val expectedAccountDetailsDTO = clientService.getClientDetails(1)
 
         Assertions.assertThat(expectedAccountDetailsDTO).isEqualTo(
                 Optional.of(createClientDetailsDTO(accountId = 1))
@@ -57,7 +57,7 @@ class ClientServiceImplTest {
     }
 
     @Test
-    fun `Method getBalanceByClientId should return Optional of BalanceDTO`() {
+    fun `Method getBalance should return Optional of BalanceDTO`() {
 
         every { clientRepositoryMock.findByClientId(1) }
                 .returns(Optional.of(createClientDetailsDTO(accountId = 2)))
@@ -69,7 +69,7 @@ class ClientServiceImplTest {
                         balance = 100.0
                 )))
 
-        val expectedBalanceDTO = clientService.getBalanceByClientId(1)
+        val expectedBalanceDTO = clientService.getBalance(1)
 
         Assertions.assertThat(expectedBalanceDTO).isEqualTo(
                 Optional.of(BalanceDTO(
@@ -81,13 +81,13 @@ class ClientServiceImplTest {
     }
 
     @Test
-    fun `Method getBalanceByClientId should throw ClientNotFoundException when ClientDetails is null`() {
+    fun `Method getBalance should throw ClientNotFoundException when ClientDetails is null`() {
 
         every { clientRepositoryMock.findByClientId(1) }
                 .returns(Optional.empty())
 
         Assertions.assertThatExceptionOfType(ClientNotFoundException::class.java)
-                .isThrownBy { clientService.getBalanceByClientId(1) }
+                .isThrownBy { clientService.getBalance(1) }
     }
 
     private fun createClientDetailsDTO(

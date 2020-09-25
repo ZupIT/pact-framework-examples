@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package br.com.zup.pact.client.resource;
+
+message ClientRequest {
+  int32 clientId = 1;
+}
+
+message BalanceResponse {
+  int32 clientId = 1;
+  int32 accountId = 2;
+  double balance = 3;
+}
+
+service ClientResource {
+  rpc getBalance(ClientRequest) returns (BalanceResponse){}
+}
+

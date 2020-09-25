@@ -15,7 +15,7 @@ class ClientServiceImpl(
         @Autowired val accountIntegrationService: AccountIntegrationService
 ) : ClientService {
 
-    override fun getClientDetailsByClientId(clientId: Int): Optional<ClientDetailsDTO> {
+    override fun getClientDetails(clientId: Int): Optional<ClientDetailsDTO> {
         return clientRepository.findByClientId(clientId)
     }
 
@@ -23,13 +23,13 @@ class ClientServiceImpl(
         return clientRepository.getAll()
     }
 
-    override fun getBalanceByClientId(clientId: Int): Optional<BalanceDTO> {
+    override fun getBalance(clientId: Int): Optional<BalanceDTO> {
         val accountId = getAccountId(clientId)
         return accountIntegrationService.getBalance(accountId)
     }
 
     private fun getAccountId(clientId: Int): Int {
-        return getClientDetailsByClientId(clientId)
+        return getClientDetails(clientId)
                 .orElseThrow { ClientNotFoundException("Client with id: $clientId") }
                 .accountId
     }
