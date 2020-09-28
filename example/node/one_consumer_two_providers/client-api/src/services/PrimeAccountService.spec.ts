@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { APP_URL, EXISTENT_CLIENT_ID } from '../constants';
 import { PrimeAccountService } from './PrimeAccountService';
 
 jest.mock('axios');
@@ -16,15 +17,12 @@ describe('PrimeAccountService', () => {
     mockedAxios.get.mockImplementationOnce(() => Promise.resolve(mockValue));
 
     const response = await primeAccountService.getPrimeAccountDetailsByClientID(
-      1,
+      EXISTENT_CLIENT_ID,
     );
 
+    expect(axios.get).toHaveBeenCalledWith(
+      `${APP_URL}/prime/${EXISTENT_CLIENT_ID}`,
+    );
     expect(response).toEqual(mockValue.data);
-  });
-
-  it('should get an error when entering a non-existing ID', async () => {
-    await expect(
-      primeAccountService.getPrimeAccountDetailsByClientID(919119),
-    ).rejects.toThrowError("Client doesn't exist");
   });
 });

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { APP_URL, EXISTENT_CLIENT_ID } from '../constants';
 import { AccountService } from './AccountService';
 
 jest.mock('axios');
@@ -13,18 +14,17 @@ describe('AccountService', () => {
   it('should get account when entering an existing ID', async () => {
     const mockedAxios = axios as jest.Mocked<typeof axios>;
     const mockValue = {
-      data: { fantasyName: 'Empresa do Zézin', clientID: 2, balance: 1000 },
+      data: { fantasyName: 'Any Fantasy Name', clientID: 1, balance: 1000 },
     };
     mockedAxios.get.mockImplementationOnce(() => Promise.resolve(mockValue));
 
-    const response = await accountService.getBalanceByClientID(2);
+    const response = await accountService.getBalanceByClientID(
+      EXISTENT_CLIENT_ID,
+    );
 
+    expect(axios.get).toHaveBeenCalledWith(
+      `${APP_URL}/balance/${EXISTENT_CLIENT_ID}`,
+    );
     expect(response).toEqual(mockValue.data);
-  });
-
-  it('should get an error when entering a non-existing ID', async () => {
-    await expect(
-      accountService.getBalanceByClientID(919119),
-    ).rejects.toThrowError("Client doesn't exist");
   });
 });

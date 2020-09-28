@@ -1,24 +1,23 @@
 import axios, { AxiosResponse } from 'axios';
-import { APP_URL, CLIENTS } from '../constants';
+import { APP_URL } from '../constants';
+import { ClientRepository } from '../repositories/ClientRepository';
 
 interface Response extends AxiosResponse {
   data: Prime;
 }
 
 interface Prime {
+  clientID: number;
   isPrime: boolean;
   discountPercentageFee: number;
 }
 
 export class PrimeAccountService {
   public async getPrimeAccountDetailsByClientID(id: number): Promise<Prime> {
-    const client = CLIENTS.find(clientID => clientID === id);
+    const clientRepository = new ClientRepository();
+    const client = clientRepository.findClientByID(id);
 
-    if (!client) {
-      throw new Error("Client doesn't exist");
-    }
-
-    const response: Response = await axios.get(`${APP_URL}/prime/${id}`);
+    const response: Response = await axios.get(`${APP_URL}/prime/${client}`);
 
     return response.data;
   }

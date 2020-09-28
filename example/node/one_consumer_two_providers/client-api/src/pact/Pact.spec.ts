@@ -67,6 +67,7 @@ describe('Pact with PrimeAccountDetails', () => {
             status: 200,
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
             body: {
+              clientID: Matchers.decimal(),
               isPrime: Matchers.boolean(),
               discountPercentageFee: Matchers.decimal(),
             },

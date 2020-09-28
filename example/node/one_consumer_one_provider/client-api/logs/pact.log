@@ -1,5 +1,5 @@
-I, [2020-09-22T17:31:34.678842 #78939]  INFO -- : Registered expected interaction GET /balance/1
-D, [2020-09-22T17:31:34.679344 #78939] DEBUG -- : {
+I, [2020-09-28T17:32:20.090627 #49177]  INFO -- : Registered expected interaction GET /balance/1
+D, [2020-09-28T17:32:20.091166 #49177] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -28,8 +28,8 @@ D, [2020-09-22T17:31:34.679344 #78939] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2020-09-22T17:31:34.681984 #78939]  INFO -- : Received request GET /balance/1
-D, [2020-09-22T17:31:34.682668 #78939] DEBUG -- : {
+I, [2020-09-28T17:32:20.094855 #49177]  INFO -- : Received request GET /balance/1
+D, [2020-09-28T17:32:20.095054 #49177] DEBUG -- : {
   "path": "/balance/1",
   "query": "",
   "method": "get",
@@ -41,8 +41,8 @@ D, [2020-09-22T17:31:34.682668 #78939] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-09-22T17:31:34.683149 #78939]  INFO -- : Found matching response for GET /balance/1
-D, [2020-09-22T17:31:34.683387 #78939] DEBUG -- : {
+I, [2020-09-28T17:32:20.095355 #49177]  INFO -- : Found matching response for GET /balance/1
+D, [2020-09-28T17:32:20.095552 #49177] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
@@ -62,6 +62,6 @@ D, [2020-09-22T17:31:34.683387 #78939] DEBUG -- : {
     }
   }
 }
-I, [2020-09-22T17:31:34.689976 #78939]  INFO -- : Verifying - interactions matched
-I, [2020-09-22T17:31:34.694597 #78939]  INFO -- : Cleared interactions
-I, [2020-09-22T17:31:34.699730 #78939]  INFO -- : Writing pact for AccountApi to /home/iann/dev/projects/pact-framework-examples/example/node/one_consumer_one_provider/client-api/pacts/clientapi-accountapi.json
+I, [2020-09-28T17:32:20.100764 #49177]  INFO -- : Verifying - interactions matched
+I, [2020-09-28T17:32:20.104824 #49177]  INFO -- : Cleared interactions
+I, [2020-09-28T17:32:20.109519 #49177]  INFO -- : Writing pact for AccountApi to /home/iann/dev/projects/pact-framework-examples/example/node/one_consumer_one_provider/client-api/pacts/clientapi-accountapi.json

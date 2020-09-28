@@ -21,3 +21,7 @@ export const PRIME_ACCOUNTS = [
     discountPercentageFee: 3.1,
   },
 ];
+
+export const EXISTENT_CLIENT_ID = 1;
+
+export const NON_EXISTENT_CLIENT_ID = 9124214;

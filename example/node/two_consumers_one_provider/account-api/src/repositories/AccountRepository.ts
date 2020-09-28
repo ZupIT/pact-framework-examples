@@ -7,7 +7,7 @@ export interface Account {
   balance: number;
 }
 
-export class AccountService {
+export class AccountRepository {
   public getAccountByClientID(id: number): Account {
     const account = ACCOUNTS.find(acc => acc.clientID === id);
 

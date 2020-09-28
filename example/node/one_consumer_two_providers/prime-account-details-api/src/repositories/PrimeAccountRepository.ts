@@ -6,7 +6,7 @@ export interface PrimeAccount {
   discountPercentageFee: number;
 }
 
-export class PrimeAccountService {
+export class PrimeAccountRepository {
   public getPrimeAccountByClientID(id: number): PrimeAccount {
     const primeAccount = PRIME_ACCOUNTS.find(prime => prime.clientID === id);
 

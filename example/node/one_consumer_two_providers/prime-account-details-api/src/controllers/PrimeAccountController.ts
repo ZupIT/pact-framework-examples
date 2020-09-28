@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { PrimeAccountService } from '../services/PrimeAccountService';
+import { PrimeAccountRepository } from '../repositories/PrimeAccountRepository';
 
 export class PrimeAccountController {
   public getPrimeAccount(req: Request, res: Response): Response {
     const { clientID } = req.params;
-    const primeAccountService = new PrimeAccountService();
+    const primeAccountRepository = new PrimeAccountRepository();
 
     try {
-      const primeAccount = primeAccountService.getPrimeAccountByClientID(
+      const primeAccount = primeAccountRepository.getPrimeAccountByClientID(
         Number(clientID),
       );
 

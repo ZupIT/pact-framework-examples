@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
-import { AccountService } from '../services/AccountService';
+import { AccountRepository } from '../repositories/AccountRepository';
 
 export class AccountController {
   public getAccountWithBalance(req: Request, res: Response): Response {
     const { clientID } = req.params;
-    const accountService = new AccountService();
+    const accountRepository = new AccountRepository();
 
     try {
-      const account = accountService.getAccountByClientID(Number(clientID));
+      const account = accountRepository.getAccountByClientID(Number(clientID));
 
       return res.status(200).json(account);
     } catch (err) {

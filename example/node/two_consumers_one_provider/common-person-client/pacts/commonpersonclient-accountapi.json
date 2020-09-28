@@ -1,9 +1,9 @@
 {
   "consumer": {
-    "name": "ClientApi"
+    "name": "CommonPersonClient"
   },
   "provider": {
-    "name": "PrimeAccountDetailsApi"
+    "name": "AccountApi"
   },
   "interactions": [
     {
@@ -11,7 +11,7 @@
       "providerState": "one client with your account",
       "request": {
         "method": "GET",
-        "path": "/prime/1"
+        "path": "/balance/1"
       },
       "response": {
         "status": 200,
@@ -20,17 +20,17 @@
         },
         "body": {
           "clientID": 13.01,
-          "isPrime": true,
-          "discountPercentageFee": 13.01
+          "balance": 13.01,
+          "name": "iloveorange"
         },
         "matchingRules": {
           "$.body.clientID": {
             "match": "type"
           },
-          "$.body.isPrime": {
+          "$.body.balance": {
             "match": "type"
           },
-          "$.body.discountPercentageFee": {
+          "$.body.name": {
             "match": "type"
           }
         }
