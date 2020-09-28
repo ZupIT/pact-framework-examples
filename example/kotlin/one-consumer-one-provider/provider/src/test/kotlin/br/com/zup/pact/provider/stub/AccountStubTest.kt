@@ -1,6 +1,7 @@
 package br.com.zup.pact.provider.stub
 
 import br.com.zup.pact.provider.dto.AccountDetailsDTO
+import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import org.assertj.core.api.Assertions
@@ -31,17 +32,32 @@ class AccountStubTest {
     }
 
     @Test
-    fun `Method getAllStubsDTOFormat should return the AccountDetailsDTO list`() {
+    fun `Method getAllStubsAccountDTOFormat should return the AccountDetailsDTO list`() {
         val numberOfStubs = 10
         val initialBalance = 100.0
         val initialAccountType = AccountType.COMMON
 
-        val result: List<AccountDetailsDTO> = accountStub.getAllStubsDTOFormat()
+        val result: List<AccountDetailsDTO> = accountStub.getAllStubsAccountDTOFormat()
 
         Assertions.assertThat(result).hasSize(numberOfStubs)
 
         (0 until numberOfStubs).forEach { index ->
             Assertions.assertThat(AccountDetailsDTO(index + 1, initialBalance, initialAccountType))
+                    .isEqualTo(result[index])
+        }
+    }
+
+    @Test
+    fun `Method getAllStubsBalanceDTOFormat should return the BalanceDTO list`() {
+        val numberOfStubs = 10
+        val initialBalance = 100.0
+
+        val result: List<BalanceDTO> = accountStub.getAllStubsBalanceDTOFormat()
+
+        Assertions.assertThat(result).hasSize(numberOfStubs)
+
+        (0 until numberOfStubs).forEach { index ->
+            Assertions.assertThat(BalanceDTO(index+1, index+1, initialBalance))
                     .isEqualTo(result[index])
         }
     }

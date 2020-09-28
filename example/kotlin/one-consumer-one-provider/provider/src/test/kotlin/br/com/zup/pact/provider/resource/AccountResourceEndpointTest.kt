@@ -16,7 +16,6 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import java.util.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -38,7 +37,7 @@ class AccountResourceEndpointTest(
         val accountType = AccountType.COMMON
         val accountDetailsDTO = AccountDetailsDTO(accountId, balance, accountType)
         every { accountService.getAccountDetailsByClientId(any()) }
-                .returns(Optional.ofNullable(accountDetailsDTO))
+                .returns(accountDetailsDTO)
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/1"))
                 .andDo(MockMvcResultHandlers.print())
@@ -54,7 +53,7 @@ class AccountResourceEndpointTest(
     @Test
     fun getAccountDetailsByNonExistentClientId() {
         every { accountService.getAccountDetailsByClientId(any()) }
-                .returns(Optional.empty())
+                .returns(null)
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())
@@ -107,7 +106,7 @@ class AccountResourceEndpointTest(
         val balanceDTO = BalanceDTO(accountId, clientId, balance)
 
         every { accountService.getBalanceByClientId(any()) }
-                .returns(Optional.ofNullable(balanceDTO))
+                .returns(balanceDTO)
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/balance/1"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").exists())
@@ -122,7 +121,7 @@ class AccountResourceEndpointTest(
     @Test
     fun getBalanceByNonExistentClientId() {
         every { accountService.getBalanceByClientId(any()) }
-                .returns(Optional.empty())
+                .returns(null)
 
         mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/balance/1"))
                 .andDo(MockMvcResultHandlers.print())

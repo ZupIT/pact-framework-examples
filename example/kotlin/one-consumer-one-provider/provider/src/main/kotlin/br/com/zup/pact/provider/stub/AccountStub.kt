@@ -1,6 +1,7 @@
 package br.com.zup.pact.provider.stub
 
 import br.com.zup.pact.provider.dto.AccountDetailsDTO
+import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import org.springframework.stereotype.Component
@@ -22,7 +23,11 @@ class AccountStub {
         )
     }
 
-    fun getAllStubsDTOFormat(): List<AccountDetailsDTO> {
+    fun getAllStubsAccountDTOFormat(): List<AccountDetailsDTO> {
         return accounts.values.map(AccountEntity::toAccountDetailsDTO)
+    }
+
+    fun getAllStubsBalanceDTOFormat(): List<BalanceDTO> {
+        return accounts.values.map(AccountEntity::toBalanceDTO)
     }
 }

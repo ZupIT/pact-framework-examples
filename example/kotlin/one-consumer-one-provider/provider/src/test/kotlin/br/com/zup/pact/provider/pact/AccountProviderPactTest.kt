@@ -21,7 +21,6 @@ import org.springframework.boot.web.server.LocalServerPort
 import org.springframework.context.annotation.Bean
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.net.URL
-import java.util.*
 
 @Provider("AccountBalanceProvider")
 @PactBroker(host = "localhost", port = "9292")
@@ -55,7 +54,7 @@ class AccountProviderPactTest {
     @State("No accounts exist from accountId 1000")
     fun getBalanceDTONotWorking() {
         every { accountService.getBalanceByClientId(1000) }
-                .returns(Optional.empty())
+                .returns(null)
     }
 
     @State("get balance of accountId 1")
@@ -65,6 +64,6 @@ class AccountProviderPactTest {
         val balance = 100.0
         val balanceDTO = BalanceDTO(accountId, clientId, balance)
         every { accountService.getBalanceByClientId(1) }
-                .returns(Optional.ofNullable(balanceDTO))
+                .returns(balanceDTO)
     }
 }

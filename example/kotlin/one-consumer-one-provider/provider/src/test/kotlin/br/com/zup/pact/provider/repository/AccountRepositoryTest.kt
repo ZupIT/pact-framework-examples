@@ -2,7 +2,6 @@ package br.com.zup.pact.provider.repository
 
 import br.com.zup.pact.provider.dto.AccountDetailsDTO
 import br.com.zup.pact.provider.dto.BalanceDTO
-import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.enum.AccountType
 import br.com.zup.pact.provider.stub.AccountStub
 import io.mockk.clearMocks
@@ -13,7 +12,6 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.util.*
 
 @ExtendWith(MockKExtension::class)
 class AccountRepositoryTest {
@@ -28,27 +26,26 @@ class AccountRepositoryTest {
     @Test
     fun `Method getAll should return the AccountDetailsDTO objects returned by the stub`() {
 
-        every { accountStubMock.getAllStubsDTOFormat() }.returns(mutableListOf(
+        every { accountStubMock.getAllStubsAccountDTOFormat() }.returns(mutableListOf(
                 createAccountDetailsDTOList(), createAccountDetailsDTOList()
         ))
 
-        val actualReturn = accountRepository.getAll()
+        val actualReturn = accountRepository.getAllAccounts()
 
         Assertions.assertThat(actualReturn)
                 .containsExactly(createAccountDetailsDTOList(), createAccountDetailsDTOList())
     }
 
+    //  TODO -> Criar teste para o findByClientId
+
     @Test
     fun `Method getBalanceByClientId should return the BalanceDTO list when stub return AccountEntity list`() {
 
-        every { accountStubMock.accounts }
+        every { accountStubMock.getAllStubsBalanceDTOFormat() }
                 .returns(
-                        mutableMapOf(
-                                1 to createAccountEntity(1),
-                                2 to createAccountEntity(2)
-                        )
+                        mutableListOf(createBalanceDetailsDTOList(), createBalanceDetailsDTOList())
                 )
-        val expectBalanceDTO = Optional.of(BalanceDTO(1, 100, 100.0))
+        val expectBalanceDTO: BalanceDTO? = BalanceDTO(1, 1, 100.0)
 
         val actualReturn = accountRepository.getBalanceByClientId(1)
 
@@ -56,51 +53,41 @@ class AccountRepositoryTest {
     }
 
     @Test
-    fun `Method getBalanceByClientId should return Optional empty when stub does not have the ClientId`() {
+    fun `Method getBalanceByClientId should return null when stub does not have the ClientId`() {
 
-        every { accountStubMock.accounts }
+        every { accountStubMock.getAllStubsBalanceDTOFormat() }
                 .returns(
-                        mutableMapOf<Int, AccountEntity>(
-                                1 to createAccountEntity(1),
-                                2 to createAccountEntity(2)
-                        )
+                        mutableListOf(createBalanceDetailsDTOList())
                 )
-        val expectedBalanceDTO = Optional.empty<BalanceDTO>()
 
-        val actualReturn = accountRepository.getBalanceByClientId(3)
+        val actualReturn = accountRepository.getBalanceByClientId(2)
 
-        Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
+        Assertions.assertThat(actualReturn).isNull()
     }
 
+    //  TODO -> verificar se este teste não se tornou redundante:
     @Test
-    fun `Method getBalanceByClientId should return Optional empty when stub returns is empty`() {
+    fun `Method getBalanceByClientId should return null when stub returns is null`() {
 
-        every { accountStubMock.accounts }
+        every { accountStubMock.getAllStubsBalanceDTOFormat() }
                 .returns(
-                        mutableMapOf<Int, AccountEntity>()
+                        mutableListOf()
                 )
-        val expectedBalanceDTO = Optional.empty<BalanceDTO>()
 
         val actualReturn = accountRepository.getBalanceByClientId(3)
-
-        Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
+        println(actualReturn)
+        Assertions.assertThat(actualReturn).isNull()
     }
-
-    private fun createAccountEntity(
-            accountId: Int,
-            clientId: Int = 100,
-            balance: Double = 100.0,
-            accountType: AccountType = AccountType.MASTER
-    ) = AccountEntity(
-            accountId = accountId,
-            clientId = clientId,
-            balance = balance,
-            accountType = accountType
-    )
 
     private fun createAccountDetailsDTOList(
             accountId: Int = 1,
             balance: Double = 10.0,
             accountType: AccountType = AccountType.MASTER
     ) = AccountDetailsDTO(accountId, balance, accountType)
+
+    private fun createBalanceDetailsDTOList(
+            accountId: Int = 1,
+            clientId: Int = 1,
+            balance: Double = 100.0
+    ) = BalanceDTO(accountId, clientId, balance)
 }
