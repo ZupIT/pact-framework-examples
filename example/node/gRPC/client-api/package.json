@@ -7,8 +7,8 @@
   "scripts": {
     "build": "tsc",
     "dev:server": "ts-node-dev --ignore-watch node_modules --transpile-only src/server.ts",
-    "test": "jest",
-    "pact:publish": "ts-node-dev src/pact/publish.ts"
+    "test": "jest --detectOpenHandles",
+    "pact:publish": "ts-node-dev pact/publish.ts"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.1.6",

@@ -4,7 +4,7 @@ import { InterceptorOptions } from '@grpc/grpc-js';
 import { InterceptingCall, NextCall } from '@grpc/grpc-js/build/src/client-interceptors';
 import { Pact } from '@pact-foundation/pact';
 import { HtttpRequester } from '../adapters/HttpRequester';
-import { ProductService } from '../services/product.service';
+import { AccountService } from '../services/account.service';
 import { pactWith } from 'jest-pact';
 import { Matchers } from  '@pact-foundation/pact';
 
@@ -14,36 +14,36 @@ const GRPC_HTTP_INTERCEPTOR = (options: InterceptorOptions, nextCall: NextCall):
   return new InterceptingCall(nextCall(options), new HtttpRequester(MOCK_SERVER_BASE_URL, options));
 }
 
-
 pactWith({ port: 1234, consumer: "ClientApi", provider: "AccountApi" }, (provider: Pact) => {
   
   describe("Products API", () => {
 
-    let productService: ProductService;
+    let productService: AccountService;
 
     beforeEach(() => {
-      productService = new ProductService({
+      productService = new AccountService({
         interceptors: [ GRPC_HTTP_INTERCEPTOR ]
       });
     });
 
     beforeEach(() => {
       return provider.addInteraction({
-        state: 'default state',
-        uponReceiving: 'on ProductEndPoint/findById',
+        state: 'One account with id 15',
+        uponReceiving: 'on AccountResource/findById',
         withRequest: {
           method: 'POST',
-          path: '/grpc/grpcproduct.ProductEndPoint/findById',
+          headers: { 'Content-Type': 'application/json; charset=utf-8' },
+          path: '/grpc/br.com.zup.pact.provider.resource.AccountResource/findById',
           body: {
-            value: Matchers.string()
+            accountId: Matchers.integer()
           }
         },
         willRespondWith: {
           status: 200,
           headers: { 'Content-Type': 'application/json; charset=utf-8' },
           body: {
-            id: Matchers.integer(),
-            name: Matchers.string()
+            accountId: Matchers.integer(),
+            balance: Matchers.decimal()
           },
         },
       });
@@ -51,7 +51,7 @@ pactWith({ port: 1234, consumer: "ClientApi", provider: "AccountApi" }, (provide
 
     // add expectations
     it("get Product by Id", () => {
-      return productService.findById('1').then( response => {
+      return productService.getById(1).then( response => {
         expect(response).toBeDefined();
       });
     })

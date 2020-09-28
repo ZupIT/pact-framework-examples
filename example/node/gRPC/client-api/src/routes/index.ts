@@ -1,19 +1,9 @@
 import { Router } from 'express';
-import ProductController from '../controlles/product.controller';
+import ClientController from '../controllers/client.controller';
 
 const routes = Router();
-const productService = new ProductController();
+const clientController = new ClientController();
 
-routes.use((req, _res, next) => {
-  const { method, url } = req;
-
-  console.log(req.path);
-
-  console.log(`[${method.toUpperCase()}] ${url}`);
-
-  return next();
-});
-
-routes.get('/product/:id', productService.findById );
+routes.get('/client/:id/balance', clientController.getBalance );
 
 export default routes;

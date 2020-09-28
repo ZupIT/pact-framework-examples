@@ -17,7 +17,7 @@ export class HtttpRequester implements Partial<FullRequester> {
 
         console.log(`Executing request for ${url}`)
 
-        axios.post(url, message)
+        axios.post(url, message, { headers: { 'Content-Type': 'application/json; charset=utf-8' }, })
         .then(() => next(message))
         .then(() => console.log('GRPC <-> MOCK_SERVER : Success ! '))
         .catch( error => { 

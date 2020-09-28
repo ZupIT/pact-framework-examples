@@ -1,4 +1,4 @@
-export interface Model<T> {
+export interface Repository<T> {
     getAll(): Promise<T[]>
     getById(id: string): Promise<T | undefined>
     store(entity: T): Promise<T>

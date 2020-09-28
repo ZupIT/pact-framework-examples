@@ -1,29 +1,33 @@
+import { GRPC_SERVER_URL } from './../constants';
 import { credentials, loadPackageDefinition } from '@grpc/grpc-js';
 import { loadSync } from '@grpc/proto-loader';
 import { Router, Request, Response } from 'express';
 
-const PROTO_PATH = __dirname + '../../../../pb/products.proto';
+const PROTO_PATH = __dirname + './../protos/AccountResource.proto';
 
-function createClient(packageName:string, serviceName: string) {
+function createClient(protoPath: string, packageName:string, serviceName: string) {
     const PACKAGE_DEFINITION = loadSync(
-        PROTO_PATH,
+        protoPath,
         {keepCase: true,
-         longs: String,
-         enums: String,
-         defaults: true,
-         oneofs: true
-        });
-      
-      // Load proto file
-      var product_proto: any = loadPackageDefinition(PACKAGE_DEFINITION)[packageName];
-  
-      // generate credentials according to your Authority provider
-      var newCredentials = credentials.createInsecure();
-  
-      // Stablish connection
-      return new product_proto[serviceName]('localhost:50051', newCredentials);
-}
+            longs: String,
+            enums: String,
+            defaults: true,
+            oneofs: true
+        }
+    );
+    
+    // Load proto file
+    var account_proto: any = loadPackageDefinition(PACKAGE_DEFINITION);
 
+    // generate credentials according to your Authority provider
+    var newCredentials = credentials.createInsecure();
+
+    // Stablish connection
+    const services = packageName.split('.').reduce((p,c)=>p&&p[c]||null, account_proto);
+
+    // Stablish connection
+    return new services[serviceName](GRPC_SERVER_URL, newCredentials);
+}
 
 const routes = Router();
 
@@ -33,12 +37,11 @@ routes.post('/grpc/*', async (req: Request, res: Response) => {
     const [ service, method ] = req.path.split('/grpc/')[1].split('/');
 
     const packageName = service.slice(0, service.lastIndexOf('.'));
-    const serviceName = service.slice(service.lastIndexOf('.'));
+    const serviceName = service.slice(service.lastIndexOf('.')+1);
 
-    // createCliente
-    const client = createClient(packageName, serviceName);
-
-    client[method](req.params, (err: any, response: any) => err ? res.status(500) : res.status(200).json(response));
+    // create Account Client
+    const client = createClient(PROTO_PATH, packageName, serviceName);
+    client[method](req.body, (err: any, response: any) => err ? res.status(500) : res.status(200).json(response));
 
 });
 
