@@ -14,13 +14,13 @@ Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na
 ----
 Linguagens suportadas pelo Pact:
 
-<img src="https://img.shields.io/badge/java-%23ED8B00.svg?&style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white"/> <img src="https://img.shields.io/badge/ruby-%23CC342D.svg?&style=for-the-badge&logo=ruby&logoColor=white"/> <img src="https://img.shields.io/badge/go-%2300ADD8.svg?&style=for-the-badge&logo=go&logoColor=white"/> <img src="https://img.shields.io/badge/php-%23777BB4.svg?&style=for-the-badge&logo=php&logoColor=white"/> <img src="https://img.shields.io/badge/c%23%20-%23239120.svg?&style=for-the-badge&logo=c-sharp&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-%23ED8B00.svg?&style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img src="https://img.shields.io/badge/kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white"/> <img src="https://img.shields.io/badge/ruby-%23CC342D.svg?&style=for-the-badge&logo=ruby&logoColor=white"/> <img src="https://img.shields.io/badge/go-%2300ADD8.svg?&style=for-the-badge&logo=go&logoColor=white"/> <img src="https://img.shields.io/badge/php-%23777BB4.svg?&style=for-the-badge&logo=php&logoColor=white"/> <img src="https://img.shields.io/badge/c%23%20-%23239120.svg?&style=for-the-badge&logo=c-sharp&logoColor=white"/>
 <img src="https://img.shields.io/badge/python%20-%2314354C.svg?&style=for-the-badge&logo=python&logoColor=white"/>
 
 ----
 Linguagens abordadas nos exemplos:
 
-<img src="https://img.shields.io/badge/java-%23ED8B00.svg?&style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white"/> <img src="https://img.shields.io/badge/kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-%23ED8B00.svg?&style=for-the-badge&logo=java&logoColor=white"/> <img src="https://img.shields.io/badge/javascript%20-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/> <img src="https://img.shields.io/badge/kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white"/>
 
 ----
 Zuppers contribuidores
@@ -39,7 +39,7 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Rest - dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
       * [Mensageria/Kafka](example/java/messaging-kafka/)
  - **FrontEnd**
-   - **Node/Express**
+   - **Express**
       * [Rest - um consumidor e um provedor](example/node/one_consumer_one_provider).
       * [Rest - um consumidor e dois provedores](example/node/one_consumer_two_providers).
       * [Rest - dois consumidores e um provedor](example/node/two_consumers_one_provider).
@@ -56,22 +56,22 @@ Abaixo um desenho que representa bem como o teste de contrato é realizado.
 
 O processo de validação dos contratos acontece da seguinte forma:
 
- - O **Consumidor** cria um contrato em forma de testes BDD (Behavior Driven Development) com suas expectativas de consumo da integração com o Provider
+ - O **Consumer** cria um contrato em forma de testes BDD (Behavior Driven Development) com suas expectativas de consumo da integração com o Provider
 
- - O **Consumidor**  testa suas expectativas da forma que valide suas expectativas.
+ - O **Consumer**  testa suas expectativas de Consumer sobre o Provider dentro do seu próprio teste, sem necessidade de realizar comunicação com o Provider real.
  
- - O **Consumidor** publica o contrato no Broker do Pact (explicação a seguir) para que o provedor possa acessá-lo e testá-lo.
+ - O **Consumer** publica o contrato no Broker do Pact para que o Provider possa acessá-lo e testá-lo.
 
- - O **Provedor** cria um código de teste unitário que obterá o contrato do Pact Broker e dado as expectativas que o consumer descreveu, rodará em seu próprio endpoint para validar se condiz com o que esse provider está fornecendo (Tudo isso em tempo de teste unitário)
+ - O **Provider** cria um código de teste unitário que obterá o contrato do Pact Broker e dado as expectativas que o Consumer descreveu, rodará em seu próprio endpoint para validar se condiz com o que esse Provider está fornecendo (Tudo isso em tempo de teste unitário) e sem a necessidade de se comunicar com o Consumer. Usando apenas o contrato gerado pelo Pact.
 
- A vantagem dessa abordagem é que todos os testes são escritos em forma de teste unitário, portanto, é fácil automatizar a validação das integrações em uma esteira de CI, onde elá rodará seus testes e validará seus contratos de integração, assim, garantindo que suas integrações estão funcionando antes de você publicar seu artefato em qualquer ambiente. O teste no artefato assegura que nenhuma mudança seja feita sem o conhecimento de ambos os lados, isso ajuda a prevenir problemas causados por falha de comunicação entre equipes de integração de sistemas.
+ A vantagem dessa abordagem é que todos os testes são escritos em forma de teste unitário, portanto, é fácil automatizar a validação das integrações em uma esteira de CI, onde ela rodará seus testes e validará seus contratos de integração, assim, garantindo que suas integrações estão funcionando antes de você publicar seu artefato em qualquer ambiente. O teste no artefato assegura que nenhuma mudança seja feita sem o conhecimento de ambos os lados, isso ajuda a prevenir problemas causados por falha de comunicação entre equipes de integração de sistemas.
 
 O Pact Broker é uma ferramenta fundamental para o gerenciamento dos contratos entre as integrações envolvidas. Ele mantém o contrato, a data de atualização e o status dessa integração, para mais informações acesse [Pact Broker](https://github.com/pact-foundation/pact_broker). <br>
 
 Para que você consiga utilizar o teste de contrato com o Pact, sugerimos que você tenha um container com o Pact Broker em uma infraestrutura acessível para as duas aplicações que fazem a integração.
 
-Para qualquer um dos exemplos deste repositório, precisaremos de uma instância desta aplicação. 
-A seguir explicamos como subir o seu próprio broker. 
+Para qualquer um dos exemplos deste repositório, precisaremos de uma instância do Broker. 
+A seguir explicamos como subir o seu próprio Broker. 
 
 ## <a name='config-broker'> Informações do Pact Broker dos exemplos</a>
 
