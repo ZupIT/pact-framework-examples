@@ -27,61 +27,6 @@ class AccountRepositoryTest {
     }
 
     @Test
-    fun `Method findByClientId should return the AccountDetailsDTO list when stub return AccountEntity list`() {
-
-        //given
-        every { accountStubMock.accounts }
-                .returns(
-                        mutableMapOf<Int, AccountEntity>(
-                                1 to createAccountEntity(1),
-                                2 to createAccountEntity(2)
-                        )
-                )
-        val expectedAccountDetailsDTO = Optional.of(AccountDetailsDTO(accountId = 1, balance = 100.0, accountType = AccountType.MASTER))
-
-        //when
-        val actualReturn = accountRepository.findByClientId(1)
-
-        // then
-        Assertions.assertThat(actualReturn).isEqualTo(expectedAccountDetailsDTO)
-    }
-
-    @Test
-    fun `Method findByClientId should return Optional empty when stub does not have the clientId `() {
-        //given
-        every { accountStubMock.accounts }
-                .returns(
-                        mutableMapOf<Int, AccountEntity>(
-                                1 to createAccountEntity(1),
-                                2 to createAccountEntity(2)
-                        )
-                )
-        val expectedAccountDetailsDTO = Optional.empty<AccountDetailsDTO>()
-
-        //when
-        val actualReturn = accountRepository.findByClientId(3)
-
-        // then
-        Assertions.assertThat(actualReturn).isEqualTo(expectedAccountDetailsDTO)
-    }
-
-    @Test
-    fun `Method findByClientId should return Optional empty when stub return is empty`() {
-        //given
-        every { accountStubMock.accounts }
-                .returns(
-                        mutableMapOf<Int, AccountEntity>()
-                )
-        val expectedAccountDetailsDTO = Optional.empty<AccountDetailsDTO>()
-
-        //when
-        val actualReturn = accountRepository.findByClientId(3)
-
-        // then
-        Assertions.assertThat(actualReturn).isEqualTo(expectedAccountDetailsDTO)
-    }
-
-    @Test
     fun `Method getAll should return the AccountDetailsDTO objects returned by the stub`() {
 
         //Given
@@ -99,7 +44,7 @@ class AccountRepositoryTest {
     }
 
     @Test
-    fun `Method getBalanceByClientId should return the BalanceDTO list when stub return AccountEntity list`() {
+    fun `Method findByAccountId should return the BalanceDTO list when stub return AccountEntity list`() {
 
         //given
         every { accountStubMock.accounts }
@@ -109,17 +54,17 @@ class AccountRepositoryTest {
                                 2 to createAccountEntity(2)
                         )
                 )
-        val expectedBalanceDTO = Optional.of(BalanceDTO(accountId = 1, clientId = 100, balance = 100.0))
+        val expectedBalanceDTO = Optional.of(BalanceDTO(accountId = 1, balance = 100.0))
 
         //when
-        val actualReturn = accountRepository.getBalanceByClientId(1)
+        val actualReturn = accountRepository.findByAccountId(1)
 
         // then
         Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
     }
 
     @Test
-    fun `Method getBalanceByClientId should return Optional empty when stub does not have the clientId `() {
+    fun `Method findByAccountId should return Optional empty when stub does not have the clientId `() {
         //given
         every { accountStubMock.accounts }
                 .returns(
@@ -131,14 +76,14 @@ class AccountRepositoryTest {
         val expectedBalanceDTO = Optional.empty<BalanceDTO>()
 
         //when
-        val actualReturn = accountRepository.getBalanceByClientId(3)
+        val actualReturn = accountRepository.findByAccountId(3)
 
         // then
         Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
     }
 
     @Test
-    fun `Method getBalanceByClientId should return Optional empty when stub return is empty`() {
+    fun `Method findByAccountId should return Optional empty when stub return is empty`() {
         //given
         every { accountStubMock.accounts }
                 .returns(
@@ -147,7 +92,7 @@ class AccountRepositoryTest {
         val expectedBalanceDTO = Optional.empty<BalanceDTO>()
 
         //when
-        val actualReturn = accountRepository.getBalanceByClientId(3)
+        val actualReturn = accountRepository.findByAccountId(3)
 
         // then
         Assertions.assertThat(actualReturn).isEqualTo(expectedBalanceDTO)
@@ -160,7 +105,6 @@ class AccountRepositoryTest {
             accountType: AccountType = AccountType.MASTER
     ) = AccountEntity(
             accountId = accountId,
-            clientId = clientId,
             balance = balance,
             accountType = accountType
     )

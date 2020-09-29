@@ -6,7 +6,6 @@ import br.com.zup.pact.provider.enums.AccountType
 
 data class AccountEntity(
         val accountId: Int,
-        val clientId: Int,
         val balance: Double,
         val accountType: AccountType
 ) {
@@ -21,7 +20,6 @@ data class AccountEntity(
     fun toBalanceDTO(): BalanceDTO {
         return BalanceDTO(
                 accountId = accountId,
-                clientId = clientId,
                 balance = balance
         )
     }

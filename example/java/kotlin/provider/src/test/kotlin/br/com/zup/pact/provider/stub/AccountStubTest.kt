@@ -25,7 +25,7 @@ class AccountStubTest() {
         Assertions.assertThat(result).hasSize(numberOfStubs)
 
         (1..numberOfStubs).forEach { id ->
-            Assertions.assertThat(AccountEntity(id, id, initialBalance, initialAccountType))
+            Assertions.assertThat(AccountEntity(id, initialBalance, initialAccountType))
                     .isEqualTo(result[id])
         }
     }

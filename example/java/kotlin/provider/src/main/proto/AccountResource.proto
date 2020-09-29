@@ -6,7 +6,7 @@ message EmptyRequest {
 }
 
 message AccountIdRequest {
-  int32 clientId = 1;
+  int32 accountId = 1;
 }
 
 message AccountDetailsResponse {
@@ -15,16 +15,12 @@ message AccountDetailsResponse {
   string accountType = 3;
 }
 
-message BalanceResponse {
-  int32 clientId = 1;
-  int32 accountId = 2;
-  double balance = 3;
+message AccountResponse {
+  int32 accountId = 1;
+  double balance = 2;
 }
 
 service AccountResource {
-
-  rpc getAccountDetailsByClientId(AccountIdRequest) returns (AccountDetailsResponse){}
   rpc getAll (EmptyRequest) returns (stream AccountDetailsResponse) {}
-  rpc getBalanceByClientId(AccountIdRequest) returns (BalanceResponse){}
+  rpc findById(AccountIdRequest) returns (AccountResponse){}
 }
-

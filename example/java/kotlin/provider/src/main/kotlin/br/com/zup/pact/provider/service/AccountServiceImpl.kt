@@ -10,15 +10,11 @@ import java.util.*
 @Service
 class AccountServiceImpl(@Autowired val accountRepository: AccountRepository) : AccountService {
 
-    override fun getAccountDetailsByClientId(clientId: Int): Optional<AccountDetailsDTO> {
-        return accountRepository.findByClientId(clientId)
-    }
-
     override fun getAll(): List<AccountDetailsDTO> {
         return accountRepository.getAll()
     }
 
-    override fun getBalanceByClientId(clientId: Int): Optional<BalanceDTO> {
-        return accountRepository.getBalanceByClientId(clientId)
+    override fun findByAccountId(accountId: Int): Optional<BalanceDTO> {
+        return accountRepository.findByAccountId(accountId)
     }
 }

@@ -19,7 +19,7 @@ class AccountStub {
     private fun createStubs() {
         accounts.putAll(
                 (1..numberOfStubs)
-                        .map { AccountEntity(it, it, initialBalance, initialAccountType) }
+                        .map { AccountEntity(it, initialBalance, initialAccountType) }
                         .associateBy({ it.accountId }, { it })
         )
     }
