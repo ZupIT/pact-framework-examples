@@ -3,7 +3,7 @@ package br.com.zup.pact.consumer.integration.account.service
 import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.provider.resource.AccountIdRequest
 import br.com.zup.pact.provider.resource.AccountResourceGrpc
-import br.com.zup.pact.provider.resource.BalanceResponse
+import br.com.zup.pact.provider.resource.AccountResponse
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.springframework.beans.factory.annotation.Value
@@ -27,15 +27,14 @@ class AccountIntegrationImpl(
     override fun getBalance(accountId: Int): Optional<BalanceDTO> {
 
         val balanceRequest = AccountIdRequest.newBuilder()
-                .setClientId(accountId)//TODO
+                .setAccountId(accountId)
                 .build()
 
         val stub: AccountResourceGrpc.AccountResourceBlockingStub = AccountResourceGrpc.newBlockingStub(channel)
-        val balanceResponse: BalanceResponse = stub.getBalanceByClientId(balanceRequest)
+        val balanceResponse: AccountResponse = stub.findById(balanceRequest)
 
         return Optional.of(
                 BalanceDTO(
-                        clientId = balanceResponse.clientId,
                         accountId = balanceResponse.accountId,
                         balance = balanceResponse.balance
                 )

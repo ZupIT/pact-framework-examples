@@ -27,7 +27,7 @@ class ClientStubTest() {
 
             val actualEntity = actualResult[id]
 
-            Assertions.assertThat(ClientEntity(id, id, "", "", 18))
+            Assertions.assertThat(ClientEntity(id + 100, id, "", "", 18))
                     .usingRecursiveComparison()
                     .ignoringFields("name", "finalName", "age")
                     .isEqualTo(actualEntity)
@@ -52,7 +52,7 @@ class ClientStubTest() {
 
             val actualEntity = actualResult[index]
 
-            Assertions.assertThat(ClientDetailsDTO(index + 1, index + 1, "", "", 18))
+            Assertions.assertThat(ClientDetailsDTO(index + 101, index + 1, "", "", 18))
                     .usingRecursiveComparison()
                     .ignoringFields("name", "finalName", "age")
                     .isEqualTo(actualEntity)

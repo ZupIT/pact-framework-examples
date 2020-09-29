@@ -65,7 +65,6 @@ class ClientServiceImplTest {
         every { accountIntegrationServiceMock.getBalance(2) }
                 .returns(Optional.of(BalanceDTO(
                         accountId = 2,
-                        clientId = 2,
                         balance = 100.0
                 )))
 
@@ -74,7 +73,6 @@ class ClientServiceImplTest {
         Assertions.assertThat(expectedBalanceDTO).isEqualTo(
                 Optional.of(BalanceDTO(
                         accountId = 2,
-                        clientId = 2,
                         balance = 100.0
                 ))
         )

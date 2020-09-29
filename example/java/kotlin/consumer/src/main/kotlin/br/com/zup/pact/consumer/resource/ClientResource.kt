@@ -23,7 +23,6 @@ class ClientResourceImpl(@Autowired val clientService: ClientService)
             val balance = balanceOptional.get()
 
             val response = BalanceResponse.newBuilder()
-                    .setClientId(balance.clientId)
                     .setAccountId(balance.accountId)
                     .setBalance(balance.balance)
                     .build()
