@@ -24,7 +24,7 @@ class AccountRepositoryTest {
     }
 
     @Test
-    fun `Method getAll should return the AccountDetailsDTO objects returned by the stub`() {
+    fun `Method getAllAccounts should return the AccountDetailsDTO objects returned by the stub`() {
 
         every { accountStubMock.getAllStubsAccountDTOFormat() }.returns(mutableListOf(
                 createAccountDetailsDTOList(), createAccountDetailsDTOList()
@@ -36,7 +36,18 @@ class AccountRepositoryTest {
                 .containsExactly(createAccountDetailsDTOList(), createAccountDetailsDTOList())
     }
 
-    //  TODO -> Criar teste para o findByClientId
+    @Test
+    fun `Method getAccountByClientId should return the AccountDetailsDTO object`() {
+
+        every { accountStubMock.getAllStubsAccountDTOFormat() }.returns(mutableListOf(
+                AccountDetailsDTO(1, 100.0, AccountType.COMMON),
+                AccountDetailsDTO(2, 50.0, AccountType.MASTER)
+        ))
+
+        val actualReturn = accountRepository.getAccountByClientId(2)
+
+        Assertions.assertThat(actualReturn).isEqualTo(AccountDetailsDTO(2, 50.0, AccountType.MASTER))
+    }
 
     @Test
     fun `Method getBalanceByClientId should return the BalanceDTO list when stub return AccountEntity list`() {
@@ -65,7 +76,6 @@ class AccountRepositoryTest {
         Assertions.assertThat(actualReturn).isNull()
     }
 
-    //  TODO -> verificar se este teste não se tornou redundante:
     @Test
     fun `Method getBalanceByClientId should return null when stub returns is null`() {
 
@@ -75,7 +85,6 @@ class AccountRepositoryTest {
                 )
 
         val actualReturn = accountRepository.getBalanceByClientId(3)
-        println(actualReturn)
         Assertions.assertThat(actualReturn).isNull()
     }
 

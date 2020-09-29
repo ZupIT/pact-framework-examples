@@ -27,7 +27,7 @@ class AccountServiceImplTest {
     @Test
     fun `Method getAccountDetailsByClientId should return findByClientId from the repository`() {
 
-        every { accountRepositoryMock.findByClientId(1) }
+        every { accountRepositoryMock.getAccountByClientId(1) }
                 .returns(AccountDetailsDTO(
                         accountId = 1,
                         balance = 100.0,

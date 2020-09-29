@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service
 @Service
 class AccountServiceImpl(@Autowired val accountRepository: AccountRepository): AccountService {
     override fun getAccountDetailsByClientId(clientId: Int): AccountDetailsDTO? {
-        return accountRepository.findByClientId(clientId)
+        return accountRepository.getAccountByClientId(clientId)
     }
 
     override fun getAll(): List<AccountDetailsDTO> {

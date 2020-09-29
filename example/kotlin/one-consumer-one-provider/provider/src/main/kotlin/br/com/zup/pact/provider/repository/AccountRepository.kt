@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class AccountRepository (@Autowired val accountStub: AccountStub) {
 
-    fun findByClientId(clientId: Int): AccountDetailsDTO? {
+    fun getAccountByClientId(clientId: Int): AccountDetailsDTO? {
         return getAllAccounts().firstOrNull { entity -> entity.accountId == clientId }
     }
 
