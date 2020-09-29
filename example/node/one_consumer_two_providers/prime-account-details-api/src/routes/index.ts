@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import { primeAccountMocked } from '../constants';
+import { PrimeAccountController } from '../controllers/PrimeAccountController';
 
 const routes = Router();
+const primeAccountController = new PrimeAccountController();
 
 routes.use((req, _res, next) => {
   const { method, url } = req;
@@ -11,14 +12,6 @@ routes.use((req, _res, next) => {
   return next();
 });
 
-routes.get('/prime/:clientID', async (req, res) => {
-  const { clientID } = req.params;
-
-  if (Number(clientID) !== 1) {
-    return res.status(404).json({ message: "Client doesn't exist" });
-  }
-
-  return res.status(200).json(primeAccountMocked);
-});
+routes.get('/prime/:clientID', primeAccountController.getPrimeAccount);
 
 export default routes;

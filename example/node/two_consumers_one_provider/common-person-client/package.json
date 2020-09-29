@@ -8,7 +8,7 @@
     "build": "tsc",
     "dev:server": "ts-node-dev --ignore-watch node_modules --transpile-only src/server.ts",
     "test": "jest",
-    "pact:publish": "ts-node-dev src/services/PublishPact.ts"
+    "pact:publish": "ts-node-dev src/pact/PublishPact.ts"
   },
   "dependencies": {
     "@pact-foundation/pact": "^9.11.0",
