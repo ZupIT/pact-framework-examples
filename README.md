@@ -6,7 +6,7 @@ O objetivo deste repositório é demonstrar como fazer testes de contrato com o 
 
 O teste de contrato é uma abordagem utilizada para garantir uma integração entre dois sistemas. A maior vantagem da abordagem é o teste via artefato que garante que as duas pontas se validem na forma de um teste unitário. Esse teste unitário é executado para realizar o build dos dois artefatos, garantindo assim que ambas as pontas estejam de acordo com o contrato entre as duas partes. 
 
-O Pact Framework realiza testes de contrato com: **Rest, Mensageria e GRPC**
+O Pact Framework realiza testes de contrato com: **Rest, Mensageria e GRPC**<br>
 As integrações não necessitam ter sido desenvolvidas na mesma linguagem para que você faça o teste de contrato, ele é agnóstico a linguagem
 
 Caso não conheça o Pact e o conceito de testes de contratos, dê uma olhada na sessão de [links úteis](#links-uteis). 
