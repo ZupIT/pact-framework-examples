@@ -30,6 +30,7 @@
     "eslint-import-resolver-typescript": "^2.0.0",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-prettier": "^3.1.3",
+    "grpc-mock": "^0.7.0",
     "jest": "^26.0.1",
     "jest-pact": "^0.8.1",
     "prettier": "^2.0.5",
