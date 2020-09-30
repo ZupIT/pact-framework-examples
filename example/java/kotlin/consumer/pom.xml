@@ -19,6 +19,7 @@
 		<grpc.version>1.31.1</grpc.version>
 		<protobuf.version>3.13.0</protobuf.version>
 		<grpc-spring-boot-starter.version>3.0.0</grpc-spring-boot-starter.version>
+		<pact-broker-host>localhost</pact-broker-host>
 	</properties>
 
 	<dependencies>
@@ -50,6 +51,24 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>au.com.dius</groupId>
+			<artifactId>pact-jvm-consumer-junit5</artifactId>
+			<version>4.0.6</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
 
 		<dependency>
 			<groupId>io.grpc</groupId>
@@ -153,6 +172,18 @@
 					</dependency>
 				</dependencies>
 			</plugin>
+
+			<plugin>
+				<groupId>au.com.dius</groupId>
+				<artifactId>pact-jvm-provider-maven</artifactId>
+				<version>4.0.6</version>
+				<configuration>
+					<pactBrokerUrl>http://${pact-broker-host}:9292</pactBrokerUrl>
+					<pactDirectory>target/pacts</pactDirectory>
+					<trimSnapshot>true</trimSnapshot>
+				</configuration>
+			</plugin>
+
 		</plugins>
 	</build>
 
