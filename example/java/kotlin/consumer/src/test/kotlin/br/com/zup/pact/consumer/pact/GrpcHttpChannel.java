@@ -1,4 +1,4 @@
-package br.com.zup.pact.consumer;
+package br.com.zup.pact.consumer.pact;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
