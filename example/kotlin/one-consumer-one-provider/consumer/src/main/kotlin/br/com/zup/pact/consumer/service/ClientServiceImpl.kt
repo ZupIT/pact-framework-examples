@@ -12,8 +12,8 @@ class ClientServiceImpl (
         return clientRepository.findByClientId(clientId)
     }
 
-    override fun getAll(): List<ClientDetailsDTO> {
-        TODO("Not yet implemented")
+    override fun getAll(): List<ClientDetailsDTO>? {
+        return clientRepository.getAll()
     }
 
     override fun getBalance(clientId: Int): BalanceDTO? {

@@ -43,6 +43,25 @@ class ClientServiceImplTest {
                 .isNull()
     }
 
+    @Test
+    fun `Method getAll should returns a ClientDetails list`() {
+
+        every { clientRepositoryMock.getAll() }
+                .returns(mutableListOf(
+                        createClientDetails(1),
+                        createClientDetails(2),
+                        createClientDetails(3)
+                ))
+
+        val actualReturn: List<ClientDetailsDTO>? = clientService.getAll()
+
+        Assertions.assertThat(actualReturn).containsExactly(
+                createClientDetails(1),
+                createClientDetails(2),
+                createClientDetails(3)
+        )
+    }
+
     private fun createClientDetails(
             clientId: Int,
             accountId: Int = 1,
