@@ -62,6 +62,17 @@ class ClientServiceImplTest {
         )
     }
 
+    @Test
+    fun `Method getAll should return a list empty if ClientDetails list is empty`() {
+
+        every { clientRepositoryMock.getAll() }
+                .returns(mutableListOf())
+
+        val actualReturn: List<ClientDetailsDTO>? = clientService.getAll()
+
+        Assertions.assertThat(actualReturn).isEmpty()
+    }
+
     private fun createClientDetails(
             clientId: Int,
             accountId: Int = 1,
@@ -71,5 +82,4 @@ class ClientServiceImplTest {
     ) = ClientDetailsDTO(
             clientId, accountId, firstName, lastName, age
     )
-
 }
