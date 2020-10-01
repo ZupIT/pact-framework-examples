@@ -10,4 +10,8 @@ class ClientRepository (@Autowired val clientStub: ClientStub) {
     fun findByClientId(clientId: Int): ClientDetailsDTO? {
         return clientStub.clients[clientId]?.toAccountDetailsDTO()
     }
+
+    fun getAll(): List<ClientDetailsDTO>? {
+        return clientStub.getAllStubsDTOFormat()
+    }
 }

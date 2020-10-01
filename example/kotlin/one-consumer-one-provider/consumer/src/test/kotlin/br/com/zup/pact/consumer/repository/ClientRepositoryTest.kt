@@ -41,7 +41,7 @@ class ClientRepositoryTest {
     }
 
     @Test
-    fun `Method findByClientId method must return null if clientId does not exist in the list`() {
+    fun `Method findByClientId must return null if clientId does not exist in the list`() {
 
         every { clientStubMock.clients }
                 .returns(
@@ -55,5 +55,22 @@ class ClientRepositoryTest {
         val actualReturn = clientRepository.findByClientId(3)
 
         Assertions.assertThat(actualReturn).isEqualTo(expectedClientDetailsDTO)
+    }
+
+    @Test
+    fun `Method getAll must return a list of ClientDetailsDTO`() {
+
+        every { clientStubMock.getAllStubsDTOFormat() }
+                .returns(
+                        mutableListOf(
+                                ClientDetailsDTO(1, 1, "any", "any", 25),
+                                ClientDetailsDTO(2, 2, "any", "any", 40),
+                                ClientDetailsDTO(3, 3, "any", "any", 45)
+                        )
+                )
+
+        val actualReturn = clientRepository.getAll()
+
+        Assertions.assertThat(actualReturn).hasSize(3)
     }
 }
