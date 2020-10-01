@@ -3,7 +3,7 @@ package br.com.zup.pact.consumer.service
 import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import br.com.zup.pact.consumer.exception.ClientNotFoundException
-import br.com.zup.pact.consumer.integration.service.AccountIntegrationService
+import br.com.zup.pact.consumer.integration.account.service.AccountIntegrationService
 import br.com.zup.pact.consumer.repository.ClientRepository
 import io.mockk.clearMocks
 import io.mockk.every

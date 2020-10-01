@@ -1,4 +1,4 @@
-package br.com.zup.pact.consumer.integration.service
+package br.com.zup.pact.consumer.integration.account.service
 
 import br.com.zup.pact.consumer.dto.BalanceDTO
 import org.springframework.beans.factory.annotation.Autowired
