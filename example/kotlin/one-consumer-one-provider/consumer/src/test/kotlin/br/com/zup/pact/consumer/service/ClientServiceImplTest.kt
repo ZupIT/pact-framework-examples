@@ -2,6 +2,7 @@ package br.com.zup.pact.consumer.service
 
 import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
+import br.com.zup.pact.consumer.exception.ClientNotFoundException
 import br.com.zup.pact.consumer.integration.service.AccountIntegrationService
 import br.com.zup.pact.consumer.repository.ClientRepository
 import io.mockk.clearMocks
@@ -91,6 +92,15 @@ class ClientServiceImplTest {
         val expectedBalanceDTO = clientService.getBalance(1)
 
         Assertions.assertThat(expectedBalanceDTO).isEqualTo(BalanceDTO(2, 1, 100.0))
+    }
+
+    @Test
+    fun `Method getBalance should throw ClientNotFoundException when ClientDetails is null`() {
+        every { clientRepositoryMock.findByClientId(1) }
+                .returns(null)
+
+        Assertions.assertThatExceptionOfType(ClientNotFoundException::class.java)
+                .isThrownBy { clientService.getBalance(1) }
     }
 
     private fun createClientDetails(

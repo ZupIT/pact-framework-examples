@@ -2,6 +2,7 @@ package br.com.zup.pact.consumer.service
 
 import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
+import br.com.zup.pact.consumer.exception.ClientNotFoundException
 import br.com.zup.pact.consumer.integration.service.AccountIntegrationService
 import br.com.zup.pact.consumer.repository.ClientRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -19,8 +20,8 @@ class ClientServiceImpl (
     }
 
     override fun getBalance(clientId: Int): BalanceDTO? {
-        val accountId: Int? = getAccountId(clientId)
-        return accountId?.let { accountIntegrationService.getBalance(it) }
+        val accountId: Int = getAccountId(clientId) ?: throw ClientNotFoundException("Client with id: $clientId not found")
+        return accountId.let { accountIntegrationService.getBalance(it) }
     }
 
     private fun getAccountId(clientId: Int): Int? {
