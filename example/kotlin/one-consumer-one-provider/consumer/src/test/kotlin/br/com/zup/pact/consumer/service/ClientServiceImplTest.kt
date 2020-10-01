@@ -1,6 +1,8 @@
 package br.com.zup.pact.consumer.service
 
+import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
+import br.com.zup.pact.consumer.integration.service.AccountIntegrationService
 import br.com.zup.pact.consumer.repository.ClientRepository
 import io.mockk.clearMocks
 import io.mockk.every
@@ -14,7 +16,11 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(MockKExtension::class)
 class ClientServiceImplTest {
     private val clientRepositoryMock: ClientRepository = mockk()
-    private val clientService: ClientService = ClientServiceImpl(clientRepositoryMock)
+    private val accountIntegrationServiceMock: AccountIntegrationService = mockk()
+    private val clientService: ClientService = ClientServiceImpl(
+            clientRepositoryMock,
+            accountIntegrationServiceMock
+    )
 
     @BeforeEach
     fun setUp() {
@@ -71,6 +77,20 @@ class ClientServiceImplTest {
         val actualReturn: List<ClientDetailsDTO>? = clientService.getAll()
 
         Assertions.assertThat(actualReturn).isEmpty()
+    }
+
+    @Test
+    fun `Method getBalance should return a BalanceDTO`() {
+
+        every { clientRepositoryMock.findByClientId(1) }
+                .returns(ClientDetailsDTO(1, 2, "any", "any", 19))
+
+        every { accountIntegrationServiceMock.getBalance(2) }
+                .returns(BalanceDTO(2, 1, 100.0))
+
+        val expectedBalanceDTO = clientService.getBalance(1)
+
+        Assertions.assertThat(expectedBalanceDTO).isEqualTo(BalanceDTO(2, 1, 100.0))
     }
 
     private fun createClientDetails(
