@@ -32,6 +32,17 @@ class ClientServiceImplTest {
                 .isEqualTo(createClientDetails(1))
     }
 
+    @Test
+    fun `Method getClientDetails should return null if no ClientDetails found`() {
+        every { clientRepositoryMock.findByClientId(1) }
+                .returns(null)
+
+        val expectedClientDetails = clientService.getClientDetails(1)
+
+        Assertions.assertThat(expectedClientDetails)
+                .isNull()
+    }
+
     private fun createClientDetails(
             clientId: Int,
             accountId: Int = 1,
