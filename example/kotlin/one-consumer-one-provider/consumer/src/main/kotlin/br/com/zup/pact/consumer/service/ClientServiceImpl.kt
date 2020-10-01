@@ -6,7 +6,9 @@ import br.com.zup.pact.consumer.exception.ClientNotFoundException
 import br.com.zup.pact.consumer.integration.account.service.AccountIntegrationService
 import br.com.zup.pact.consumer.repository.ClientRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Service
 
+@Service
 class ClientServiceImpl (
         @Autowired val clientRepository: ClientRepository,
         @Autowired val accountIntegrationService: AccountIntegrationService
