@@ -73,4 +73,17 @@ class ClientRepositoryTest {
 
         Assertions.assertThat(actualReturn).hasSize(3)
     }
+
+    @Test
+    fun `Method getAll should return empty list if the ClientDetails list is empty`() {
+
+        every { clientStubMock.getAllStubsDTOFormat() }
+                .returns(
+                        mutableListOf()
+                )
+
+        val actualReturn = clientRepository.getAll()
+
+        Assertions.assertThat(actualReturn).isEmpty()
+    }
 }
