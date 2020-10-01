@@ -29,7 +29,7 @@ class ClientResourceEndpointTest (
     }
 
     @Test
-    fun getAllClientsDetailsList() {
+    fun `Method getAll returns a ClientDetails list`() {
         val clientDetailsDTOList: List<ClientDetailsDTO> = arrayListOf(
                 ClientDetailsDTO(1, 1, "any", "any", 40),
                 ClientDetailsDTO(2, 2, "any", "any", 25),
@@ -48,5 +48,21 @@ class ClientResourceEndpointTest (
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].lastName").isString)
                 .andExpect(MockMvcResultMatchers.jsonPath("$.[0].age").isNumber)
                 .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun `Method getAll returns a ClientDetails empty list`() {
+
+        every { clientService.getAll() }
+                .returns(emptyList())
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").doesNotExist())
+                .andExpect(MockMvcResultMatchers.status().isNotFound)
     }
 }
