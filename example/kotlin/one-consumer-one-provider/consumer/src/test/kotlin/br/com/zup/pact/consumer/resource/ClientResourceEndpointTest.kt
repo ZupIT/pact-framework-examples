@@ -65,4 +65,23 @@ class ClientResourceEndpointTest (
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").doesNotExist())
                 .andExpect(MockMvcResultMatchers.status().isNotFound)
     }
+
+    @Test
+    fun `Method getClientDetails returns a ClientDetails`() {
+
+        val clientDetailsDTO = ClientDetailsDTO(1,
+                1, "any_first_name", "any_last_name", 40)
+
+        every { clientService.getClientDetails(any()) }
+                .returns(clientDetailsDTO)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("any_first_name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("any_last_name"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(40))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+    }
 }

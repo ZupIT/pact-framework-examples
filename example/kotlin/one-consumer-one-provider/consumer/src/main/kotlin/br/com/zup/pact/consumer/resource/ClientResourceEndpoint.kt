@@ -6,6 +6,7 @@ import br.com.zup.pact.consumer.service.ClientServiceImpl
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -18,5 +19,12 @@ class ClientResourceEndpoint(val clientService: ClientService) {
         val allClientDetailsDTO: List<ClientDetailsDTO>? = clientService.getAll()
         return if (allClientDetailsDTO.isNullOrEmpty()) ResponseEntity(HttpStatus.NOT_FOUND)
         else ResponseEntity(allClientDetailsDTO, HttpStatus.OK)
+    }
+
+    @GetMapping("/{clientId}")
+    fun getClientDetails(@PathVariable("clientId") clientId: Int): ResponseEntity<ClientDetailsDTO> {
+        return clientService.getClientDetails(clientId)?.let {
+            ResponseEntity(it, HttpStatus.OK)
+        }?: ResponseEntity(HttpStatus.NOT_FOUND)
     }
 }
