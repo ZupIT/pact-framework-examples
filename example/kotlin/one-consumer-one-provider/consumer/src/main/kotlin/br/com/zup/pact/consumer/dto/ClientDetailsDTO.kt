@@ -1,7 +1,7 @@
 package br.com.zup.pact.consumer.dto
 
-class ClientDetailsDTO (
-      val id: Int,
+data class ClientDetailsDTO (
+      val clientId: Int,
       val accountId: Int,
       val firstName: String,
       val lastName: String,

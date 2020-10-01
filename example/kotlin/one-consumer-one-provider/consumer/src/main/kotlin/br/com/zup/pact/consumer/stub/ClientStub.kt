@@ -20,7 +20,7 @@ class ClientStub {
 
         clients.putAll(
                 (1..numberOfStubs).map { ClientEntity(
-                        id = it,
+                        clientId = it,
                         accountId = it,
                         firstName = faker.name().firstName(),
                         lastName = faker.name().lastName(),

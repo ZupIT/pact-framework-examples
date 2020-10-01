@@ -2,8 +2,8 @@ package br.com.zup.pact.consumer.entity
 
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 
-class ClientEntity (
-        val id: Int,
+data class ClientEntity (
+        val clientId: Int,
         val accountId: Int,
         val firstName: String,
         val lastName: String,
@@ -11,7 +11,7 @@ class ClientEntity (
 ) {
     fun toAccountDetailsDTO(): ClientDetailsDTO {
         return ClientDetailsDTO(
-                id = id,
+                clientId = clientId,
                 accountId = accountId,
                 firstName = firstName,
                 lastName = lastName,
