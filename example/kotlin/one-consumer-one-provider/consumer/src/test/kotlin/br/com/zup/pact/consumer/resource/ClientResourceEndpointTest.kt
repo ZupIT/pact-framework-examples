@@ -122,4 +122,21 @@ class ClientResourceEndpointTest (
                 .andExpect(MockMvcResultMatchers.status().isOk)
 
     }
+
+    @Test
+    fun `Method getBalance returns not found if balance does not exists`() {
+
+        every { clientService.getBalance(any()) }
+                .returns(null)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/balance/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").doesNotExist())
+                .andExpect(MockMvcResultMatchers.status().isNotFound)
+
+    }
 }
