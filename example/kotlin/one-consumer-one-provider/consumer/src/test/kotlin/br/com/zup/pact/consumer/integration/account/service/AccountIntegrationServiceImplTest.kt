@@ -35,4 +35,19 @@ class AccountIntegrationServiceImplTest {
 
         Assertions.assertThat(result).isEqualTo(BalanceDTO(1, 1, 200.0))
     }
+
+    @Test
+    fun `Method getBalance by accountId returns empty body`() {
+
+        every {
+            restTemplate.getForEntity(
+                    url,
+                    BalanceDTO::class.java, 2)
+        }.returns(ResponseEntity<BalanceDTO>(
+                HttpStatus.NOT_FOUND))
+
+        val result: BalanceDTO? = accountIntegrationServiceMock.getBalance(2)
+
+        Assertions.assertThat(result).isNull()
+    }
 }
