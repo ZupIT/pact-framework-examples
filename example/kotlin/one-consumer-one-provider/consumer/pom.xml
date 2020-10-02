@@ -17,6 +17,8 @@
 	<properties>
 		<java.version>11</java.version>
 		<kotlin.version>1.3.72</kotlin.version>
+		<pact.version>4.1.0</pact.version>
+		<pact-broker-host>localhost</pact-broker-host>
 	</properties>
 
 	<dependencies>
@@ -68,6 +70,19 @@
 			<version>3.17.2</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>au.com.dius</groupId>
+			<artifactId>pact-jvm-consumer-junit5</artifactId>
+			<version>4.0.10</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -96,6 +111,16 @@
 						<version>${kotlin.version}</version>
 					</dependency>
 				</dependencies>
+			</plugin>
+			<plugin>
+				<groupId>au.com.dius.pact.provider</groupId>
+				<artifactId>maven</artifactId>
+				<version>4.1.0</version>
+				<configuration>
+					<pactBrokerUrl>http://${pact-broker-host}:9292</pactBrokerUrl>
+					<pactDirectory>target/pacts</pactDirectory>
+					<trimSnapshot>true</trimSnapshot>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
