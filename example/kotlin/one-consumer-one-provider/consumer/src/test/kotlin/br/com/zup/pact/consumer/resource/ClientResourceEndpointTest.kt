@@ -84,4 +84,21 @@ class ClientResourceEndpointTest (
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").value(40))
                 .andExpect(MockMvcResultMatchers.status().isOk)
     }
+
+    @Test
+    fun `Method getClientDetails returns not found if client does not exists`() {
+
+        every { clientService.getClientDetails(any()) }
+                .returns(null)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").doesNotExist())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.age").doesNotExist())
+                .andExpect(MockMvcResultMatchers.status().isNotFound)
+
+    }
 }
