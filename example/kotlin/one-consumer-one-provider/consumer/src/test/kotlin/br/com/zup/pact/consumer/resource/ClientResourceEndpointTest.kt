@@ -1,5 +1,6 @@
 package br.com.zup.pact.consumer.resource
 
+import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import br.com.zup.pact.consumer.service.ClientService
 import io.mockk.every
@@ -99,6 +100,26 @@ class ClientResourceEndpointTest (
                 .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").doesNotExist())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.age").doesNotExist())
                 .andExpect(MockMvcResultMatchers.status().isNotFound)
+
+    }
+
+    @Test
+    fun `Method getBalance returns a BalanceDTO`() {
+
+        val balanceDTO = BalanceDTO(1, 1, 250.0)
+
+        every { clientService.getBalance(any()) }
+                .returns(balanceDTO)
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/balance/1"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.balance").exists())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").value(balanceDTO.accountId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").value(balanceDTO.clientId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.balance").value(balanceDTO.balance))
+                .andExpect(MockMvcResultMatchers.status().isOk)
 
     }
 }

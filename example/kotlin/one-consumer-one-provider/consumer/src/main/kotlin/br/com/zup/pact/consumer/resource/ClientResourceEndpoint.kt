@@ -1,8 +1,8 @@
 package br.com.zup.pact.consumer.resource
 
+import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import br.com.zup.pact.consumer.service.ClientService
-import br.com.zup.pact.consumer.service.ClientServiceImpl
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,6 +24,13 @@ class ClientResourceEndpoint(val clientService: ClientService) {
     @GetMapping("/{clientId}")
     fun getClientDetails(@PathVariable("clientId") clientId: Int): ResponseEntity<ClientDetailsDTO> {
         return clientService.getClientDetails(clientId)?.let {
+            ResponseEntity(it, HttpStatus.OK)
+        }?: ResponseEntity(HttpStatus.NOT_FOUND)
+    }
+
+    @GetMapping("/balance/{clientId}")
+    fun getBalance(@PathVariable("clientId") clientId: Int): ResponseEntity<BalanceDTO> {
+        return clientService.getBalance(clientId)?.let {
             ResponseEntity(it, HttpStatus.OK)
         }?: ResponseEntity(HttpStatus.NOT_FOUND)
     }
