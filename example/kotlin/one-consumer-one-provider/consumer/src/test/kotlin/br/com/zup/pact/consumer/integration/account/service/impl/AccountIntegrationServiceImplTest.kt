@@ -1,6 +1,7 @@
-package br.com.zup.pact.consumer.integration.account.service
+package br.com.zup.pact.consumer.integration.account.service.impl
 
 import br.com.zup.pact.consumer.dto.BalanceDTO
+import br.com.zup.pact.consumer.integration.account.service.AccountIntegrationService
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk

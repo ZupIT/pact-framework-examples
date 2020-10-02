@@ -1,6 +1,7 @@
-package br.com.zup.pact.consumer.integration.account.service
+package br.com.zup.pact.consumer.integration.account.service.impl
 
 import br.com.zup.pact.consumer.dto.BalanceDTO
+import br.com.zup.pact.consumer.integration.account.service.AccountIntegrationService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.ResponseEntity
