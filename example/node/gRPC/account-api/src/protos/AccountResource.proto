@@ -16,8 +16,8 @@ message AccountDetailsResponse {
 }
 
 message AccountResponse {
-  int32 accountId = 2;
-  double balance = 3;
+  int32 accountId = 1;
+  double balance = 2;
 }
 
 service AccountResource {

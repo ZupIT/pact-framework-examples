@@ -41,7 +41,7 @@ routes.post('/grpc/*', async (req: Request, res: Response) => {
 
     // create Account Client
     const client = createClient(PROTO_PATH, packageName, serviceName);
-    client[method](req.body, (err: any, response: any) => err ? res.status(500) : res.status(200).json(response));
+    client[method](req.body, (err: any, response: any) => err ? res.status(500).json(err) : res.status(200).json(response));
 
 });
 

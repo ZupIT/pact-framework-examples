@@ -2,15 +2,13 @@ import { Account } from './account.interface';
 import { Repository } from "../repository.interface";
 
 
-export function accountMocks() {
-    return new Map([
+export const accountMocks = new Map([
         ['15', { id: 15 , balance: 200.00, accountType: 'checking' }]
     ]);
-}
 
 export class AccountRepository implements Repository<Account> {
 
-    private accounts: Map<string, Account> = accountMocks();
+    private accounts: Map<string, Account> = accountMocks;
 
     setAccounts(accounts: Map<string, Account>) {
         this.accounts = accounts;
@@ -39,5 +37,3 @@ export class AccountRepository implements Repository<Account> {
     }
 
 }
-
-export default new AccountRepository();
