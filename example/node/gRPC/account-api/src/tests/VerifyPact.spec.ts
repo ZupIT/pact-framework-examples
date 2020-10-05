@@ -4,7 +4,7 @@ import express from 'express';
 import { Server as HttpServer } from 'http';
 import { APP_PORT, APP_URL, PACT_BROKER_URL } from '../constants';
 import { createGrpcServer } from '../gRPCServer';
-import accountRepository from '../repositories/account/account.repository';
+import { accountMocks } from '../repositories/account/account.repository';
 import routes from './grpc-routes';
  
 async function createHttpServer(): Promise<HttpServer> {
@@ -37,14 +37,12 @@ describe('Pact verification', () => {
       publishVerificationResult: true,
       providerVersion: '1.0.0',
       stateHandlers: {
-        'default state': async () => {
-          accountRepository.setAccounts(new Map([
-              ['1', { id: 1 , balance: 200.00, accountType: 'checking' }]
-            ])
-          );
+        'there is one account with id 15': async () => {
+          accountMocks.clear();
+          accountMocks.set('15', { id: 15 , balance: 200.00, accountType: 'checking' });
         },
         'inexistent account': async () => {
-          accountRepository.setAccounts(new Map([]));
+          accountMocks.clear();
         }
       }
     });
@@ -54,8 +52,8 @@ describe('Pact verification', () => {
       .catch(err => console.log(err));
   });
 
-  afterAll( () => {
-    grpcServer.tryShutdown((err) => err ? console.log(err) : '' );
-    app.close();
+  afterAll( async () => {
+    grpcServer.forceShutdown();
+    app.close((err) => err ? console.log(err) : '' );
   })
 });
