@@ -1,5 +1,5 @@
 import { Client } from './client.interface';
-import ClientRepository, { clientsMock } from './client.repository';
+import ClientRepository from './client.repository';
 
 describe('ClientRepository', () => {
   let CLIENTS_MOCK: Map<string, Client>;
@@ -7,7 +7,9 @@ describe('ClientRepository', () => {
 
   beforeEach(() => {
     EXISTING_CLIENT_ID = '1';
-    CLIENTS_MOCK = clientsMock();
+    CLIENTS_MOCK = new Map([
+      ['1', { id: 1, accountId: 15, clientName: 'John Client' }],
+    ]);
   });
 
   it('should get all clients', async () => {
@@ -39,10 +41,11 @@ describe('ClientRepository', () => {
 
   it('should update an existing client', async () => {
     const newName = 'John Due Client';
+    const existingClient = CLIENTS_MOCK.get(EXISTING_CLIENT_ID);
 
     const updatedClient = await ClientRepository.update({
-      id: Number(EXISTING_CLIENT_ID),
-      accountId: 15,
+      id: Number(existingClient?.id),
+      accountId: Number(existingClient?.accountId),
       clientName: newName,
     });
     const client = await ClientRepository.getById(EXISTING_CLIENT_ID);
@@ -51,9 +54,8 @@ describe('ClientRepository', () => {
   });
 
   it('should delete existing client', async () => {
-    await ClientRepository.delete(EXISTING_CLIENT_ID);
-    const client = await ClientRepository.getById(EXISTING_CLIENT_ID);
+    const deletedClient = await ClientRepository.delete(EXISTING_CLIENT_ID);
 
-    expect(client).toBeUndefined();
+    expect(deletedClient).toEqual(true);
   });
 });
