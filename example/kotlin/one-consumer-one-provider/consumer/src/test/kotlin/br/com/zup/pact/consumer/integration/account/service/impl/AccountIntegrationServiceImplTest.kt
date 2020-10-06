@@ -16,7 +16,7 @@ import org.springframework.web.client.RestTemplate
 class AccountIntegrationServiceImplTest {
 
     private val restTemplate: RestTemplate = mockk()
-    private val url: String = "http://localhost:8080/v1/accounts/balance/1/"
+    private val url: String = "http://localhost:8080/v1/accounts/1/balance/"
 
     private val accountIntegrationServiceMock: AccountIntegrationService = AccountIntegrationServiceImpl(
             url, restTemplate

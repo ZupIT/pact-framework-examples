@@ -21,15 +21,15 @@ class ClientResourceEndpoint(val clientService: ClientService) {
         else ResponseEntity(allClientDetailsDTO, HttpStatus.OK)
     }
 
-    @GetMapping("/{clientId}")
-    fun getClientDetails(@PathVariable("clientId") clientId: Int): ResponseEntity<ClientDetailsDTO> {
+    @GetMapping("/{client-id}")
+    fun getClientDetails(@PathVariable("client-id") clientId: Int): ResponseEntity<ClientDetailsDTO> {
         return clientService.getClientDetails(clientId)?.let {
             ResponseEntity(it, HttpStatus.OK)
         }?: ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
-    @GetMapping("/balance/{clientId}")
-    fun getBalance(@PathVariable("clientId") clientId: Int): ResponseEntity<BalanceDTO> {
+    @GetMapping("/{client-id}/balance")
+    fun getBalance(@PathVariable("client-id") clientId: Int): ResponseEntity<BalanceDTO> {
         return clientService.getBalance(clientId)?.let {
             ResponseEntity(it, HttpStatus.OK)
         }?: ResponseEntity(HttpStatus.NOT_FOUND)

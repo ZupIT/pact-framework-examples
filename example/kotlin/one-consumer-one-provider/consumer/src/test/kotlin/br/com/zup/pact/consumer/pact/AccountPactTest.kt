@@ -7,6 +7,9 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt
 import au.com.dius.pact.consumer.junit5.PactTestFor
 import au.com.dius.pact.core.model.RequestResponsePact
 import au.com.dius.pact.core.model.annotations.Pact
+import br.com.zup.pact.consumer.constants.CONSUMER_NAME
+import br.com.zup.pact.consumer.constants.PROVIDER_NAME
+import br.com.zup.pact.consumer.constants.PORT
 import org.apache.http.HttpResponse
 import org.apache.http.client.fluent.Request
 import org.assertj.core.api.Assertions
@@ -14,14 +17,15 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(PactConsumerTestExt::class)
-@PactTestFor(providerName = "AccountBalanceProvider", port = "1234")
+@PactTestFor(providerName = PROVIDER_NAME, port = PORT)
 class AccountPactTest {
 
-    private val balanceUrlWorking: String = "/v1/accounts/balance/1"
-    private val balanceUrlNotWorking: String = "/v1/accounts/balance/1000"
+    private val balanceUrlWorking: String = "/v1/accounts/1/balance"
+    private val balanceUrlNotWorking: String = "/v1/accounts/1000/balance"
+
     private val header = mapOf("Content-Type" to "application/json")
 
-    @Pact(provider = "AccountBalanceProvider", consumer = "AccountBalanceConsumer")
+    @Pact(consumer = CONSUMER_NAME)
     fun balanceEndpointTest(builder: PactDslWithProvider): RequestResponsePact {
         val bodyResponse: PactDslJsonBody = PactDslJsonBody()
                 .integerType("accountId")
@@ -39,7 +43,7 @@ class AccountPactTest {
                 .toPact()
     }
 
-    @Pact(provider = "AccountBalanceProvider", consumer = "AccountBalanceConsumer")
+    @Pact(consumer = CONSUMER_NAME)
     fun balanceEndpointNotWorkingTest(builder: PactDslWithProvider): RequestResponsePact {
         return builder.given("No accounts exist from accountId 1000")
                 .uponReceiving("A request to $balanceUrlNotWorking")
@@ -51,7 +55,7 @@ class AccountPactTest {
     }
 
     @Test
-    @PactTestFor(pactMethod = "balanceEndpointTest", providerName = "AccountBalanceProvider")
+    @PactTestFor(pactMethod = "balanceEndpointTest")
     fun testBalanceWorking(mockServer: MockServer) {
         val httpResponse: HttpResponse = Request.Get(mockServer.getUrl() + balanceUrlWorking)
                 .execute().returnResponse()
@@ -59,7 +63,7 @@ class AccountPactTest {
     }
 
     @Test
-    @PactTestFor(pactMethod = "balanceEndpointNotWorkingTest", providerName = "AccountBalanceProvider")
+    @PactTestFor(pactMethod = "balanceEndpointNotWorkingTest")
     fun testBalanceNotWorking(mockServer: MockServer) {
         val httpResponse: HttpResponse = Request.Get(mockServer.getUrl() + balanceUrlNotWorking)
                 .execute().returnResponse()

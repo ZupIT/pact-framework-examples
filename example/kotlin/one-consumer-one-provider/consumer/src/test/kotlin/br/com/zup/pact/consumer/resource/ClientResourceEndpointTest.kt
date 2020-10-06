@@ -111,7 +111,7 @@ class ClientResourceEndpointTest (
         every { clientService.getBalance(any()) }
                 .returns(balanceDTO)
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/balance/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/1/balance"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").exists())
@@ -129,7 +129,7 @@ class ClientResourceEndpointTest (
         every { clientService.getBalance(any()) }
                 .returns(null)
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/balance/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/clients/1/balance"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").doesNotExist())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").doesNotExist())

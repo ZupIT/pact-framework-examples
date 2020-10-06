@@ -85,14 +85,14 @@ class ClientServiceImplTest {
     fun `Method getBalance should return a BalanceDTO`() {
 
         every { clientRepositoryMock.findByClientId(1) }
-                .returns(ClientDetailsDTO(1, 2, "any", "any", 19))
+                .returns(createClientDetails(1))
 
-        every { accountIntegrationServiceMock.getBalance(2) }
-                .returns(BalanceDTO(2, 1, 100.0))
+        every { accountIntegrationServiceMock.getBalance(1) }
+                .returns(BalanceDTO(1, 1, 100.0))
 
         val expectedBalanceDTO = clientService.getBalance(1)
 
-        Assertions.assertThat(expectedBalanceDTO).isEqualTo(BalanceDTO(2, 1, 100.0))
+        Assertions.assertThat(expectedBalanceDTO).isEqualTo(BalanceDTO(1, 1, 100.0))
     }
 
     @Test
