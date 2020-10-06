@@ -1,7 +1,8 @@
 import { Router } from 'express';
-import GetBalanceByClientID from '../services/GetBalanceByClientID';
+import { ClientController } from '../controllers/ClientController';
 
 const routes = Router();
+const clientController = new ClientController();
 
 routes.use((req, _res, next) => {
   const { method, url } = req;
@@ -11,18 +12,6 @@ routes.use((req, _res, next) => {
   return next();
 });
 
-routes.get('/client/:id', async (req, res) => {
-  const { id } = req.params;
-
-  if (Number(id) !== 1) {
-    return res.status(404).json({ message: "Client doesn't exist" });
-  }
-
-  const { accountID, balance, clientID } = await GetBalanceByClientID({
-    clientID: Number(id),
-  });
-
-  return res.status(200).json({ accountID, balance, clientID });
-});
+routes.get('/client/:id', clientController.getClient);
 
 export default routes;

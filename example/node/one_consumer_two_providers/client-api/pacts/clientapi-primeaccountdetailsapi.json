@@ -19,10 +19,14 @@
           "Content-Type": "application/json; charset=utf-8"
         },
         "body": {
+          "clientID": 13.01,
           "isPrime": true,
           "discountPercentageFee": 13.01
         },
         "matchingRules": {
+          "$.body.clientID": {
+            "match": "type"
+          },
           "$.body.isPrime": {
             "match": "type"
           },
