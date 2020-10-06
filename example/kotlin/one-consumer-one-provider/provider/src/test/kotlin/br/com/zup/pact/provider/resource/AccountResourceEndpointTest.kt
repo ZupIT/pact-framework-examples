@@ -107,7 +107,7 @@ class AccountResourceEndpointTest(
 
         every { accountService.getBalanceByClientId(any()) }
                 .returns(balanceDTO)
-        mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/balance/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/v1/accounts/1/balance"))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.accountId").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.clientId").exists())

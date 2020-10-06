@@ -27,7 +27,7 @@ class AccountResourceEndpoint(val accountService: AccountService) {
             else ResponseEntity(HttpStatus.NOT_FOUND)
     }
 
-    @GetMapping("/balance/{clientId}")
+    @GetMapping("/{clientId}/balance")
     fun getBalanceByClientId(@PathVariable("clientId") clientId: Int): ResponseEntity<BalanceDTO> {
         return accountService.getBalanceByClientId(clientId)?.let {
             ResponseEntity(it, HttpStatus.OK)
