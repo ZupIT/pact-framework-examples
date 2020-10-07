@@ -13,9 +13,9 @@ async function createHttpServer(): Promise<HttpServer> {
   .use(routes);
 
   return new Promise( (resolve) => {
-    expressServer
+    const server = expressServer
     .listen(APP_PORT, () =>
-      resolve()
+      resolve(server)
     );
   });
 }
@@ -52,8 +52,8 @@ describe('Pact verification', () => {
       .catch(err => console.log(err));
   });
 
-  afterAll( async () => {
+  afterAll( () => {
     grpcServer.forceShutdown();
-    app.close((err) => err ? console.log(err) : '' );
-  })
+    app.close();
+  });
 });
