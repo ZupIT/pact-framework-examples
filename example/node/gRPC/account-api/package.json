@@ -29,7 +29,7 @@
     "jest": "^26.0.1",
     "prettier": "^2.0.5",
     "ts-jest": "^26.1.0",
-    "ts-node-dev": "^1.0.0-pre.61",
+    "ts-node-dev": "^1.0.0-pre.63",
     "typescript": "^3.9.3"
   }
 }

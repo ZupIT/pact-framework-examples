@@ -2,7 +2,7 @@ import { loadPackageDefinition } from '@grpc/grpc-js';
 import { loadSync } from '@grpc/proto-loader';
 
 export function loadProtoFile(protoPath: string) {
-    var packageDefinition = loadSync(
+    const packageDefinition = loadSync(
         protoPath,
         {keepCase: true,
          longs: String,

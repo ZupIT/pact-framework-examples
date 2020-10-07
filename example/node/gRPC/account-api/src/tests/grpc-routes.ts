@@ -17,10 +17,10 @@ function createClient(protoPath: string, packageName:string, serviceName: string
     );
     
     // Load proto file
-    var account_proto: any = loadPackageDefinition(PACKAGE_DEFINITION);
+    const account_proto: any = loadPackageDefinition(PACKAGE_DEFINITION);
 
     // generate credentials according to your Authority provider
-    var newCredentials = credentials.createInsecure();
+    const newCredentials = credentials.createInsecure();
 
     // Stablish connection
     const services = packageName.split('.').reduce((p,c)=>p&&p[c]||null, account_proto);

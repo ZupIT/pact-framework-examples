@@ -7,7 +7,7 @@ export async function createGrpcServer(): Promise<Server>  {
     const {findById, getAll} = new AccountController();
     const grpcServer = new Server();
   
-    var protofile: any = loadProtoFile('src/protos/AccountResource.proto');
+    const protofile: any = loadProtoFile('src/protos/AccountResource.proto');
     grpcServer.addService(protofile.br.com.zup.pact.provider.resource.AccountResource.service, { 
         findById,
         getAll
