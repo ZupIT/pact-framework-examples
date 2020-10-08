@@ -108,7 +108,7 @@ describe('ProductServicePact', () => {
         willRespondWith: {
           status: 200,
           body: {
-            id: Matchers.integer(),
+            id: Matchers.string(),
             type: Matchers.string(),
             name: Matchers.string(),
           },
