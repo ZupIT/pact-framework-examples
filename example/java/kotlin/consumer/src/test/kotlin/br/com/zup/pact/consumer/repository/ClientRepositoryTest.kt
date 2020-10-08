@@ -11,7 +11,6 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.util.*
 
 @ExtendWith(MockKExtension::class)
 class ClientRepositoryTest {
@@ -35,7 +34,7 @@ class ClientRepositoryTest {
                                 2 to createClientEntity(2)
                         )
                 )
-        val expectedClientDetailsDTO = Optional.of(createClientDetailsDTO(accountId = 1))
+        val expectedClientDetailsDTO = createClientDetailsDTO(accountId = 1)
 
         //when
         val actualReturn = clientRepository.findByClientId(1)
@@ -45,7 +44,7 @@ class ClientRepositoryTest {
     }
 
     @Test
-    fun `Method findByClientId should return Optional empty when stub does not have the clientId `() {
+    fun `Method findByClientId should return null when stub does not have the clientId `() {
         //given
         every { clientStubMock.clients }
                 .returns(
@@ -54,7 +53,7 @@ class ClientRepositoryTest {
                                 2 to createClientEntity(2)
                         )
                 )
-        val expectedClientDetailsDTO = Optional.empty<ClientDetailsDTO>()
+        val expectedClientDetailsDTO = null
 
         //when
         val actualReturn = clientRepository.findByClientId(3)
@@ -64,10 +63,10 @@ class ClientRepositoryTest {
     }
 
     @Test
-    fun `Method findByClientId should return Optional empty when stub return is empty`() {
+    fun `Method findByClientId should return null when stub return is empty`() {
         //given
         every { clientStubMock.clients }.returns(mutableMapOf())
-        val expectedClientDetailsDTO = Optional.empty<ClientDetailsDTO>()
+        val expectedClientDetailsDTO = null
 
         //when
         val actualReturn = clientRepository.findByClientId(3)

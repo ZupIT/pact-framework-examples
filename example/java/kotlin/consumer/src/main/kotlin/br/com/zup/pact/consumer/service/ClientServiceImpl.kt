@@ -7,7 +7,6 @@ import br.com.zup.pact.consumer.integration.account.service.AccountIntegrationSe
 import br.com.zup.pact.consumer.repository.ClientRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.util.*
 
 @Service
 class ClientServiceImpl(
@@ -15,7 +14,7 @@ class ClientServiceImpl(
         @Autowired val accountIntegrationService: AccountIntegrationService
 ) : ClientService {
 
-    override fun getClientDetails(clientId: Int): Optional<ClientDetailsDTO> {
+    override fun getClientDetails(clientId: Int): ClientDetailsDTO? {
         return clientRepository.findByClientId(clientId)
     }
 
@@ -23,14 +22,15 @@ class ClientServiceImpl(
         return clientRepository.getAll()
     }
 
-    override fun getBalance(clientId: Int): Optional<BalanceDTO> {
+    override fun getBalance(clientId: Int): BalanceDTO? {
         val accountId = getAccountId(clientId)
         return accountIntegrationService.getBalance(accountId)
     }
 
     private fun getAccountId(clientId: Int): Int {
-        return getClientDetails(clientId)
-                .orElseThrow { ClientNotFoundException("Client with id: $clientId") }
-                .accountId
+        val clientDetails = getClientDetails(clientId).takeIf { it != null }
+                ?: throw  ClientNotFoundException("Client with id: $clientId")
+
+        return clientDetails.accountId
     }
 }

@@ -7,4 +7,3 @@ data class ClientDetailsDTO(
         val finalName: String,
         val age: Int
 )
-

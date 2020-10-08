@@ -8,7 +8,6 @@ import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
-import java.util.*
 import javax.annotation.PreDestroy
 
 
@@ -24,7 +23,7 @@ class AccountIntegrationImpl(
             .usePlaintext()
             .build()
 
-    override fun getBalance(accountId: Int): Optional<BalanceDTO> {
+    override fun getBalance(accountId: Int): BalanceDTO? {
 
         val balanceRequest = AccountIdRequest.newBuilder()
                 .setAccountId(accountId)
@@ -33,12 +32,11 @@ class AccountIntegrationImpl(
         val stub: AccountResourceGrpc.AccountResourceBlockingStub = AccountResourceGrpc.newBlockingStub(channel)
         val balanceResponse: AccountResponse = stub.findById(balanceRequest)
 
-        return Optional.of(
-                BalanceDTO(
-                        accountId = balanceResponse.accountId,
-                        balance = balanceResponse.balance
-                )
+        return BalanceDTO(
+                accountId = balanceResponse.accountId,
+                balance = balanceResponse.balance
         )
+
     }
 
     @PreDestroy

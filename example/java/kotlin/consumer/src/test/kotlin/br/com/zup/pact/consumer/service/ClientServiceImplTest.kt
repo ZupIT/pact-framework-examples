@@ -34,12 +34,12 @@ class ClientServiceImplTest {
     fun `Method getClientDetails should return findByClientId from the repository`() {
 
         every { clientRepositoryMock.findByClientId(1) }
-                .returns(Optional.of(createClientDetailsDTO(accountId = 1)))
+                .returns(createClientDetailsDTO(accountId = 1))
 
         val expectedAccountDetailsDTO = clientService.getClientDetails(1)
 
         Assertions.assertThat(expectedAccountDetailsDTO).isEqualTo(
-                Optional.of(createClientDetailsDTO(accountId = 1))
+                createClientDetailsDTO(accountId = 1)
         )
     }
 
@@ -57,24 +57,24 @@ class ClientServiceImplTest {
     }
 
     @Test
-    fun `Method getBalance should return Optional of BalanceDTO`() {
+    fun `Method getBalance should return BalanceDTO`() {
 
         every { clientRepositoryMock.findByClientId(1) }
-                .returns(Optional.of(createClientDetailsDTO(accountId = 2)))
+                .returns(createClientDetailsDTO(accountId = 2))
 
         every { accountIntegrationServiceMock.getBalance(2) }
-                .returns(Optional.of(BalanceDTO(
+                .returns(BalanceDTO(
                         accountId = 2,
                         balance = 100.0
-                )))
+                ))
 
         val expectedBalanceDTO = clientService.getBalance(1)
 
         Assertions.assertThat(expectedBalanceDTO).isEqualTo(
-                Optional.of(BalanceDTO(
+                BalanceDTO(
                         accountId = 2,
                         balance = 100.0
-                ))
+                )
         )
     }
 
@@ -82,7 +82,7 @@ class ClientServiceImplTest {
     fun `Method getBalance should throw ClientNotFoundException when ClientDetails is null`() {
 
         every { clientRepositoryMock.findByClientId(1) }
-                .returns(Optional.empty())
+                .returns(null)
 
         Assertions.assertThatExceptionOfType(ClientNotFoundException::class.java)
                 .isThrownBy { clientService.getBalance(1) }

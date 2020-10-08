@@ -9,10 +9,8 @@ import java.util.*
 @Component
 class ClientRepository(@Autowired val clientStub: ClientStub) {
 
-    fun findByClientId(clientId: Int): Optional<ClientDetailsDTO> {
-        return Optional.ofNullable(
-                clientStub.clients[clientId]?.toAccountDetailsDTO()
-        )
+    fun findByClientId(clientId: Int): ClientDetailsDTO? {
+        return clientStub.clients[clientId]?.toAccountDetailsDTO()
     }
 
     fun getAll(): List<ClientDetailsDTO> {

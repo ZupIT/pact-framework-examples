@@ -4,5 +4,5 @@ import br.com.zup.pact.consumer.dto.BalanceDTO
 import java.util.*
 
 interface AccountIntegrationService {
-    fun getBalance(accountId: Int): Optional<BalanceDTO>
+    fun getBalance(accountId: Int): BalanceDTO?
 }
