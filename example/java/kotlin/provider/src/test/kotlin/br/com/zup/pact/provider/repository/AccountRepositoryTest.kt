@@ -13,7 +13,6 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.util.*
 
 @ExtendWith(MockKExtension::class)
 class AccountRepositoryTest {
@@ -54,7 +53,7 @@ class AccountRepositoryTest {
                                 2 to createAccountEntity(2)
                         )
                 )
-        val expectedBalanceDTO = Optional.of(BalanceDTO(accountId = 1, balance = 100.0))
+        val expectedBalanceDTO = BalanceDTO(accountId = 1, balance = 100.0)
 
         //when
         val actualReturn = accountRepository.findByAccountId(1)
@@ -64,7 +63,7 @@ class AccountRepositoryTest {
     }
 
     @Test
-    fun `Method findByAccountId should return Optional empty when stub does not have the clientId `() {
+    fun `Method findByAccountId should return null when stub does not have the clientId `() {
         //given
         every { accountStubMock.accounts }
                 .returns(
@@ -73,7 +72,7 @@ class AccountRepositoryTest {
                                 2 to createAccountEntity(2)
                         )
                 )
-        val expectedBalanceDTO = Optional.empty<BalanceDTO>()
+        val expectedBalanceDTO = null
 
         //when
         val actualReturn = accountRepository.findByAccountId(3)
@@ -83,13 +82,13 @@ class AccountRepositoryTest {
     }
 
     @Test
-    fun `Method findByAccountId should return Optional empty when stub return is empty`() {
+    fun `Method findByAccountId should return null when stub return is empty`() {
         //given
         every { accountStubMock.accounts }
                 .returns(
                         mutableMapOf<Int, AccountEntity>()
                 )
-        val expectedBalanceDTO = Optional.empty<BalanceDTO>()
+        val expectedBalanceDTO = null
 
         //when
         val actualReturn = accountRepository.findByAccountId(3)

@@ -14,7 +14,7 @@ class AccountServiceImpl(@Autowired val accountRepository: AccountRepository) : 
         return accountRepository.getAll()
     }
 
-    override fun findByAccountId(accountId: Int): Optional<BalanceDTO> {
+    override fun findByAccountId(accountId: Int): BalanceDTO? {
         return accountRepository.findByAccountId(accountId)
     }
 }

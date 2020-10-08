@@ -6,5 +6,5 @@ import java.util.*
 
 interface AccountService {
     fun getAll(): List<AccountDetailsDTO>
-    fun findByAccountId(accountId: Int): Optional<BalanceDTO>
+    fun findByAccountId(accountId: Int): BalanceDTO?
 }

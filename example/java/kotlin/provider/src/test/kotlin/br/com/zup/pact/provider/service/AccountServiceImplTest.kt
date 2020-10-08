@@ -12,7 +12,6 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.util.*
 
 @ExtendWith(MockKExtension::class)
 class AccountServiceImplTest {
@@ -50,18 +49,18 @@ class AccountServiceImplTest {
     fun `Method findByAccountId should return findByAccountId from the repository`() {
 
         every { accountRepositoryMock.findByAccountId(1) }
-                .returns(Optional.of(BalanceDTO(
+                .returns(BalanceDTO(
                         accountId = 1,
                         balance = 100.0
-                )))
+                ))
 
         val expectedBalanceDTO = accountService.findByAccountId(1)
 
         Assertions.assertThat(expectedBalanceDTO).isEqualTo(
-                Optional.of(BalanceDTO(
+                BalanceDTO(
                         accountId = 1,
                         balance = 100.0
-                ))
+                )
         )
     }
 }

@@ -23,8 +23,6 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import java.net.MalformedURLException
 import java.net.URL
-import java.util.*
-
 
 @Provider("grpc-account-provider")
 @PactBroker
@@ -54,6 +52,6 @@ class AccountProviderPactTest {
     @State("get balance of accountId 1")
     fun getBalanceDTO() {
         val balanceDTO = BalanceDTO(1, 100.0)
-        BDDMockito.given(accountService.findByAccountId(ArgumentMatchers.eq(1))).willReturn(Optional.of(balanceDTO))
+        BDDMockito.given(accountService.findByAccountId(ArgumentMatchers.eq(1))).willReturn(balanceDTO)
     }
 }
