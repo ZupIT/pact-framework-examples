@@ -38,6 +38,8 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Rest - um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).
       * [Rest - dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
       * [Mensageria/Kafka](example/java/messaging-kafka/)
+   - **Kotlin**
+      * [Rest - um consumidor e um provedor](example/kotlin/one-consumer-one-provider).
    - **Node**
       * [Rest - um consumidor e um provedor](example/node/one_consumer_one_provider).
       * [Rest - um consumidor e dois provedores](example/node/one_consumer_two_providers).
