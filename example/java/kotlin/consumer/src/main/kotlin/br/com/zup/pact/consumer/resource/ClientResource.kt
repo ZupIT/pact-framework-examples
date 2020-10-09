@@ -17,7 +17,7 @@ class ClientResourceImpl(@Autowired val clientService: ClientService)
         val balance: BalanceDTO? = clientService.getBalance(request.clientId)
 
         if (balance == null) {
-            responseObserver.onError(balance)
+            responseObserver.onError(balance) //TODO tem que testar essa condição
         } else {
             val response = balance?.accountId?.let {
                 BalanceResponse.newBuilder()

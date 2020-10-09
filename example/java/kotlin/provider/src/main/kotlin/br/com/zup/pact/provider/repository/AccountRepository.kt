@@ -5,9 +5,9 @@ import br.com.zup.pact.provider.dto.BalanceDTO
 import br.com.zup.pact.provider.entity.AccountEntity
 import br.com.zup.pact.provider.stub.AccountStub
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 
-@Component
+@Repository
 class AccountRepository(@Autowired val accountStub: AccountStub) {
 
     fun getAll(): List<AccountDetailsDTO> {
