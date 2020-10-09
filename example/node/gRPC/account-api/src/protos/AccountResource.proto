@@ -1,0 +1,27 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package br.com.zup.pact.provider.resource;
+
+message EmptyRequest {
+}
+
+message AccountIdRequest {
+  int32 accountId = 1;
+}
+
+message AccountDetailsResponse {
+  int32 accountId = 1;
+  double balance = 2;
+  string accountType = 3;
+}
+
+message AccountResponse {
+  int32 accountId = 1;
+  double balance = 2;
+}
+
+service AccountResource {
+  rpc getAll (EmptyRequest) returns (stream AccountDetailsResponse){}
+  rpc findById (AccountIdRequest) returns (AccountResponse){}
+}
+
