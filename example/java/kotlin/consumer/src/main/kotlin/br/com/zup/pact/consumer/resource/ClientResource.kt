@@ -14,17 +14,17 @@ class ClientResourceImpl(@Autowired val clientService: ClientService)
     :ClientResourceGrpc.ClientResourceImplBase() {
 
     override fun getBalance(request: ClientRequest, responseObserver: StreamObserver<BalanceResponse>) {
-        super.getBalance(request, responseObserver)
-
         val balance: BalanceDTO? = clientService.getBalance(request.clientId)
 
         if (balance == null) {
             responseObserver.onError(balance)
         } else {
-            val response = BalanceResponse.newBuilder()
-                    .setAccountId(balance.accountId)
-                    .setBalance(balance.balance)
-                    .build()
+            val response = balance?.accountId?.let {
+                BalanceResponse.newBuilder()
+                        .setAccountId(it)
+                        .setBalance(balance.balance)
+                        .build()
+            }
 
             responseObserver.onNext(response)
         }
