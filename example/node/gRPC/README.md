@@ -66,8 +66,8 @@ Para maiores detalhes sobre a implementação dos testes, vide o arquivo de test
 * ### Solução no lado do Provedor
 
 De forma análoga a solução proposta no lado do Consumidor, no lado do Provedor precisamos fazer a tradução entre a chamada gRPC e REST, mas de forma inversa (REST > gRPC). 
-Para isto, precisamos criar um servidor REST como **proxy**, que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servider gRPC. 
-Neste caso utilizamos Express para criar implementarmos este **proxy* seguindo a convenção definida anteriormente.
+Para isto, precisamos criar um servidor REST como *proxy*, que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servidor gRPC. 
+Neste caso utilizamos Express para criar implementarmos este *proxy* seguindo a convenção definida anteriormente.
 Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [account-api/src/tests/verify-pact.spec.ts](./client-api/src/tests/verify-pact.spec.ts). 
 
 A imagem a seguir representa esta solução:
