@@ -16,6 +16,38 @@ Exemplo da criação de um Pact entre:
 - Pact
 - Pact Broker
 
+## Cenários
+
+Este exemplo aborda um cenário comum no setor bancário.
+Nosso objetivo é obter o dado de saldo de determinado cliente e/ou obter o dado da porcentagem de desconto de determinada conta.
+Para isto, vamos considerar que este dado será recuperado da seguinte forma:
+
+### Obtendo saldo
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (client-api) o valor do saldo em conta. <br>
+2 - Por sua vez, o client-api pergunta ao serviço de domínio da conta (account-api) qual o saldo contido na conta atrelada aquele cliente. <br>
+3 - Tendo a informação do saldo em conta, o client-api retorna a informação a quem a solicitou.
+
+A imagem abaixo representa este fluxo.
+
+<img src="../../../imgs/get-balance-node.png" alt="new pact contract"/>
+
+### Obtendo a porcentagem de desconto
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (client-api) a porcentagem de desconto. <br>
+2 - Por sua vez, o client-api pergunta ao serviço de domínio da conta (prime-account-details-api) qual a porcentagem de desconto que aquele cliente tem direito. <br>
+3 - Tendo a informação da porcentagem de desconto, o client-api retorna a informação a quem a solicitou.
+
+A imagem abaixo representa este fluxo.
+
+<img src="../../../imgs/get-prime-account-details-node.png" alt="new pact contract"/>
+
+De forma resumida, temos os seguintes serviços:
+
+- account-api: mantém e gerencia informações relacionadas a contas bancárias.
+- prime-account-details-api: mantém e gerencia informações relacionadas a porcentagem de desconto das contas.
+- client-api: mantém e gerencia informações sobre clientes/correntistas.
+
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente.
