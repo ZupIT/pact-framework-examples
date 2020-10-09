@@ -16,16 +16,6 @@ Exemplo da criação de um Pact entre:
 - Jest
 
 
-## Compatibilidade com gRPC
-
-Atualmente, o Pact suporta cenários de integração via REST, Mensageria e GraphQL. 
-No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests/p/support-protobufs), o suporte oficial para gRPC já está planejado.
-Enquanto esperamos este novo recurso, preparamos uma solução para que você possa iniciar seus testes desde já,
-de forma que seja fácil migrar para uma solução definitiva no futuro. 
-
-De forma bastante resumida, esta solução define padrões para representarmos cada parte do contrato gRPC em REST, 
-possibilitando assim a validação dos contratos.
-
 ## Cenário
 
 Este exemplo aborda um cenário comum no setor bancário.
@@ -43,7 +33,46 @@ De forma resumida, temos os seguintes serviços:
 
 A imagem abaixo representa esta interação que acabamos de definir.
 
-<img src="../../../imgs/rest-scenario.png" alt="gRPC pact scenario"/>
+<img src="../../../imgs/client_account_findbyid_scenario.png" alt="gRPC pact scenario"/>
+
+
+## Compatibilidade com gRPC
+
+Atualmente, o Pact suporta cenários de integração via REST, Mensageria e GraphQL. 
+No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests/p/support-protobufs), o suporte oficial para gRPC já está planejado.
+Enquanto esperamos este novo recurso, preparamos uma solução para que você possa iniciar seus testes desde já,
+de forma que seja fácil migrar para uma solução definitiva no futuro. 
+
+De forma bastante resumida, esta solução define padrões para representarmos cada parte do contrato gRPC em REST, 
+possibilitando assim a validação dos contratos. A seguir explicamos a solução de forma mais detalhada. 
+
+Como dizemos acima, hoje o Pact não tem suporte para protocolo gRPC, mas e se conseguissemos 
+transformar, ou representar, esta chamada em outro protocolo que o Pact entenda (ex: REST) ? 
+É exatamente esta a abordagem adotada aqui. 
+
+* ### Solução no lado do Consumidor
+
+Quando uma chamada é feita no lado do consumidor, assim como em frameworks REST, o gRPC nos possibilita 
+interceptá-la através da definição de um **Interceptor**. Desta forma, conseguimos obter informações destas chamadas, incluindo dados definidos no protofile, como **package**, **service** e **method**. A partir destas informações conseguimos 
+montar uma chamada REST, baseado na seguinte convenção:
+
+```
+POST http://{{address}}/grpc/{{packagaName}}.{{service}}/{{method}}
+``` 
+
+Tendo gerado então esta chamada REST, conseguimos seguir o fluxo de teste do Pact no lado do consumidor. 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [client-api/src/tests/pact.spec.ts](./client-api/src/tests/pact.spec.ts). 
+
+* ### Solução no lado do Provedor
+
+De forma análoga a solução proposta no lado do Consumidor, no lado do Provedor precisamos fazer a tradução entre a chamada gRPC e REST, mas de forma inversa (REST > gRPC). 
+Para isto, precisamos criar um servidor REST como *proxy*, que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servidor gRPC. 
+Neste caso utilizamos Express para criar implementarmos este *proxy* seguindo a convenção definida anteriormente.
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [account-api/src/tests/verify-pact.spec.ts](./client-api/src/tests/verify-pact.spec.ts). 
+
+A imagem a seguir representa esta solução:
+
+<img src="../../../imgs/node_pact_grpc_solution.png" alt="Node Pact gRPC solution"/>
 
 ## Como executar
 

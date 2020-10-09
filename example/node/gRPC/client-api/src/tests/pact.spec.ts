@@ -50,6 +50,7 @@ pactWith({ port: 1234, consumer: "ClientApi", provider: "AccountApi" }, (provide
     afterAll(async () => provider.finalize());
 
     describe('should get account by Id', () => {
+
       beforeAll( async() => {
         await provider.addInteraction({
           state: 'there is one account with id 15',
@@ -77,7 +78,7 @@ pactWith({ port: 1234, consumer: "ClientApi", provider: "AccountApi" }, (provide
       it("get Product by Id", async () => {
         await productService.getById(15).then();
       })
-    })
+    });
 
     describe('Get account Error', () => {
       
@@ -105,7 +106,6 @@ pactWith({ port: 1234, consumer: "ClientApi", provider: "AccountApi" }, (provide
       it("get Product by Id", async () => {
         await productService.getById(1).then();
       })
-
     });
 
     afterAll(() => {
