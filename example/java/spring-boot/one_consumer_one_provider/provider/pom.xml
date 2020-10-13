@@ -10,7 +10,7 @@
     </parent>
     <groupId>br.com.zup.pact</groupId>
     <artifactId>provider</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>provider</name>
     <description>Provider</description>
 
@@ -19,8 +19,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <checkstyle-maven-plugin.version>3.1.1</checkstyle-maven-plugin.version>
-        <pact.version>4.0.10</pact.version>
-        <pact.application.name>AccountBalanceProvider</pact.application.name>
+        <pact.version>4.1.7</pact.version>
+        <pact.application.name>${project.name}</pact.application.name>
     </properties>
 
     <dependencies>
@@ -70,7 +70,7 @@
         <dependency>
             <groupId>au.com.dius.pact.provider</groupId>
             <artifactId>junit5</artifactId>
-            <version>4.1.7</version>
+            <version>${pact.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -145,6 +145,8 @@
                     <systemPropertyVariables>
                         <pact.provider.name>${pact.application.name}</pact.provider.name>
                         <pact.verifier.publishResults>true</pact.verifier.publishResults>
+                        <pact.provider.tag>master</pact.provider.tag>
+                        <pact.provider.version>${project.version}</pact.provider.version>
                     </systemPropertyVariables>
                     <useSystemClassLoader>false</useSystemClassLoader>
                 </configuration>
