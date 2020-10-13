@@ -51,7 +51,7 @@ De forma resumida, temos os seguintes serviços:
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente.
-   Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
+   Vide seção [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
 
 2. Com o Broker funcionando, podemos iniciar os testes.
    Primeiro, precisamos instalar as dependencias da API. Para isto, va até o diretório `client-api` e execute o seguinte comando:
