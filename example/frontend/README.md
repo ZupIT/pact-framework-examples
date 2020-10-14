@@ -18,11 +18,25 @@ Exemplo da criação de um Pact entre:
 
 ## Como executar
 
-### A PoC
+### Os projetos
 
-1. Primeiramente, entre no diretório `provider` e execute o comando `npm run dev:server`.
+1. Primeiramente, pelo terminal, entre no diretório `provider` e execute o comando `npm install` para instalar as dependências do projeto.
 
-### Manualmente
+2. Agora vamos executar o projeto com o seguinte comando `npm run dev:server`. Você deverá ver no log do terminal a mensagem confirmando que o projeto está rodando: `Provider listening on port 3333`.
+
+3. Abra outra aba do terminal e navegue até o diretório `consumer`, vamos instalar as dependências (`npm install`) desse projeto também.
+
+4. Execute o comando `npm run start` para executar a aplicação front-end. Após esse comando, você verá logs de compilação e logo após uma outra mensagem `** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **`.
+
+Conforme nos foi informado, se abrirmos o navegador no endereço `http://localhost:4200`, veremos a seguinte tela:
+
+<img src="../../imgs/frontend-image.png" alt="front-end interface"/>
+
+A partir dessa interface podemos testar as funcionalidades da aplicação, como o cadastro, edição e remoção.
+
+### Os testes
+
+#### Manualmente
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente.
    Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
@@ -70,7 +84,7 @@ Ao final, podemos conferir o resultado do teste que é publicado no Broker.
 
 ![pact contract](../../imgs/pact-verified.png)
 
-### Com CI via Jenkins
+#### Com CI via Jenkins
 
 1. Garanta que você tenha uma instância do Pact Broker com Jenkins rodando localmente.
    Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
