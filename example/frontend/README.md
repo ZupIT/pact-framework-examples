@@ -16,9 +16,7 @@ Exemplo da criação de um Pact entre:
 - Pact Broker
 - Jenkins
 
-## Como executar
-
-### Os projetos
+## Como rodar os projetos localmente
 
 1. Primeiramente, pelo terminal, entre no diretório `provider` e execute o comando `npm install` para instalar as dependências do projeto.
 
@@ -34,9 +32,7 @@ Conforme nos foi informado, se abrirmos o navegador no endereço `http://localho
 
 A partir dessa interface podemos testar as funcionalidades da aplicação, como o cadastro, edição e remoção.
 
-### Os testes
-
-#### Manualmente
+### Executando os testes manualmente
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente.
    Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
@@ -84,7 +80,7 @@ Ao final, podemos conferir o resultado do teste que é publicado no Broker.
 
 ![pact contract](../../imgs/pact-verified.png)
 
-#### Com CI via Jenkins
+#### Executando os testes em CI via Jenkins
 
 1. Garanta que você tenha uma instância do Pact Broker com Jenkins rodando localmente.
    Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
