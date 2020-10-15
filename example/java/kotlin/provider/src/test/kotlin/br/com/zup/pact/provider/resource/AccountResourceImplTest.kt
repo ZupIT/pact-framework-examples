@@ -6,12 +6,12 @@ import br.com.zup.pact.provider.enums.AccountType
 import br.com.zup.pact.provider.service.AccountService
 import io.grpc.stub.StreamObserver
 import io.mockk.*
+import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.junit.jupiter.MockitoExtension
 
-@ExtendWith(MockitoExtension::class)
+@ExtendWith(MockKExtension::class)
 class AccountResourceImplTest {
 
     private val accountServiceMock: AccountService = mockk()
