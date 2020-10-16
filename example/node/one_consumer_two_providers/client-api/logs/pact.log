@@ -1,5 +1,5 @@
-I, [2020-09-04T13:41:58.235443 #20537]  INFO -- : Registered expected interaction GET /prime/1
-D, [2020-09-04T13:41:58.237417 #20537] DEBUG -- : {
+I, [2020-09-28T17:37:11.853673 #51934]  INFO -- : Registered expected interaction GET /prime/1
+D, [2020-09-28T17:37:11.854414 #51934] DEBUG -- : {
   "description": "a request for account",
   "providerState": "one client with your account",
   "request": {
@@ -12,6 +12,10 @@ D, [2020-09-04T13:41:58.237417 #20537] DEBUG -- : {
       "Content-Type": "application/json; charset=utf-8"
     },
     "body": {
+      "clientID": {
+        "json_class": "Pact::SomethingLike",
+        "contents": 13.01
+      },
       "isPrime": {
         "json_class": "Pact::SomethingLike",
         "contents": true
@@ -24,8 +28,8 @@ D, [2020-09-04T13:41:58.237417 #20537] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2020-09-04T13:41:58.247566 #20537]  INFO -- : Received request GET /prime/1
-D, [2020-09-04T13:41:58.248509 #20537] DEBUG -- : {
+I, [2020-09-28T17:37:11.859445 #51934]  INFO -- : Received request GET /prime/1
+D, [2020-09-28T17:37:11.859650 #51934] DEBUG -- : {
   "path": "/prime/1",
   "query": "",
   "method": "get",
@@ -37,13 +41,17 @@ D, [2020-09-04T13:41:58.248509 #20537] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2020-09-04T13:41:58.249527 #20537]  INFO -- : Found matching response for GET /prime/1
-D, [2020-09-04T13:41:58.250050 #20537] DEBUG -- : {
+I, [2020-09-28T17:37:11.860051 #51934]  INFO -- : Found matching response for GET /prime/1
+D, [2020-09-28T17:37:11.860347 #51934] DEBUG -- : {
   "status": 200,
   "headers": {
     "Content-Type": "application/json; charset=utf-8"
   },
   "body": {
+    "clientID": {
+      "json_class": "Pact::SomethingLike",
+      "contents": 13.01
+    },
     "isPrime": {
       "json_class": "Pact::SomethingLike",
       "contents": true
@@ -54,6 +62,6 @@ D, [2020-09-04T13:41:58.250050 #20537] DEBUG -- : {
     }
   }
 }
-I, [2020-09-04T13:41:58.257209 #20537]  INFO -- : Verifying - interactions matched
-I, [2020-09-04T13:41:58.262495 #20537]  INFO -- : Cleared interactions
-I, [2020-09-04T13:41:58.268749 #20537]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/tony.silva/Documents/PACT/pact-framework-examples/example/node/one_consumer_two_providers/client-api/pacts/clientapi-primeaccountdetailsapi.json
+I, [2020-09-28T17:37:11.865819 #51934]  INFO -- : Verifying - interactions matched
+I, [2020-09-28T17:37:11.871437 #51934]  INFO -- : Cleared interactions
+I, [2020-09-28T17:37:11.877538 #51934]  INFO -- : Writing pact for PrimeAccountDetailsApi to /home/iann/dev/projects/pact-framework-examples/example/node/one_consumer_two_providers/client-api/pacts/clientapi-primeaccountdetailsapi.json

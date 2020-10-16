@@ -5,10 +5,12 @@ import static org.mockito.BDDMockito.given;
 
 import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
+import au.com.dius.pact.provider.junitsupport.IgnoreNoPactsToVerify;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.State;
 import au.com.dius.pact.provider.junitsupport.VerificationReports;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
+import au.com.dius.pact.provider.junitsupport.loader.VersionSelector;
 import au.com.dius.pact.provider.spring.junit5.PactVerificationSpringProvider;
 import br.com.zup.pact.provider.dto.BalanceDTO;
 import br.com.zup.pact.provider.service.AccountService;
@@ -24,12 +26,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-
 @Provider
-@PactBroker
+@PactBroker(consumerVersionSelectors = {
+        @VersionSelector(tag = "master", latest = "true")
+})
 @VerificationReports
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@IgnoreNoPactsToVerify
 public class AccountProviderPactTest {
 
     @LocalServerPort
@@ -40,13 +44,15 @@ public class AccountProviderPactTest {
 
     @BeforeEach
     void setUp(PactVerificationContext context) throws MalformedURLException {
-        context.setTarget(HttpTestTarget.fromUrl(new URL("http://localhost:" + localServerPort)));
+        if (context != null)
+            context.setTarget(HttpTestTarget.fromUrl(new URL("http://localhost:" + localServerPort)));
     }
 
     @TestTemplate
     @ExtendWith(PactVerificationSpringProvider.class)
     void testTemplate(PactVerificationContext context) {
-        context.verifyInteraction();
+        if (context != null)
+            context.verifyInteraction();
     }
 
     @State("get balance of accountId 1")
