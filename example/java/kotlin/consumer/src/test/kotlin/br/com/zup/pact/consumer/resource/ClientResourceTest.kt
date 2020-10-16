@@ -1,8 +1,10 @@
 package br.com.zup.pact.consumer.resource
 
+import br.com.zup.pact.client.resource.BalanceResponse
 import br.com.zup.pact.client.resource.ClientRequest
 import br.com.zup.pact.client.resource.ClientResponse
 import br.com.zup.pact.client.resource.EmptyRequest
+import br.com.zup.pact.consumer.dto.BalanceDTO
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import br.com.zup.pact.consumer.service.ClientService
 import io.grpc.stub.StreamObserver
@@ -90,6 +92,38 @@ class ClientResourceTest {
                             .setName("any_name")
                             .setFinalName("any_final_name")
                             .setAge(20)
+                            .build()
+            )
+        }
+
+        verify(exactly = 1) {
+            responseObserver.onCompleted()
+        }
+    }
+
+    @Test
+    fun `Method getBalance should return a Balance from the service`() {
+        every { clientServiceMock.getBalance(any()) }
+                .returns(BalanceDTO(
+                        1,
+                        100.0
+                ))
+
+        val responseObserver: StreamObserver<BalanceResponse> = mockk()
+
+        every { responseObserver.onNext(any()) } just Runs
+        every { responseObserver.onCompleted() } just Runs
+
+        clientResource.getBalance(
+                ClientRequest.newBuilder().setClientId(1).build(),
+                        responseObserver
+        )
+
+        verify(exactly = 1) {
+            responseObserver.onNext(
+                    BalanceResponse.newBuilder()
+                            .setAccountId(1)
+                            .setBalance(100.0)
                             .build()
             )
         }

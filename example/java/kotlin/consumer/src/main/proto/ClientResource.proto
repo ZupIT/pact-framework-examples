@@ -10,9 +10,8 @@ message ClientRequest {
 }
 
 message BalanceResponse {
-  int32 clientId = 1;
-  int32 accountId = 2;
-  double balance = 3;
+  int32 accountId = 1;
+  double balance = 2;
 }
 
 message ClientResponse {
@@ -26,6 +25,6 @@ message ClientResponse {
 service ClientResource {
   rpc getAll(EmptyRequest) returns (stream ClientResponse) {}
   rpc getClientById(ClientRequest) returns (stream ClientResponse) {}
-  rpc getBalance(ClientRequest) returns (BalanceResponse) {}
+  rpc getBalance(ClientRequest) returns (stream BalanceResponse) {}
 }
 

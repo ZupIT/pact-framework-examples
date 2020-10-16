@@ -28,11 +28,11 @@ class ClientResourceImpl(@Autowired val clientService: ClientService)
     }
 
     override fun getClientById(request: ClientRequest, responseObserver: StreamObserver<ClientResponse>) {
-        val client: ClientDetailsDTO? = clientService.getClientDetails(request.clientId)
+
+        val client: ClientDetailsDTO = clientService.getClientDetails(request.clientId) ?: throw IllegalArgumentException()
 
         val response = ClientResponse.newBuilder()
-                //  TODO verificar este ponto
-                .setId(client?.id!!)
+                .setId(client.id)
                 .setAccountId(client.accountId)
                 .setName(client.name)
                 .setFinalName(client.finalName)
@@ -44,22 +44,17 @@ class ClientResourceImpl(@Autowired val clientService: ClientService)
     }
 
     override fun getBalance(request: ClientRequest, responseObserver: StreamObserver<BalanceResponse>) {
-        val balance: BalanceDTO? = clientService.getBalance(request.clientId)
 
-        if (balance == null) {
-            responseObserver.onError(balance) //TODO tem que testar essa condição
-        } else {
-            val response = balance?.accountId?.let {
+        val balance: BalanceDTO = clientService.getBalance(request.clientId) ?: throw IllegalArgumentException()
+
+        val response = balance.accountId.let {
                 BalanceResponse.newBuilder()
-                        .setClientId(request.clientId)
                         .setAccountId(it)
                         .setBalance(balance.balance)
                         .build()
             }
 
-            responseObserver.onNext(response)
-        }
-
+        responseObserver.onNext(response)
         responseObserver.onCompleted()
     }
 }
