@@ -1,5 +1,6 @@
 package br.com.zup.pact.consumer.resource
 
+import br.com.zup.pact.client.resource.ClientRequest
 import br.com.zup.pact.client.resource.ClientResponse
 import br.com.zup.pact.client.resource.EmptyRequest
 import br.com.zup.pact.consumer.dto.ClientDetailsDTO
@@ -60,4 +61,41 @@ class ClientResourceTest {
         }
     }
 
+    @Test
+    fun `Method findById should return a ClientDetails from the service`() {
+        every { clientServiceMock.getClientDetails(any()) }
+                .returns(ClientDetailsDTO(
+                        1,
+                        2,
+                        "any_name",
+                        "any_final_name",
+                        20
+                ))
+
+        val responseObserver: StreamObserver<ClientResponse> = mockk()
+
+        every { responseObserver.onNext(any()) } just Runs
+        every { responseObserver.onCompleted() } just Runs
+
+        clientResource.getClientById(
+                ClientRequest.newBuilder().setClientId(1).build(),
+                responseObserver
+        )
+
+        verify(exactly = 1) {
+            responseObserver.onNext(
+                    ClientResponse.newBuilder()
+                            .setId(1)
+                            .setAccountId(2)
+                            .setName("any_name")
+                            .setFinalName("any_final_name")
+                            .setAge(20)
+                            .build()
+            )
+        }
+
+        verify(exactly = 1) {
+            responseObserver.onCompleted()
+        }
+    }
 }

@@ -25,6 +25,7 @@ message ClientResponse {
 
 service ClientResource {
   rpc getAll(EmptyRequest) returns (stream ClientResponse) {}
+  rpc getClientById(ClientRequest) returns (stream ClientResponse) {}
   rpc getBalance(ClientRequest) returns (BalanceResponse) {}
 }
 

@@ -2,6 +2,7 @@ package br.com.zup.pact.consumer.resource
 
 import br.com.zup.pact.client.resource.*
 import br.com.zup.pact.consumer.dto.BalanceDTO
+import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import br.com.zup.pact.consumer.service.ClientService
 import io.grpc.stub.StreamObserver
 import org.lognet.springboot.grpc.GRpcService
@@ -23,6 +24,22 @@ class ClientResourceImpl(@Autowired val clientService: ClientService)
                     .build()
             responseObserver.onNext(response)
         }
+        responseObserver.onCompleted()
+    }
+
+    override fun getClientById(request: ClientRequest, responseObserver: StreamObserver<ClientResponse>) {
+        val client: ClientDetailsDTO? = clientService.getClientDetails(request.clientId)
+
+        val response = ClientResponse.newBuilder()
+                //  TODO verificar este ponto
+                .setId(client?.id!!)
+                .setAccountId(client.accountId)
+                .setName(client.name)
+                .setFinalName(client.finalName)
+                .setAge(client.age)
+                .build()
+
+        responseObserver.onNext(response)
         responseObserver.onCompleted()
     }
 
