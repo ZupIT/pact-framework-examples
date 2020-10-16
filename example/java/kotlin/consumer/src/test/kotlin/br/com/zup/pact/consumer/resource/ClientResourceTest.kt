@@ -9,13 +9,12 @@ import br.com.zup.pact.consumer.dto.ClientDetailsDTO
 import br.com.zup.pact.consumer.service.ClientService
 import io.grpc.stub.StreamObserver
 import io.mockk.*
+import io.mockk.junit5.MockKExtension
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.context.SpringBootTest
+import org.junit.jupiter.api.extension.ExtendWith
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@ExtendWith(MockKExtension::class)
 class ClientResourceTest {
     private val clientServiceMock: ClientService = mockk()
     private val clientResource: ClientResourceImpl = ClientResourceImpl(clientServiceMock)
@@ -46,7 +45,7 @@ class ClientResourceTest {
                 responseObserver
         )
 
-        verify (exactly = 1) {
+        verify(exactly = 1) {
             responseObserver.onNext(
                     ClientResponse.newBuilder()
                             .setId(1)
@@ -58,7 +57,7 @@ class ClientResourceTest {
             )
         }
 
-        verify (exactly = 1) {
+        verify(exactly = 1) {
             responseObserver.onCompleted()
         }
     }
@@ -116,7 +115,7 @@ class ClientResourceTest {
 
         clientResource.getBalance(
                 ClientRequest.newBuilder().setClientId(1).build(),
-                        responseObserver
+                responseObserver
         )
 
         verify(exactly = 1) {
