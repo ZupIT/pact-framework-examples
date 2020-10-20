@@ -1,0 +1,39 @@
+{
+  "name": "pact-node-account",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev:server": "ts-node-dev --ignore-watch node_modules --transpile-only src/server.ts",
+    "swagger": "swaggerGen -c swagger.config.yml",
+    "pact:verify": "npm run swagger && swagger-mock-validator ./doc/swagger.json http://localhost:9292 --provider AccountApi",
+    "test": "jest --detectOpenHandles"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "typescript-rest": "^3.0.2",
+    "typescript-rest-swagger": "^1.1.5"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.6",
+    "@types/jest": "^25.2.3",
+    "@types/swagger-express-mw": "^0.7.7",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "eslint": "^7.1.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "jest": "^26.0.1",
+    "prettier": "^2.0.5",
+    "swagger-mock-validator": "^9.0.0",
+    "ts-jest": "^26.1.0",
+    "ts-node-dev": "^1.0.0",
+    "typescript": "^3.9.3"
+  }
+}

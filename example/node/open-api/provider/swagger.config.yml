@@ -1,6 +1,6 @@
 
 swagger:
-  outputDirectory: ./dist
+  outputDirectory: ./doc
   entryFile: 
     - ./src/controllers/*
   outputFormat: OpenApi_3
@@ -9,6 +9,7 @@ swagger:
   license: MIT
   produces: [application/json]
   version: 0.0.1
+  ignore: ["**/node_modules/**"]
   securityDefinitions:
     default:
       type: apiKey
