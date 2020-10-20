@@ -1,0 +1,114 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"description": "A Sample application using Typescipt-rest library",
+		"license": {
+			"name": "MIT"
+		},
+		"title": "Typescript-rest",
+		"version": "0.0.1"
+	},
+	"paths": {
+		"/balance/{accountID}": {
+			"get": {
+				"operationId": "AccountFindById",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"text/html": {
+								"schema": {
+									"enum": [
+										"Account",
+										"Error"
+									],
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"description": "",
+				"parameters": [
+					{
+						"description": "",
+						"in": "path",
+						"name": "accountID",
+						"required": true,
+						"schema": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		},
+		"/balance": {
+			"get": {
+				"operationId": "AccountGetAll",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"$ref": "#/components/schemas/Account"
+									}
+								}
+							}
+						}
+					}
+				},
+				"description": ""
+			}
+		}
+	},
+	"components": {
+		"securitySchemes": {
+			"default": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "Authorization"
+			},
+			"secondAuthenticator": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "Authorization"
+			}
+		},
+		"schemas": {
+			"Account": {
+				"description": "",
+				"properties": {
+					"displayName": {
+						"type": "string",
+						"description": ""
+					},
+					"id": {
+						"type": "string",
+						"description": ""
+					},
+					"imageURL": {
+						"type": "string",
+						"description": ""
+					},
+					"name": {
+						"type": "string",
+						"description": ""
+					},
+					"rpDisplayName": {
+						"type": "string",
+						"description": ""
+					}
+				},
+				"type": "object",
+				"required": [
+					"displayName",
+					"id",
+					"rpDisplayName"
+				]
+			}
+		}
+	}
+}
