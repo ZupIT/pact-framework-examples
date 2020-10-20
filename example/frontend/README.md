@@ -25,7 +25,9 @@ Vamos considerar que a interface é responsável somente pelas chamadas, todo o 
 ### Criação de um produto
 
 1 - Para criarmos um novo produto, preenchemos os campos necessários na interface e clicamos no botão `Save`.
+
 2 - O front-end irá disparar uma requisição do tipo POST para o serviço `provider`, enviando os dados que foram preenchidos no passo anterior.
+
 3 - O `provider` por sua vez, irá realizar o cadastro desse novo produto e retorná-lo para o front-end.
 <br>
 
