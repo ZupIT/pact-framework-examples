@@ -1,0 +1,6 @@
+grpc:
+  port: 6565
+
+spring:
+  main:
+    web-application-type: none
