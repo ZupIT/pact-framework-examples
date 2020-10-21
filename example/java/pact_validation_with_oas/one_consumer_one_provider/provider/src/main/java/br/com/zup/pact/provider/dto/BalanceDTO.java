@@ -6,12 +6,12 @@ import java.math.BigDecimal;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
 @Builder
+@Getter
 public class BalanceDTO implements Serializable {
 
-    private Integer clientId;
     private Integer accountId;
     private BigDecimal balance;
 
@@ -19,7 +19,6 @@ public class BalanceDTO implements Serializable {
         if (Objects.nonNull(accountFound)) {
             return BalanceDTO.builder()
                     .accountId(accountFound.getId())
-                    .clientId(accountFound.getClientId())
                     .balance(accountFound.getBalance())
                     .build();
 

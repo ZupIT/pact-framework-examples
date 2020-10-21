@@ -19,8 +19,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <checkstyle-maven-plugin.version>3.1.1</checkstyle-maven-plugin.version>
-        <pact.version>4.1.7</pact.version>
-        <pact.application.name>${project.name}</pact.application.name>
     </properties>
 
     <dependencies>
@@ -52,19 +50,6 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.2.32</version>
         </dependency>
-
-        <dependency>
-            <groupId>au.com.dius.pact.provider</groupId>
-            <artifactId>junit5</artifactId>
-            <version>${pact.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>au.com.dius</groupId>
-            <artifactId>pact-jvm-provider-junit5-spring</artifactId>
-            <version>4.0.10</version>
-        </dependency>
-
 
         <dependency>
             <groupId>commons-io</groupId>
@@ -108,7 +93,7 @@
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>false</failsOnError>
-                            <failOnViolation>true</failOnViolation>
+                            <failOnViolation>false</failOnViolation>
                             <violationSeverity>warning</violationSeverity>
                         </configuration>
                         <goals>
@@ -121,21 +106,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M5</version>
-                <configuration>
-                    <systemPropertyVariables>
-                        <pact.provider.name>${pact.application.name}</pact.provider.name>
-                        <pact.verifier.publishResults>true</pact.verifier.publishResults>
-                        <pact.provider.tag>master</pact.provider.tag>
-                        <pact.provider.version>${project.version}</pact.provider.version>
-                    </systemPropertyVariables>
-                    <useSystemClassLoader>false</useSystemClassLoader>
-                </configuration>
             </plugin>
 
         </plugins>

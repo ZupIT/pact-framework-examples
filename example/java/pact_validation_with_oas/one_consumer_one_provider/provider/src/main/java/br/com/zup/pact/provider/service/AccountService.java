@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountService {
-    Optional<AccountDetailsDTO> getAccountDetailsByClientId(Integer clientId);
+    Optional<AccountDetailsDTO> getAccountDetailsByAccountId(Integer clientId);
 
     Optional<List<AccountDetailsDTO>> getAll();
 
-    Optional<BalanceDTO> getBalanceByClientId(Integer clientId);
+    Optional<BalanceDTO> getBalanceByAccountId(Integer clientId);
 }

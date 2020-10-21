@@ -1,8 +1,11 @@
 package br.com.zup.pact.provider.resource;
 
+
 import br.com.zup.pact.provider.dto.AccountDetailsDTO;
 import br.com.zup.pact.provider.dto.BalanceDTO;
 import br.com.zup.pact.provider.service.AccountService;
+import java.util.List;
+import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -17,7 +20,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.awt.print.Book;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,10 +29,18 @@ import java.util.Optional;
 public class AccountResourceEndpoint {
 
     private final AccountService accountService;
+    private static final String TAG = "Accounts endpoint";
 
-    @GetMapping("/{clientId}")
-    public ResponseEntity<AccountDetailsDTO> getAccountDetailsByClientId(@PathVariable("clientId") Integer clientId) {
-        final Optional<AccountDetailsDTO> accountDetailsDTO = accountService.getAccountDetailsByClientId(clientId);
+    @GetMapping("/{accountId}")
+    @Operation(summary = "Get account by account id", tags = TAG)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Return a specific account queried by path",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AccountDetailsDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "No accounts found",
+                    content = @Content) })
+    public ResponseEntity<AccountDetailsDTO> getAccountDetailsByClientId(@PathVariable("accountId") Integer accountId) {
+        final Optional<AccountDetailsDTO> accountDetailsDTO = accountService.getAccountDetailsByAccountId(accountId);
         if (accountDetailsDTO.isPresent()) {
             final AccountDetailsDTO accountDetailsDTOFound = accountDetailsDTO.get();
             return new ResponseEntity<>(accountDetailsDTOFound, HttpStatus.OK);
@@ -39,6 +49,13 @@ public class AccountResourceEndpoint {
     }
 
     @GetMapping
+    @Operation(summary = "Get All accounts", tags = TAG)
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Return all accounts found within it",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = AccountDetailsDTO.class)) }),
+            @ApiResponse(responseCode = "404", description = "No accounts found",
+                    content = @Content) })
     public ResponseEntity<List<AccountDetailsDTO>> getAll() {
         final Optional<List<AccountDetailsDTO>> accountDetailsDTOS = accountService.getAll();
         if (accountDetailsDTOS.isPresent()) {
@@ -50,18 +67,15 @@ public class AccountResourceEndpoint {
 
 
     @GetMapping("/{accountId}/balance/")
-    @Operation(summary = "Get balance by accountId")
+    @Operation(summary = "Get the balance of a specific account Id", tags = TAG)
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return the balance for the account",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = BalanceDTO.class)) }),
             @ApiResponse(responseCode = "404", description = "Account id not found",
                     content = @Content) })
-    public ResponseEntity<BalanceDTO> getBalanceByClientId(@PathVariable("accountId") Integer clientId) {
-        final Optional<BalanceDTO> balanceDTO = accountService.getBalanceByClientId(clientId);
-        if (balanceDTO.isPresent()) {
-            return new ResponseEntity<>(balanceDTO.get(), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    public ResponseEntity<BalanceDTO> getBalanceByClientId(@PathVariable("accountId") Integer accountId) {
+        final BalanceDTO balanceDTO = accountService.getBalanceByAccountId(accountId).get();
+        return new ResponseEntity<>(balanceDTO, HttpStatus.OK);
     }
 }

@@ -37,7 +37,6 @@ public class AccountStub {
             Collections.shuffle(ACCOUNT_TYPES);
             final Account account = Account.builder()
                     .id(i)
-                    .clientId(i)
                     .balance(INITIAL_BALANCE)
                     .accountType(ACCOUNT_TYPES.get(0))
                     .build();

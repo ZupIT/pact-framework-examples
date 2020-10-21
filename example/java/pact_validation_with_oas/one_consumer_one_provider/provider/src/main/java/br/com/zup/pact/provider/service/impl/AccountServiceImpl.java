@@ -17,8 +17,8 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
-    public Optional<AccountDetailsDTO> getAccountDetailsByClientId(Integer clientId) {
-        return accountRepository.findByClientId(clientId);
+    public Optional<AccountDetailsDTO> getAccountDetailsByAccountId(Integer accountId) {
+        return accountRepository.findByAccountId(accountId);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Optional<BalanceDTO> getBalanceByClientId(Integer clientId) {
-        return accountRepository.getBalanceByClientId(clientId);
+    public Optional<BalanceDTO> getBalanceByAccountId(Integer accountId) {
+        return accountRepository.getBalanceByAccountId(accountId);
     }
 }

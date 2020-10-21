@@ -20,29 +20,26 @@ public class AccountRepository {
 
     private final AccountStub accountStub;
 
-    public Optional<AccountDetailsDTO> findByClientId(Integer clientId) {
-        return Optional.ofNullable(Account.fromEntityToDto(accountStub.getAccounts().get(clientId)));
+    public Optional<AccountDetailsDTO> findByAccountId(Integer accountId) {
+        return Optional.ofNullable(Account.fromEntityToDto(accountStub.getAccounts().get(accountId)));
     }
 
     public Optional<List<AccountDetailsDTO>> getAll() {
         final List<Account> accounts = accountStub.getAccounts().values().stream()
                 .collect(Collectors.toList());
-        final List<AccountDetailsDTO> clientDetailsDTOS = new ArrayList<>();
-        if (Objects.nonNull(accounts)) {
-            for (Account account : accounts) {
-                clientDetailsDTOS.add(Account.fromEntityToDto(account));
-            }
-        }
+        final List<AccountDetailsDTO> clientDetailsDTOS = Account.fromEntityToDtoList(accounts);
         return Optional.ofNullable(clientDetailsDTOS);
     }
 
-    public Optional<BalanceDTO> getBalanceByClientId(Integer clientId) {
-        final Account accountFound = accountStub.getAccounts()
-                .values()
-                .stream()
-                .filter(account -> account.getClientId().equals(clientId))
-                .findFirst()
-                .orElseThrow(() -> new ClientNotFoundException("Account with id: " + clientId + " not found!"));
-        return Optional.ofNullable(BalanceDTO.fromAccountToDTO(accountFound));
+    public Optional<BalanceDTO> getBalanceByAccountId(Integer accountId) {
+        return Optional.ofNullable(
+                BalanceDTO.fromAccountToDTO(
+                    accountStub.getAccounts()
+                            .values()
+                            .stream()
+                            .filter(account -> account.getId().equals(accountId))
+                            .findFirst()
+                            .orElseThrow(() -> new ClientNotFoundException("Account with id: " + accountId + " not found!"))
+        ));
     }
 }

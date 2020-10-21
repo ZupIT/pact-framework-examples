@@ -16,7 +16,7 @@ public class ProviderApplication {
     }
 
     @Bean
-    public OpenAPI openAPIConfig(){
+    public OpenAPI openAPIConfig() {
 
         return new OpenAPI()
                 .info(new Info()
