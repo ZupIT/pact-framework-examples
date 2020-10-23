@@ -87,7 +87,7 @@ resource "aws_instance" "default" {
       "sudo amazon-linux-extras install docker -y",
       "sudo service docker start",
       "sudo usermod -a -G docker ${var.aws_instance_user}",
-      "sudo docker run -d -p 80:9292 -e PACT_BROKER_PORT=9292 -e PACT_BROKER_DATABASE_URL=postgres://${aws_db_instance.default.username}:${aws_db_instance.default.password}@${aws_db_instance.default.endpoint}/${aws_db_instance.default.name} -e PACT_BROKER_LOG_LEVEL=INFO -e PACT_BROKER_SQL_LOG_LEVEL=INFO --restart always pactfoundation/pact-broker:2"
+      "sudo docker run -d -p 80:9292 -e PACT_BROKER_PORT=9292 -e PACT_BROKER_DATABASE_URL=postgres://${aws_db_instance.default.username}:${aws_db_instance.default.password}@${aws_db_instance.default.endpoint}/${aws_db_instance.default.name} -e PACT_BROKER_LOG_LEVEL=INFO -e PACT_BROKER_SQL_LOG_LEVEL=INFO --restart always pactfoundation/pact-broker:2.60.1.0"
     ]
   }
 }
