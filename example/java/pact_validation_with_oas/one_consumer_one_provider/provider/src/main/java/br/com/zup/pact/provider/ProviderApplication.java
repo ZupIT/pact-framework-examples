@@ -3,6 +3,7 @@ package br.com.zup.pact.provider;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
+import org.springdoc.core.customizers.OpenApiCustomiser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -26,5 +27,10 @@ public class ProviderApplication {
                         .termsOfService("http://swagger.io/terms/")
                         .license(new License().name("Apache 2.0")
                                 .url("http://www.zup.com.br")));
+    }
+
+    @Bean
+    public OpenApiCustomiser openApiCustomiser() {
+        return openApi -> openApi.getComponents().getSchemas().values().forEach( s -> s.setAdditionalProperties(false));
     }
 }

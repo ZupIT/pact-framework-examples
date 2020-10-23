@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.mock;
 
 @SpringBootTest
@@ -26,23 +26,11 @@ public class AccountRepositoryTest {
     @Autowired
     private AccountRepository accountRepository;
 
-//    @Mock
-//    private final List<Account> listAccountsStub =
-//            new AccountStub()
-//                    .getAccounts().values().stream()
-//                            .collect(Collectors.toList());
 
     @Test
     void testGetBalanceByAccountIdWithNonExistingIdThrowsException() {
-        Assertions.assertThrows(ClientNotFoundException.class, () -> accountRepository.getBalanceByAccountId(anyInt()));
+        Assertions.assertThrows(ClientNotFoundException.class, () -> accountRepository.getBalanceByAccountId(9999));
     }
-
-//    @Test
-//    void testGetBalanceByAccountIdInvalid() {
-//        final BalanceDTO balanceDTO = accountRepository.getBalanceByAccountId(9999).orElse(null);
-//        Assertions.assertTrue(balanceDTO == null);
-//    }
-
 
     @Test
     void testFindAll() {
@@ -53,12 +41,12 @@ public class AccountRepositoryTest {
     @Test
     void testFindByAccountId() {
         final AccountDetailsDTO accountDetailsDTO = accountRepository.findByAccountId(1).orElse(null);
-        Assertions.assertTrue(accountDetailsDTO != null);
+        Assertions.assertNotNull(accountDetailsDTO);
     }
 
     @Test
     void testFindByAccountIdInvalid() {
         final AccountDetailsDTO accountDetailsDTO = accountRepository.findByAccountId(9999).orElse(null);
-        Assertions.assertTrue(accountDetailsDTO == null);
+        Assertions.assertNull(accountDetailsDTO);
     }
 }

@@ -33,7 +33,7 @@ public class AccountPactTest {
 
     private static final String BALANCE_URL_WORKING = "/v1/accounts/1/balance/";
     private static final String BALANCE_URL_NOT_WORKING = "/v1/accounts/1000/balance/";
-    private static final String CONSUMER_NAME = "consumer";
+    private static final String CONSUMER_NAME = "consumer2";
 
 
     private Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
@@ -48,7 +48,6 @@ public class AccountPactTest {
 
         PactDslJsonBody bodyResponse = new PactDslJsonBody()
                 .integerType("accountId")
-                .integerType("clientId")
                 .numberType("balance")
                 .numberType("credit");
 

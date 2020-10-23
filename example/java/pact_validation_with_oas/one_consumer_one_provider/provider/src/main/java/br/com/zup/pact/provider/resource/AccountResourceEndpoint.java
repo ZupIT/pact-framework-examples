@@ -7,10 +7,14 @@ import br.com.zup.pact.provider.service.AccountService;
 import java.util.List;
 import java.util.Optional;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.extensions.Extension;
+import io.swagger.v3.oas.annotations.extensions.ExtensionProperty;
+import io.swagger.v3.oas.annotations.extensions.Extensions;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.models.media.ObjectSchema;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -36,7 +40,7 @@ public class AccountResourceEndpoint {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return a specific account queried by path",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = AccountDetailsDTO.class)) }),
+                            schema = @Schema(implementation = AccountDetailsDTO.AccoutDetailsWrapper.class)) }),
             @ApiResponse(responseCode = "404", description = "No accounts found",
                     content = @Content) })
     public ResponseEntity<AccountDetailsDTO> getAccountDetailsByClientId(@PathVariable("accountId") Integer accountId) {
@@ -71,7 +75,7 @@ public class AccountResourceEndpoint {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Return the balance for the account",
                     content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = BalanceDTO.class)) }),
+                            schema = @Schema(implementation = BalanceDTO.class, required = true)) }),
             @ApiResponse(responseCode = "404", description = "Account id not found",
                     content = @Content) })
     public ResponseEntity<BalanceDTO> getBalanceByClientId(@PathVariable("accountId") Integer accountId) {
