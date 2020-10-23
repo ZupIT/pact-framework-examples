@@ -1,0 +1,34 @@
+# Exemplo de IaC no AWS
+
+Se você precisar de uma instalação básica de um PACT broker no AWS utilizando balanceado por um NLB (Network Load Balance) segue aqui um exemplo provisionamento utilizando Terraform.
+
+
+
+<imagem do desenho de arquitetura>
+
+
+## Setup
+
+- terraform >= 0.13.0 
+- aws-cli >= 2.0.38
+- Python >= 3.7.3
+- Ubuntu >= 18.04
+
+
+## Como executar
+
+```python
+import foobar
+
+foobar.pluralize('word') # returns 'words'
+foobar.pluralize('goose') # returns 'geese'
+foobar.singularize('phenomena') # returns 'phenomenon'
+```
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
