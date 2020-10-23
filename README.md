@@ -40,12 +40,13 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Mensageria/Kafka](example/java/messaging-kafka/)
    - **Kotlin**
       * [Rest - um consumidor e um provedor](example/kotlin/one-consumer-one-provider).
+      * [gRPC - um consumidor e um provedor](example/kotlin/gRPC).
    - **Node**
       * [Rest - um consumidor e um provedor](example/node/one_consumer_one_provider).
       * [Rest - um consumidor e dois provedores](example/node/one_consumer_two_providers).
       * [Rest - dois consumidores e um provedor](example/node/two_consumers_one_provider).
-      * [gRPC](example/node/gRPC).
-      * [WIP: OpenAPI](example/node/open-api).
+      * [gRPC - um consumidor e um provedor](example/node/gRPC).
+      * [WIP: OpenAPI - um consumidor e um provedor](example/node/open-api).
  - **FrontEnd**
    - **Angular**
       * [Rest - um consumidor e um provedor](example/frontend).

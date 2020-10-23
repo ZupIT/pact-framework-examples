@@ -16,6 +16,32 @@ Exemplo da criação de um Pact entre:
 - Pact Broker
 - Jenkins
 
+## Cenários
+
+Este exemplo aborda um cenário comum em muitos estabelecimentos.
+Nosso objetivo é ter todo o gerenciamento de produtos como visualização, cadastro, edição e exclusão, através de uma interface.
+Vamos considerar que a interface é responsável somente pelas chamadas, todo o gerenciamento real dos produtos acontece no serviço `provider`, portanto, vamos aos cenários.
+
+### Criação de um produto
+
+1 - Para criarmos um novo produto, preenchemos os campos necessários na interface e clicamos no botão `Save`.
+
+2 - O front-end irá disparar uma requisição do tipo POST para o serviço `provider`, enviando os dados que foram preenchidos no passo anterior.
+
+3 - O `provider` por sua vez, irá realizar o cadastro desse novo produto e retorná-lo para o front-end.
+<br>
+
+A imagem abaixo representa este fluxo:
+
+<img src="../../imgs/create-product-front-end.png" alt="new product"/>
+
+As demais requisições (visualização, edição e exclusão) seguem um fluxo similar ao apresentado.
+
+De forma resumida, temos os seguintes serviços:
+
+- consumer: front-end responsável pela interface e por fazer a conexão com o provider.
+- provider: mantém e gerencia informações sobre os produtos.
+
 ## Como rodar os projetos localmente
 
 1. Primeiramente, pelo terminal, entre no diretório `provider` e execute o comando `npm install` para instalar as dependências do projeto.
@@ -80,7 +106,7 @@ Ao final, podemos conferir o resultado do teste que é publicado no Broker.
 
 ![pact contract](../../imgs/pact-verified.png)
 
-#### Executando os testes em CI via Jenkins
+### Executando os testes em CI via Jenkins
 
 1. Garanta que você tenha uma instância do Pact Broker com Jenkins rodando localmente.
    Vide sessão [configuração do Pact Broker](../../../README.md#config-broker) caso tenha dúvida.
