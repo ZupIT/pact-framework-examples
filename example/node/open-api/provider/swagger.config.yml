@@ -4,7 +4,8 @@ swagger:
   entryFile: 
     - ./src/controllers/*
   outputFormat: OpenApi_3
-  name: Typescript-rest
+  name: AccountApi
+  basePath: "http://localhost:3334"
   description: A Sample application using Typescipt-rest library
   license: MIT
   produces: [application/json]

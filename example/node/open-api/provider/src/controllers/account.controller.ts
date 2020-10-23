@@ -1,10 +1,9 @@
 import { Account } from '../repositories/account/account.interface';
 import { AccountRepository } from '../repositories/account/account.repository';
-import {Accept, GET, Path, PathParam, Errors } from 'typescript-rest';
+import { GET, POST, Path, PathParam, Errors, Param } from 'typescript-rest';
 import { Produces, Response } from 'typescript-rest-swagger';
 
 @Path('/account')
-@Accept("application/json; charset=utf-8")
 @Produces("application/json; charset=utf-8")
 class AccountController {
 
@@ -16,7 +15,7 @@ class AccountController {
     @GET
     async findById(@PathParam('accountID') accountID: string): Promise<Account> {
         const account: Account | undefined = await this.accountRepository.getById(accountID);
-
+        
         if (!account) {
             throw new Errors.NotFoundError('Account not found');
         }

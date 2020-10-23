@@ -9,6 +9,14 @@ app.use(express.json());
 app.use(cors());
 
 Server.loadServices(app, 'controllers/*', __dirname);
-Server.swagger(app, { filePath: './dist/swagger.json' });
+Server.swagger(app, { 
+    endpoint: 'api-docs',
+    filePath: './doc/swagger.json',
+    host: APP_URL,
+    schemes: ['http'],
+    swaggerUiOptions: {
+        modelPropertyMacro: (teste: any) => 'console.log(teste)'
+    }
+});
 
 app.listen(APP_PORT, () => console.log(`[ACCOUNT API] Running on ${APP_URL}`));

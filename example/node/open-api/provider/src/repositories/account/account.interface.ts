@@ -1,5 +1,8 @@
+/**
+ * Account Type Definition
+ */
 export interface Account {
-    
+
      /**
      * The accounts's id
      * @IsInt
