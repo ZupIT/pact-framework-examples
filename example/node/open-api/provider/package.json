@@ -9,7 +9,6 @@
     "dev:server": "ts-node-dev --ignore-watch node_modules --transpile-only src/server.ts",
     "swagger": "swaggerGen -c swagger.config.yml",
     "pact:verify": "npm run swagger && swagger-mock-validator ./doc/swagger.json http://localhost:9292 --provider AccountApi",
-    "pact": "ts-node-dev --ignore-watch node_modules --transpile-only ./pact-verify.ts",
     "test": "jest --detectOpenHandles"
   },
   "dependencies": {

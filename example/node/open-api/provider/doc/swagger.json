@@ -5,7 +5,7 @@
 		"license": {
 			"name": "MIT"
 		},
-		"title": "Typescript-rest",
+		"title": "AccountApi",
 		"version": "0.0.1"
 	},
 	"paths": {
@@ -63,6 +63,11 @@
 			}
 		}
 	},
+	"servers": [
+		{
+			"url": "http://localhost:3334"
+		}
+	],
 	"components": {
 		"securitySchemes": {
 			"default": {
@@ -78,7 +83,7 @@
 		},
 		"schemas": {
 			"Account": {
-				"description": "",
+				"description": "Account Type Definition",
 				"properties": {
 					"id": {
 						"type": "integer",

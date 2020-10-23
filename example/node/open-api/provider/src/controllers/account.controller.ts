@@ -1,6 +1,6 @@
 import { Account } from '../repositories/account/account.interface';
 import { AccountRepository } from '../repositories/account/account.repository';
-import { GET, POST, Path, PathParam, Errors, Param } from 'typescript-rest';
+import { GET, Path, PathParam, Errors } from 'typescript-rest';
 import { Produces, Response } from 'typescript-rest-swagger';
 
 @Path('/account')

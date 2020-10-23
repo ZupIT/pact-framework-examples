@@ -4,7 +4,7 @@ export const APP_URL = `http://localhost:${APP_PORT}`;
 
 export const PACT_BROKER_URL = 'http://localhost:9292';
 
-export const CLIENTS = [1, 2, 3];
+export const CLIENTS = [1,15];
 
 export const EXISTENT_CLIENT_ID = 1;
 

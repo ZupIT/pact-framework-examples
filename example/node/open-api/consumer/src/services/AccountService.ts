@@ -13,12 +13,10 @@ export interface Account {
 }
 
 export class AccountService {
-  async getBalanceByClientID(id: number): Promise<Account> {
+  getBalanceByClientID(id: number): Promise<Response> {
     const clientRepository = new ClientRepository();
-    const client = clientRepository.findClientByID(id);
+    const accountId = clientRepository.findClientByID(id);
 
-    const response: Response = await axios.get(`${APP_URL}/balance/${client}`);
-
-    return response.data;
+    return axios.get(`${APP_URL}/account/${accountId}`);
   }
 }

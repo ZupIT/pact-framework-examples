@@ -3,7 +3,7 @@ info:
     description: 'A Sample application using Typescipt-rest library'
     license:
         name: MIT
-    title: Typescript-rest
+    title: AccountApi
     version: 0.0.1
 paths:
     '/account/{accountID}':
@@ -40,6 +40,9 @@ paths:
                                 items:
                                     $ref: '#/components/schemas/Account'
             description: ""
+servers:
+    -
+        url: 'http://localhost:3334'
 components:
     securitySchemes:
         default:
@@ -52,7 +55,7 @@ components:
             name: Authorization
     schemas:
         Account:
-            description: ""
+            description: 'Account Type Definition'
             properties:
                 id:
                     type: integer

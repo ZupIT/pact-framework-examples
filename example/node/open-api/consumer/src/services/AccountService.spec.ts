@@ -17,12 +17,12 @@ describe('AccountService', () => {
     mockedAxios.get.mockImplementationOnce(() => Promise.resolve(mockValue));
 
     const response = await accountService.getBalanceByClientID(
-      EXISTENT_CLIENT_ID,
-    );
+      EXISTENT_CLIENT_ID
+    ).then();
 
     expect(axios.get).toHaveBeenCalledWith(
-      `${APP_URL}/balance/${EXISTENT_CLIENT_ID}`,
+      `${APP_URL}/account/${EXISTENT_CLIENT_ID}`,
     );
-    expect(response).toEqual(mockValue.data);
+    expect(response).toEqual(mockValue);
   });
 });
