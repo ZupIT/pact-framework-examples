@@ -12,7 +12,7 @@ Exemplo da criação de um Pact entre:
 - Node + npm
 - Express
 - [Typescript Rest](https://www.npmjs.com/package/typescript-rest)
-- [Swagger Mock Validator](https://www.npmjs.com/package/swagger-mock-validator)
+- [Swagger Pact Validator](https://bitbucket.org/rcrodrigueszup/swagger-pact-validator)
 - Pact
 - Pact Broker
 - Jest
@@ -40,14 +40,11 @@ A imagem abaixo representa esta interação que acabamos de definir.
 
 ## Integração com OpenAPI
 
-O contrato do cenário abordado neste exemplo é testado utilizando a biblioteca [Swagger Mock Validator](https://www.npmjs.com/package/swagger-mock-validator). Esta biblioteca funciona da seguinte forma:
+O contrato do cenário abordado neste exemplo é testado utilizando a biblioteca [Swagger Pact Validator]((https://bitbucket.org/rcrodrigueszup/swagger-pact-validator). Esta biblioteca funciona da seguinte forma:
 
 1 - O consumidor gera seu contrato PACT como de costume e o publica no Pact Broker. <br>
 2 - O provedor, por sua vez, gera sua documentação OpenAPI. Neste caso utilizamos o [Swagger V3+](https://swagger.io/specification/) que segue a especificação OpenAPI.<br>
 3 - Utilizamos o cli do ```swagger-mock-validator``` para validar o contrato PACT contra a especificação OpenAPI. 
-
-> **NOTA**: Atualmente, o resultado desta validação não é publicado no PACT Broker, o que quebra o ciclo de feedback do PACT.<br>
-> Estamos trabalhando em uma melhoria que preenche esta lacuna. Em breve atualizaremos este exemplo com mais detalhes sobre esta abordagem.
 
 ## Como executar
 
@@ -94,6 +91,6 @@ npm run pact:verify
 ```
 
 Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a especificação OpenAPI do Provedor.
-Ao final, podemos conferir o resultado no terminal:
+Ao final, podemos conferir o resultado Broker:
 
-<img src="../../../imgs/swagger-mock-validation-result.png" alt="pact verified"/>
+<img src="../../../imgs/validated-pact-contract.png" alt="pact verified"/>
