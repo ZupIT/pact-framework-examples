@@ -1,8 +1,9 @@
 package br.com.zup.pact.provider.stub
 
+import br.com.zup.pact.provider.dto.ProductDTO
 import br.com.zup.pact.provider.entity.ProductEntity
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest
-import org.junit.jupiter.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import javax.inject.Inject
 
@@ -17,6 +18,17 @@ class ProductStubTest {
         val numberOfStubs = 10
         val result: Map<Int, ProductEntity> = productStub.products
 
-        Assertions.assertEquals(numberOfStubs, result.size)
+        assertThat(numberOfStubs).isEqualTo(result.size)
+    }
+
+    @Test
+    fun `should getAllProductsDTOFormat returns List of ProductDTO`() {
+        val result: List<ProductDTO> = productStub.getAllProductsDTOFormat()
+
+        assertThat(result).asList()
+
+        result.forEach {
+            assertThat(it).isInstanceOf(ProductDTO::class.java)
+        }
     }
 }
