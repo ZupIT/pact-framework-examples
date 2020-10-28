@@ -16,7 +16,6 @@ repositories {
 }
 
 micronaut {
-    testRuntime "junit5"
     processing {
         incremental true
         annotations "br.com.zup.pact.provider.*"
@@ -24,6 +23,8 @@ micronaut {
 }
 
 dependencies {
+    annotationProcessor("io.micronaut:micronaut-inject-java:2.1.2")
+    implementation("io.micronaut:micronaut-inject:2.1.2")
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -33,12 +34,22 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     testImplementation("io.micronaut:micronaut-http-client")
+    testAnnotationProcessor("io.micronaut:micronaut-inject-java:2.1.2")
+    testImplementation("org.assertj:assertj-core:3.18.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testImplementation("io.micronaut.test:micronaut-test-junit5:2.2.1")
 }
 
 mainClassName = "br.com.zup.pact.provider.ApplicationKt"
+
 java {
     sourceCompatibility = JavaVersion.toVersion('14')
+}
+
+test {
+    useJUnitPlatform()
 }
 
 compileKotlin {
@@ -51,8 +62,6 @@ compileTestKotlin {
         jvmTarget = '14'
     }
 }
-
-
 
 sourceSets {
     main {

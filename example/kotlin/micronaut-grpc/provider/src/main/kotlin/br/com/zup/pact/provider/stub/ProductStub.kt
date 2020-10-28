@@ -3,26 +3,29 @@ package br.com.zup.pact.provider.stub
 import br.com.zup.pact.provider.dto.ProductDTO
 import br.com.zup.pact.provider.entity.ProductEntity
 import br.com.zup.pact.provider.enums.PaymentMethod
+import javax.annotation.PostConstruct
+import javax.inject.Singleton
 import kotlin.random.Random
 
+@Singleton
 class ProductStub {
 
     private val numberOfStubs = 10
     private val name = "Any Product"
     private val price = 10.0
     private val initialQuantity = 1
-
-    private val products = mutableMapOf<Int, ProductEntity>()
+    val products = mutableMapOf<Int, ProductEntity>()
 
     private fun randomPayment(): PaymentMethod {
         val paymentMethod = PaymentMethod.values()
-        return paymentMethod[Random.nextInt(0, paymentMethod.size)]
+        return paymentMethod[Random.nextInt(0, PaymentMethod.values().size)]
     }
 
+    @PostConstruct
     fun createStubs() {
         products.putAll(
                 (1..numberOfStubs)
-                        .map { ProductEntity(it, name, price, it.plus(initialQuantity), randomPayment()) }
+                        .map { ProductEntity(it, name, it * price, it.plus(initialQuantity), randomPayment()) }
                         .associateBy({ it.productId }, { it })
         )
     }
