@@ -1,0 +1,18 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "br.com.zup.pact.provider";
+package br.com.zup.pact.provider;
+
+service ProductService {
+  rpc getAll (EmptyRequest) returns (stream ProductResponse) {}
+}
+
+message EmptyRequest {}
+
+message ProductResponse {
+  int32 productId = 1;
+  string name = 2;
+  double price = 3;
+  int32 quantity = 4;
+  string paymentMethod = 5;
+}
