@@ -1,3 +1,6 @@
 micronaut:
   application:
     name: consumer
+grpc:
+  server:
+    port: 9090

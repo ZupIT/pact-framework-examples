@@ -6,10 +6,10 @@ import br.com.zup.pact.provider.EmptyRequest
 import br.com.zup.pact.provider.ProductResponse
 import br.com.zup.pact.provider.ProductServiceGrpc
 import javax.inject.Inject
-import io.micronaut.grpc.annotation.GrpcService
+import javax.inject.Singleton
 
-@GrpcService
-class ProductIntegrationImpl(@Inject private val grpcService: GrpcServiceIntegration) : ProductIntegration {
+@Singleton
+class ProductIntegrationImpl(@Inject val grpcService: GrpcServiceIntegration) : ProductIntegration {
     override fun getAll(): List<ProductDTO> {
         val emptyRequest: EmptyRequest = EmptyRequest.newBuilder().build()
         val stub: ProductServiceGrpc.ProductServiceBlockingStub = grpcService.getProductsResourceBlockingStub()
@@ -24,8 +24,9 @@ class ProductIntegrationImpl(@Inject private val grpcService: GrpcServiceIntegra
                             name = it.name,
                             price = it.price,
                             quantity = it.quantity,
-                            paymentMethod = PaymentMethod.valueOf(it.paymentMethod))
+                            paymentMethod = PaymentMethod.valueOf(it.paymentMethod)
                     )
+            )
         }
         return products
     }
