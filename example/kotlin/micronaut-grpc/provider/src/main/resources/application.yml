@@ -1,3 +1,6 @@
 micronaut:
   application:
     name: provider
+grpc:
+  server:
+    port: 6565
