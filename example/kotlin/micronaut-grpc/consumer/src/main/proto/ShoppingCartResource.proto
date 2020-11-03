@@ -14,8 +14,8 @@ service CartService {
 message EmptyRequest {}
 
 message ProductResponse {
-  string name = 2;
-  double price = 3;
-  int32 quantity = 4;
-  string paymentMethod = 5;
+  string name = 1;
+  double price = 2;
+  int32 quantity = 3;
+  string paymentMethod = 4;
 }

@@ -15,19 +15,15 @@ class ProductIntegrationImpl(@Inject val grpcService: GrpcServiceIntegration) : 
         val stub: ProductServiceGrpc.ProductServiceBlockingStub = grpcService.getProductsResourceBlockingStub()
 
         val productResponse: Iterator<ProductResponse> = stub.getAll(emptyRequest)
-        val products = mutableListOf<ProductDTO>()
 
-        productResponse.forEach {
-            products.add(
-                    ProductDTO(
-                            productId = it.productId,
-                            name = it.name,
-                            price = it.price,
-                            quantity = it.quantity,
-                            paymentMethod = PaymentMethod.valueOf(it.paymentMethod)
-                    )
+        return productResponse.asSequence().map {
+            ProductDTO(
+                    productId = it.productId,
+                    name = it.name,
+                    price = it.price,
+                    quantity = it.quantity,
+                    paymentMethod = PaymentMethod.valueOf(it.paymentMethod)
             )
-        }
-        return products
+        }.toList()
     }
 }
