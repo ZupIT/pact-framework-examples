@@ -1,7 +1,5 @@
 package br.com.zup.pact.consumer.resource
 
-import br.com.zup.pact.consumer.EmptyRequest
-import br.com.zup.pact.consumer.ProductResponse
 import br.com.zup.pact.consumer.dto.ProductDTO
 import br.com.zup.pact.consumer.enums.PaymentMethod
 import br.com.zup.pact.consumer.service.ShoppingCartService
@@ -13,9 +11,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
-class ShoppingCartResourceTest {
+class ShoppingCartResourceEndpointTest {
     private val shoppingCartServiceMock: ShoppingCartService = mockk()
-    private val shoppingCartResource: ShoppingCartResource = ShoppingCartResource(
+    private val shoppingCartResourceEndpoint: ShoppingCartResourceEndpoint = ShoppingCartResourceEndpoint(
             shoppingCartServiceMock
     )
 
@@ -43,7 +41,7 @@ class ShoppingCartResourceTest {
         every { responseObserver.onNext(any()) } just Runs
         every { responseObserver.onCompleted() } just Runs
 
-        shoppingCartResource.getAll(
+        shoppingCartResourceEndpoint.getAll(
                 EmptyRequest.newBuilder().build(),
                 responseObserver
         )
@@ -51,6 +49,7 @@ class ShoppingCartResourceTest {
         verify(exactly = 1) {
             responseObserver.onNext(
                     ProductResponse.newBuilder()
+                            .setProductId(1)
                             .setName("Any product")
                             .setPrice(100.0)
                             .setQuantity(3)

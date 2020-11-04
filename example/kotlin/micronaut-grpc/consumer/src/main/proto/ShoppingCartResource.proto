@@ -1,21 +1,18 @@
 syntax = "proto3";
 
 option java_multiple_files = true;
-option java_package = "br.com.zup.pact.consumer";
-option java_outer_classname = "Consumer";
-option objc_class_prefix = "HLW";
-
-package br.com.zup.pact.consumer;
-
-service CartService {
-  rpc getAll (EmptyRequest) returns (stream ProductResponse) {}
-}
+package br.com.zup.pact.consumer.resource;
 
 message EmptyRequest {}
 
 message ProductResponse {
-  string name = 1;
-  double price = 2;
-  int32 quantity = 3;
-  string paymentMethod = 4;
+  int32 productId = 1;
+  string name = 2;
+  double price = 3;
+  int32 quantity = 4;
+  string paymentMethod = 5;
+}
+
+service CartService {
+  rpc getAll (EmptyRequest) returns (stream ProductResponse) {}
 }

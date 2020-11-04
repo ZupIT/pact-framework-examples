@@ -1,16 +1,16 @@
-package br.com.zup.pact.provider.resource
+package br.com.zup.pact.consumer.resource
 
-import br.com.zup.pact.provider.*
-import br.com.zup.pact.provider.service.ProductService
+import br.com.zup.pact.consumer.service.ShoppingCartService
 import io.grpc.stub.StreamObserver
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class ProductResource (@Inject val productService: ProductService) : ProductServiceGrpc.ProductServiceImplBase() {
+class ShoppingCartResourceEndpoint (@Inject val shoppingCartService: ShoppingCartService) :
+    CartServiceGrpc.CartServiceImplBase() {
 
     override fun getAll(request: EmptyRequest?, responseObserver: StreamObserver<ProductResponse>?) {
-        productService.getAll().forEach {
+        shoppingCartService.getAllProducts().forEach {
             val response = ProductResponse.newBuilder()
                     .setProductId(it.productId)
                     .setName(it.name)

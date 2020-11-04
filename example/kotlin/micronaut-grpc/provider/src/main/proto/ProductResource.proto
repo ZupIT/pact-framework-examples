@@ -1,7 +1,6 @@
 syntax = "proto3";
 option java_multiple_files = true;
-option java_package = "br.com.zup.pact.provider";
-package br.com.zup.pact.provider;
+package br.com.zup.pact.provider.resource;
 
 service ProductService {
   rpc getAll (EmptyRequest) returns (stream ProductResponse) {}

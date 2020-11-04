@@ -1,7 +1,5 @@
 package br.com.zup.pact.provider.resource
 
-import br.com.zup.pact.provider.EmptyRequest
-import br.com.zup.pact.provider.ProductResponse
 import br.com.zup.pact.provider.dto.ProductDTO
 import br.com.zup.pact.provider.enums.PaymentMethod
 import br.com.zup.pact.provider.service.ProductService
@@ -12,10 +10,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
-class ProductResourceTest {
+class ProductResourceEndpointTest {
 
     private val productServiceMock: ProductService = mockk()
-    private val productResource: ProductResource = ProductResource(productServiceMock)
+    private val productResourceEndpoint: ProductResourceEndpoint = ProductResourceEndpoint(productServiceMock)
 
     @Test
     fun `should getAll returns all products from the service`() {
@@ -34,7 +32,7 @@ class ProductResourceTest {
         every { responseObserver.onNext(any()) } just Runs
         every { responseObserver.onCompleted() } just Runs
 
-        productResource.getAll(
+        productResourceEndpoint.getAll(
                 EmptyRequest.newBuilder().build(),
                 responseObserver
         )
