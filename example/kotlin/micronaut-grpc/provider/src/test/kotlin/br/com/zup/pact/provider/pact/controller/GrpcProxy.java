@@ -33,7 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@Controller("/grpc{/path:.*}")
 public class GrpcProxy {
 
     private static final Logger log = LoggerFactory.getLogger(GrpcProxy.class);
@@ -49,9 +49,7 @@ public class GrpcProxy {
     @Inject
     private GrpcEmbeddedServer grpcEmbeddedServer;
 
-    @Post(value = "/grpc/br.com.zup.pact.provider.resource.ProductService/getAll",
-            produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON
-    )
+    @Post(produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON)
     public String grpcProxy(@Body final String json, final HttpRequest request) throws IOException {
         final String grpcMethodName = request.getUri().getPath().replace("/grpc/", "");
         return this.grcpCall(grpcMethodName, json);
