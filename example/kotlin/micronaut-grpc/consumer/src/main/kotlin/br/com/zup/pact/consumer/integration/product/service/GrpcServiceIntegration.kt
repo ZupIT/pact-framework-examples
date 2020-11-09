@@ -3,14 +3,19 @@ package br.com.zup.pact.consumer.integration.product.service
 import br.com.zup.pact.provider.resource.ProductServiceGrpc
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
+import io.micronaut.context.annotation.Value
 import javax.annotation.PreDestroy
 import javax.inject.Singleton
 
 @Singleton
-class GrpcServiceIntegration {
+class GrpcServiceIntegration(@Value("\${integration.provider.port}")
+                             private val providerPort: Int,
+                             @Value("\${integration.provider.host}")
+                             private val providerHost: String
+) {
 
     private val channel: ManagedChannel = ManagedChannelBuilder
-            .forAddress("localhost", 6565)
+            .forAddress(providerHost, providerPort)
             .usePlaintext()
             .build()
 
