@@ -21,7 +21,6 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
-import io.micronaut.runtime.event.annotation.EventListener;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -91,17 +90,6 @@ public class GrpcProxy {
         return ClientCalls.blockingUnaryCall(channel, method, callOptions, req);
     }
 
-    @EventListener
-    public void handleEvent(final GrpcEmbeddedServer event) {
-        log.info("Reading grpc configured method descriptors");
-
-        event.getServer().getServices().forEach(service -> service.getMethods().forEach(method -> {
-            this.methodsByName.put(method.getMethodDescriptor().getFullMethodName(), method.getMethodDescriptor());
-        }));
-
-        log.debug("MethodDescriptors: {}", this.methodsByName.keySet());
-    }
-
     protected Marshaller<?> jsonMarshaller(final Object defaultInstance) {
         final Parser parser = JsonFormat.parser();
         final Printer printer = JsonFormat.printer();
@@ -110,9 +98,7 @@ public class GrpcProxy {
 
     protected <T extends Message> MethodDescriptor.Marshaller<T> jsonMarshaller(final T defaultInstance, final JsonFormat.Parser parser,
                                                                                 final JsonFormat.Printer printer) {
-
         final Charset charset = StandardCharsets.UTF_8;
-        //final Charset charset = Charset.defaultCharset();
         return new Marshaller<T>() {
             @Override
             public InputStream stream(final T value) {

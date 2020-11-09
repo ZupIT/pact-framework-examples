@@ -41,8 +41,8 @@ public class GrpcHttpProxyController {
 
     private static Logger log = LoggerFactory.getLogger(GrpcHttpProxyController.class);
 
-    @Value("${server.port}")
-    protected int localPort;
+//    @Value("${server.port}")
+//    protected int localPort;
 
     @Value("${grpc.inProcessServerName:}")
     public String inProcessServerName;

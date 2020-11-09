@@ -44,7 +44,6 @@ class ShoppingCartProviderPactTest {
 
     @BeforeEach
     fun setUp(context: PactVerificationContext) {
-        //context.target = HttpTestTarget(server.host, server.port)
         context.target = HttpTestTarget.fromUrl(URL("http://localhost:${server.port}"))
     }
 
@@ -66,7 +65,5 @@ class ShoppingCartProviderPactTest {
                 )
         )
        BDDMockito.given(productService.getAll()).willReturn(products)
-//        every { productService.getAll() }
-//                .returns(products)
     }
 }
