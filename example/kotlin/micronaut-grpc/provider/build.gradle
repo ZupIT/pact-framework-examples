@@ -37,12 +37,11 @@ dependencies {
     implementation("au.com.dius:pact-jvm-provider-junit5:4.0.10")
 
     //  Tomcat - comentado dia 6/11 15h:
-    compile group: 'io.micronaut.servlet', name: 'micronaut-http-server-tomcat', version: '2.0.3'
+    //compile group: 'io.micronaut.servlet', name: 'micronaut-http-server-tomcat', version: '2.0.3'
 
     //  Roda o server http: Descomentado dia 6/11 15h
-    //implementation("io.micronaut:micronaut-http-server-netty")
+    implementation("io.micronaut:micronaut-http-server-netty")
 
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
     compile group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.13.0'
     compile group: 'io.grpc', name: 'grpc-netty', version: '1.33.1'
     runtimeOnly("ch.qos.logback:logback-classic")
@@ -69,6 +68,7 @@ java {
 
 test {
     useJUnitPlatform()
+    systemProperties['pact.verifier.publishResults'] = 'true'
 }
 
 compileKotlin {

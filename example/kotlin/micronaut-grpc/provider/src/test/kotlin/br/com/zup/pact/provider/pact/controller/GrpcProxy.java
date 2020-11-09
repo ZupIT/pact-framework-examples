@@ -16,11 +16,11 @@ import io.grpc.netty.NettyChannelBuilder;
 import io.grpc.stub.ClientCalls;
 import io.micronaut.context.annotation.Value;
 import io.micronaut.grpc.server.GrpcEmbeddedServer;
+import io.micronaut.http.HttpRequest;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Post;
-import io.micronaut.http.annotation.Produces;
 import io.micronaut.runtime.event.annotation.EventListener;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,36 +28,35 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
 public class GrpcProxy {
-    private static Logger log = LoggerFactory.getLogger(GrpcProxy.class);
+
+    private static final Logger log = LoggerFactory.getLogger(GrpcProxy.class);
+
     private final Map<String, MethodDescriptor> methodsByName = new HashMap<>();
+
     @Value("${grpc.inProcessServerName:}")
-    public String inProcessServerName;
+    private String inProcessServerName;
+
     @Value("${grpc.server.port}")
-    public int port;
+    private int port;
+
     @Inject
-    GrpcEmbeddedServer grpcEmbeddedServer;
+    private GrpcEmbeddedServer grpcEmbeddedServer;
 
     @Post(value = "/grpc/br.com.zup.pact.provider.resource.ProductService/getAll",
-            produces = "application/json"
+            produces = MediaType.APPLICATION_JSON, consumes = MediaType.APPLICATION_JSON
     )
-    public String grpcProxy(@Body final String json, final HttpServletRequest request) throws IOException {
-        final String grpcMethodName = request.getRequestURI().replace("/grpc/", "");
+    public String grpcProxy(@Body final String json, final HttpRequest request) throws IOException {
+        final String grpcMethodName = request.getUri().getPath().replace("/grpc/", "");
         return this.grcpCall(grpcMethodName, json);
     }
-
-//    public HttpResponse<String> grpcProxy(@Body final String json, final HttpServletRequest request) throws IOException {
-//        final String grpcMethodName = request.getRequestURI().replace("/grpc/", "");
-//        String response = this.grcpCall(grpcMethodName, json);
-//        return HttpResponse.ok(response);
-//    }
 
     protected String grcpCall(final String methodName, final String jsonRequest) throws IOException {
         grpcEmbeddedServer.getServer().getServices().forEach(service -> service.getMethods().forEach(method -> {
@@ -112,7 +111,7 @@ public class GrpcProxy {
     protected <T extends Message> MethodDescriptor.Marshaller<T> jsonMarshaller(final T defaultInstance, final JsonFormat.Parser parser,
                                                                                 final JsonFormat.Printer printer) {
 
-        final Charset charset = Charset.forName("UTF-8");
+        final Charset charset = StandardCharsets.UTF_8;
         //final Charset charset = Charset.defaultCharset();
         return new Marshaller<T>() {
             @Override
