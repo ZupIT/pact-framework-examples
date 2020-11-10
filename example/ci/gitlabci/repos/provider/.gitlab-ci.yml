@@ -1,0 +1,16 @@
+image: openjdk:11.0.9-jdk-slim
+stages:
+  - check-consumer
+
+variables:
+  MAVEN_REPO: /cache/.m2
+  GRADLE_USER_HOME: /cache/.gradle
+
+cache:
+  paths:
+    - .gradle
+
+check-consumer:
+  stage: check-consumer
+  script:
+    - ./gradlew clean test --tests br.com.zup.pact.provider.pact.ShoppingCartProviderPactTest

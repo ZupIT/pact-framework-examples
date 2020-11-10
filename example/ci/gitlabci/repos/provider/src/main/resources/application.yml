@@ -1,0 +1,12 @@
+micronaut:
+#  codec:
+#    json:
+#      additionalTypes:
+#        - application/json
+  application:
+    name: provider
+  server:
+    port: 8081
+grpc:
+  server:
+    port: 6566
