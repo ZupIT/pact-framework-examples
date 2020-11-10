@@ -8,6 +8,10 @@ plugins {
     id "au.com.dius.pact" version "4.1.0"
 }
 
+wrapper {
+    gradleVersion = '6.7'
+}
+
 version "0.1"
 group "br.com.zup.pact.provider"
 
