@@ -11,7 +11,7 @@ Exemplo da criação de um Pact entre:
  - Kotlin - 1.4.10
  - OpenJdk 11
  - Micronaut - 2.1.2
- - Gradle
+ - Gradle - 6.7
  - Pact JVM
  - Pact Broker
  - [Mockk](https://mockk.io/)
@@ -31,10 +31,10 @@ produtos disponíveis e suas respectivas informações (preço, quantidade, mét
 
 De forma resumida, temos os seguintes serviços:
 
-* provider: mantém e gerencia informações relacionadas produtos.
+* provider: mantém e gerencia informações relacionadas a produtos.
 * consumer: solicita produtos ao provider atuando como um carrinho de compras.
 
-A imagem abaixo representa esta interação que acabamos de definir.
+A imagem abaixo representa esta interação que acabamos de definir:
 
 <img src="../../../imgs/grpc-micronaut-scenario-general.png" alt="gRPC micronaut pact scenario"/>
 
@@ -79,17 +79,18 @@ A imagem a seguir representa esta solução:
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente. 
-Para maiores informações, vide sessão [configuração do Pact Broker](../../../README.md#config-broker).
+Para maiores informações, vide seção [configuração do Pact Broker](../../../README.md#config-broker).
 
-2. Abra os projetos contido neste diretório (`consumer` e `provider`) em sua IDE de preferência e 
-instale suas dependências. para garantir que os assets gRPC foram gerados corretamente, 
+2. Abra os projetos contidos neste diretório (`consumer` e `provider`) em sua IDE de preferência e 
+instale suas dependências. Para garantir que os assets gRPC foram gerados corretamente, 
 rode o seguinte comando na raiz de cada projeto:
 
 ```
 gradle build
 ```
 
-3. Para gerar o contrato, basta rodar os testes Junit do projeto `consumer`. <br>
+3. Para gerar o contrato, basta rodar os testes Junit da classe 
+`ShoppingCartContractTest` no projeto `consumer`. <br>
 Obtendo sucesso, o plugin Gradle do Pact irá gerar um arquivo json contendo o contrato entre as APIs.
 Veja os exemplos nas imagens abaixo.
 
@@ -100,7 +101,7 @@ Veja os exemplos nas imagens abaixo.
 4. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
 Para isto, podemos utilizar o plugin Gradle do Pact. <br>
 É necessário confirmar que o plugin está configurado corretamente dentro do arquivo 
-build.gradle:
+`build.gradle`:
 
 <img src="../../../imgs/grpc-micronaut-pact-publish-plugin.png" alt="Pact Gradle Plugin"/>
 
