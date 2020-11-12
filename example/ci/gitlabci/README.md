@@ -1,16 +1,16 @@
 # Exemplo de Integração Contínua com GitlabCI
 
-Exemplo da criação de um Pact entre:
+Neste exemplo, temos uma implementação do Pact com Micronaut + GRPC + Pact + GitlabCI
 * 1 consumidor (pact-consumer-sample)
 * 1 provedor (pact-provider-sample)
 
 ## Ferramentas
 
- - Jenkins
+ - GitlabCI
  - Postgresql
  - Pact Broker
- - OpenJdk 11
- - Spring Boot
+ - Kotlin
+ - Micronaut
 
 
 Índice
@@ -28,60 +28,43 @@ Exemplo da criação de um Pact entre:
 
 ## Caracteristicas deste exemplo
 
-Os cenários contidos neste exemplo seguem basicamente três passos:
+Para termos melhor proveito do teste de contrato com o Pact, devemos automatizar suas verificações com ferramentas CI. Neste exemplo, o GitlabCI será utilizado para checar o contrato entre as integrações. Com isso, conseguimos garantir as pontas consumer e provider perante uma integração que é realizada, como isso ajuda em um cenário real? Quando utilizamos o teste de contrato do Pact, conseguimos assegurar que o contrato de integração é respeitado quanto por quem provê, quanto por que consome, garantindo a integridade não só do contrato, mas da regra de negócio que é utilizada com os dados vindos de uma chamada de integração. Quando incluímos o Pact nessa verificação em um fluxo automatizado de CI, temos maior velocidade de verificação dos nossos contratos.
 
-1 - O docker-compose irá criar uma instância do Jenkins e do Pact Broker. 
-Ao iniciar, o Jenkins irá baixar as APIs de seus respectivos repositórios em branch master. Em seguida, irá rodar um arquivo jenkins customizado para projetos maven e gerar os contratos do nosso consumidor(`pact-consumer-sample`). Em seguida, os contratos são enviados ao Pact Broker.
+Um fluxo de CI de teste de contrato segue os seguintes passos.
 
-2 - Se tivermos sucesso na etapa anterior, o próximo Job será disparado, fazendo o download do repositório do provedor (`pact-provider-sample`) e rodando os testes JUnit. Estes testes validarão o contrato entre o consumidor e provedor.
+Quando o Consumer inicia o CI:
+   - Consumer realiza os steps de CI até chegar no teste de contrato.
+   - Nos testes de contrato, é executado o teste unitário do Pact no projeto Consumer, caso o teste tenha sido executado com sucesso, o arquivo contrato do Pact é gerado na pasta target do projeto.
+   - No próximo passo utilizamos o gradle para enviar esse contrato para o Broker do Pact com o comando gradle pactPublish.
+   - Será enviado um comando trigger para inicializar o CI do provider da integração.
+   - O CI do Provider continuará o processo, rodando a classe de teste unitário do Pact implementada no Provider.
+   - Essa classe, baixará o contrato do Broker, executará o teste subindo seu endpoint e executando o teste baseando se na expectativa que o consumer descreveu nos testes.
+   - Caso o teste seja efetuado com sucesso, significa que o contrato é válido entre as integrações, o CI retornará OK e temos nossa garantia nessa integração.
 
-3 - Tendo sucesso nas duas etapas anteriores, Jenkins irá disparar o último Job utilizando uma ferramenta chamada `can-i-deploy`, que é nada mais que um utilitário do Pact que fará a verificação da integração. Se tiver acontecido como esperado, você poderá ver todos os jobs com resultado OK no Jenkins.
-
-## Cenários contidos neste exemplo
-
-Este exemplo contém três cenários. Neles, descreveremos as interações mais comuns em que você pode combinar o Pact Broker e Jenkins com seus testes de contrato.
-
-### Primeiro cenário 
-pipeline inicial: `CI_JENKINS_cenario_1_passo_1`
-diretório: cenario_1
-
-Este cenário representa o fluxo básico. O consumidor cria um código para testar a integração com seu provedor e gerar o contrato com o Pact Framework. No entanto, neste caso temos também alguns arquivos Jenkins no repositório do consumidor para disparar eventos da integração contínua. Desta forma, conseguimos rodar os testes JUnit, gerar o contrato e fazer sua publicação no Pact Broker de forma automatizada.
-
-Obtendo sucesso até aqui, em seguida será disparado o próximo Job, que irá rodar os teste JUnit no lado do provedor e verificar a validade do contrato.
-
-Por fim, o último Job será disparado para executar o `can-i-deploy` e, então, verificar se o resultado foi de sucesso e/ou de falha.
-
-![Pact First Scenario](imgs/PACT-FIRST-SCENARIO.png)
-
-### Segundo cenário
-pipeline inicial: `CI_JENKINS_cenario_2`
-diretório: cenario_2
-
-No segundo cenário, o provedor realizou alterações no enpoint que o consumidor utiliza (sem aviso prévio). Assim, quando o CI for disparado, 
-o Pact entre eles irá resultar em falha.
-
-![Pact Second Scenario](imgs/PACT-SECOND-SCENARIO.png)
-
-### Terceiro cenário
-pipeline inicial: `CI_JENKINS_cenario_3_passo_1`
-diretório: cenario_3
-
-No terceiro cenário, o consumidor fez algumas melhorias e disparou o CI para verificar alterações na integração. Porém, para nossa surpresa, o provedor fez novas alterações que irão implicar na falha de integridade do contrato.
-
-![Pact Third Scenario](imgs/PACT-THIRD-SCENARIO.png)
+Quando o Provider inicia o CI:
+   - Provider realiza os steps de CI até chegar no teste de contrato.
+   - O Provider executará a classe de testes de contrato que baixará a ultima versão de contrato publicada no Broker. Se essa versão condizer com o endpoint que o provider está fornecendo, o teste passará, se houve alguma alteração inesperada pelo lado do consumer, o teste falhará e o CI falhará, indicando que há algo errado na integração.
 
 ## Como executar
 
-1. Garanta que você tenha uma instância do Pact Broker com Jenkins rodando localmente. 
-Para maiores informações, vide sessão [configuração do Pact Broker](../../../README.md#config-broker).
+Toda Stack desse exemplo foi testado apenas em ambiente linux.
 
-Com o containers rodando, poderemos ver o dashboad do Jenkins com os Jobs pré-configurados. 
+1. Suba os containers que estão no arquivo docker-compose.yml
 
-![Jenkins Dashboard](imgs/Jenkins-dashboard.png)
+```
+sudo docker-compose up
+```
 
-2. Os pipelines estão nomeados de acordo com sua função, cenário e etapa. 
-Para iniciar a esteira de um cenário, basta clicar no ícone de agendamento (destacado em vermelho na imagem acima) do pipeline na etapa 1 do mesmo. As demais etapas do cenário serão disparadas automaticamente.
-Faça isto para os cenários de 1 à 3, em ordem, e acompanhe os resultados no Pact Broker para facilitar o entendimento.
+Para que consigamos executar os pipelines localmente precisamos criar Runners do Gitlab, neste exemplo incluí dois Runners que são Runners Docker, eles são responsáveis por rodar os Pipelines do GitlabCI.
+
+2. Com todos containers executando, execute o script (construct-pact-gitlab.sh)
+
+```
+sudo chmod +x construct-pact-gitlab.sh
+./construct-pact-gitlab.sh
+```
+Neste passo, serão linkados os Runners no GitlabCI, será criado um token para chamadas API no Gitlab e serão criados todos os requisitos dos dois repositórios para que seja executada a pipeline. Também serão clonados os repos criados e copiados os dois projetos exemplo para esses repos e enviados para o container Gitlab que quando receber os arquivos executará a pipeline.
+
 
 ## Observações
 
