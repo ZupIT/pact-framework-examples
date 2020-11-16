@@ -52,7 +52,10 @@ Neles você também irá encontrar detalhes sobre como executá-los.
    - **Angular**
       * [Rest - um consumidor e um provedor](example/frontend).
 - **CI/CD**
-   * [Rest - um consumidor e um provedor com verificação de integração automatizada com Jenkins](example/ci/jenkins).
+   - **Jenkins**
+      * [Rest - um consumidor e um provedor com verificação de integração automatizada com Jenkins](example/ci/jenkins).
+   - **GitlabCI - Work in Progress**
+      * [Grpc - um consumidor e um provedor com verificação de integração automatizada com GitlabCI](example/ci/gitlabci).
 
 ## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 
