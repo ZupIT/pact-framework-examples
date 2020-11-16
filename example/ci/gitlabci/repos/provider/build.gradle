@@ -8,12 +8,12 @@ plugins {
     id "au.com.dius.pact" version "4.1.0"
 }
 
-version "0.1"
-group "br.com.zup.pact.provider"
-
 wrapper {
     gradleVersion = '6.7'
 }
+
+version "0.1"
+group "br.com.zup.pact.provider"
 
 repositories {
     mavenCentral()
@@ -30,7 +30,6 @@ micronaut {
 dependencies {
     annotationProcessor("io.micronaut:micronaut-inject-java:2.1.2")
     implementation("io.micronaut:micronaut-inject:2.1.2")
-    implementation("org.mockito:mockito-core:3.3.0")
     implementation("io.micronaut:micronaut-validation")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
@@ -38,30 +37,20 @@ dependencies {
     implementation("io.micronaut:micronaut-runtime")
     implementation("io.micronaut.grpc:micronaut-grpc-runtime")
     implementation("javax.annotation:javax.annotation-api")
-    implementation("au.com.dius:pact-jvm-provider-junit5:4.0.10")
-
-    //  Tomcat - comentado dia 6/11 15h:
-    //compile group: 'io.micronaut.servlet', name: 'micronaut-http-server-tomcat', version: '2.0.3'
-
-    //  Roda o server http: Descomentado dia 6/11 15h
-    implementation("io.micronaut:micronaut-http-server-netty")
-
-    compile group: 'com.google.protobuf', name: 'protobuf-java-util', version: '3.13.0'
-    compile group: 'io.grpc', name: 'grpc-netty', version: '1.33.1'
+    implementation("com.google.protobuf:protobuf-java-util:3.13.0")
+    implementation("io.grpc:grpc-netty:1.33.1")
     runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.0")
     testImplementation("io.micronaut:micronaut-http-client")
     testAnnotationProcessor("io.micronaut:micronaut-inject-java:2.1.2")
     testImplementation("org.assertj:assertj-core:3.18.0")
-//    testImplementation("io.grpc:grpc-core:1.33.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation("io.micronaut.test:micronaut-test-junit5:2.2.1")
     testImplementation("io.mockk:mockk:1.10.2")
     testImplementation("org.mockito:mockito-core:3.3.0")
-
-    //  Descomentado dia 6/11 15h
-    //testImplementation("io.micronaut:micronaut-http-server-netty")
+    testImplementation("au.com.dius:pact-jvm-provider-junit5:4.0.10")
+    testImplementation("io.micronaut:micronaut-http-server-netty")
 }
 
 mainClassName = "br.com.zup.pact.provider.ApplicationKt"

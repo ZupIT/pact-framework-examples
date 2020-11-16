@@ -52,7 +52,7 @@ Neles você também irá encontrar detalhes sobre como executá-los.
 - **CI/CD**
    - **Jenkins**
       * [Rest - um consumidor e um provedor com verificação de integração automatizada com Jenkins](example/ci/jenkins).
-   - **GitlabCI**
+   - **GitlabCI - Work in Progress**
       * [Grpc - um consumidor e um provedor com verificação de integração automatizada com GitlabCI](example/ci/gitlabci).
 
 ## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>

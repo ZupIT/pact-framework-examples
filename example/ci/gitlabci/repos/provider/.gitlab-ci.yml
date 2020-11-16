@@ -1,4 +1,4 @@
-image: openjdk:11.0.9-jdk-slim
+image: gradle:6.7.0-jdk11
 stages:
   - check-consumer
 
@@ -13,4 +13,4 @@ cache:
 check-consumer:
   stage: check-consumer
   script:
-    - ./gradlew clean test --tests br.com.zup.pact.provider.pact.ShoppingCartProviderPactTest
+    - gradle clean wrapper test --tests br.com.zup.pact.provider.pact.ShoppingCartProviderPactTest

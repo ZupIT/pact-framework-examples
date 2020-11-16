@@ -1,4 +1,4 @@
-image: openjdk:11.0.9-jdk-slim
+image: gradle:6.7.0-jdk11
 
 variables:
   IMAGE: $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
@@ -21,8 +21,8 @@ cache:
 test-and-publish-contract:
   stage: test-and-publish-contract
   script:
-    - ./gradlew clean test --tests br.com.zup.pact.consumer.pact.ShoppingCartContractTest
-    - ./gradlew pactPublish
+    - gradle clean wrapper test --tests br.com.zup.pact.consumer.pact.ShoppingCartContractTest
+    - gradle pactPublish
 
 check-provider:
   stage: check-provider

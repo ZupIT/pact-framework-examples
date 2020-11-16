@@ -85,8 +85,8 @@ cd ..
 cd provider-orange-stack
 git add . && git commit -m "provider" && git push http://root:zupItau123\$\@localhost/root/provider-orange-stack.git
 
-xdg-open https://localhost
-xdg-open https://localhost:9292
+xdg-open http://localhost
+xdg-open http://localhost:9292
 
 
 echo -e "\n\n Tudo OK! Agora é só acompanhar os jobs CI!\n\n"
