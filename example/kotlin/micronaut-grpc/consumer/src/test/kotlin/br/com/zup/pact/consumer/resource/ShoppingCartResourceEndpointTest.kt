@@ -37,23 +37,21 @@ class ShoppingCartResourceEndpointTest {
                                 )
                         )
                 )
-        val responseObserver: StreamObserver<ProductResponse> = mockk()
+        val responseObserver: StreamObserver<CartResponse> = mockk()
         every { responseObserver.onNext(any()) } just Runs
         every { responseObserver.onCompleted() } just Runs
 
-        shoppingCartResourceEndpoint.getAll(
+        shoppingCartResourceEndpoint.getProducts(
                 EmptyRequest.newBuilder().build(),
                 responseObserver
         )
 
         verify(exactly = 1) {
             responseObserver.onNext(
-                    ProductResponse.newBuilder()
-                            .setProductId(1)
+                    CartResponse.newBuilder()
                             .setName("Any product")
                             .setPrice(100.0)
                             .setQuantity(3)
-                            .setPaymentMethod(PaymentMethod.CASH_PAYMENT.toString())
                             .build()
             )
         }

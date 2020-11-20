@@ -9,14 +9,12 @@ import javax.inject.Singleton
 class ShoppingCartResourceEndpoint (@Inject val shoppingCartService: ShoppingCartService) :
     CartServiceGrpc.CartServiceImplBase() {
 
-    override fun getAll(request: EmptyRequest?, responseObserver: StreamObserver<ProductResponse>?) {
+    override fun getProducts(request: EmptyRequest?, responseObserver: StreamObserver<CartResponse>?) {
         shoppingCartService.getAllProducts().forEach {
-            val response = ProductResponse.newBuilder()
-                    .setProductId(it.productId)
+            val response = CartResponse.newBuilder()
                     .setName(it.name)
                     .setPrice(it.price)
                     .setQuantity(it.quantity)
-                    .setPaymentMethod(it.paymentMethod.toString())
                     .build()
 
             responseObserver?.onNext(response)
