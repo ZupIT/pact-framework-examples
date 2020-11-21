@@ -1,5 +1,5 @@
 applicationType: grpc
-defaultPackage: br.com.zup.pact.provider
+defaultPackage: br.com.zup.pact.product.provider
 testFramework: junit
 sourceLanguage: kotlin
 buildTool: gradle

@@ -3,6 +3,7 @@ package br.com.zup.pact.product.provider.resource
 import br.com.zup.pact.product.provider.dto.ProductDTO
 import br.com.zup.pact.product.provider.enums.PaymentMethod
 import br.com.zup.pact.product.provider.service.ProductService
+import br.com.zup.pact.product.provider.resource.*
 import io.grpc.stub.StreamObserver
 import io.mockk.*
 import io.mockk.junit5.MockKExtension

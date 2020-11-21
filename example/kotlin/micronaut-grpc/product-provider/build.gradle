@@ -13,7 +13,7 @@ wrapper {
 }
 
 version "0.1"
-group "br.com.zup.pact.provider"
+group "br.com.zup.pact.product.provider"
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ repositories {
 micronaut {
     processing {
         incremental true
-        annotations "br.com.zup.pact.provider.*"
+        annotations "br.com.zup.pact.product.provider.*"
     }
 }
 

@@ -1,6 +1,6 @@
 micronaut:
   application:
-    name: provider
+    name: product-provider
   server:
     port: 8081
 grpc:
