@@ -53,7 +53,7 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-server-netty")
 }
 
-mainClassName = "br.com.zup.pact.provider.ApplicationKt"
+mainClassName = "br.com.zup.pact.product.provider.ApplicationKt"
 
 java {
     sourceCompatibility = JavaVersion.toVersion('11')

@@ -20,7 +20,7 @@ class ShoppingCartContractTest {
             "Content-Type", "application/json"
     ))
 
-    @Pact(provider = "grpc-product-provider", consumer = "grpc-product-consumer")
+    @Pact(provider = "grpc-product-provider", consumer = "grpc-shopping-cart-consumer")
     fun getAllProductsPact(builder: PactDslWithProvider): RequestResponsePact {
         val bodyResponse = PactDslJsonBody()
                 .integerType("productId")

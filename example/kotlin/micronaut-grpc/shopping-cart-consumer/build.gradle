@@ -13,7 +13,7 @@ wrapper {
 }
 
 version "0.1"
-group "br.com.zup.pact.consumer"
+group "br.com.zup.pact.shopping.cart.consumer"
 
 repositories {
     mavenCentral()
@@ -23,7 +23,7 @@ repositories {
 micronaut {
     processing {
         incremental true
-        annotations "br.com.zup.pact.consumer.*"
+        annotations "br.com.zup.pact.shopping.cart.consumer.*"
     }
 }
 
@@ -52,7 +52,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.10.2")
 }
 
-mainClassName = "br.com.zup.pact.consumer.ApplicationKt"
+mainClassName = "br.com.zup.pact.shopping.cart.consumer.ApplicationKt"
 java {
     sourceCompatibility = JavaVersion.toVersion('11')
 }
