@@ -1,8 +1,8 @@
 # Exemplo em Kotlin com gRPC
 
 Exemplo da criação de um Pact entre:
-* 1 consumidor (Consumer)
-* 1 provedor (Provider)
+* 1 consumidor (shopping-cart-consumer)
+* 1 provedor (product-provider)
 
 - Veja este mesmo cenário feito em [Node](../../node/gRPC).
 
@@ -23,16 +23,15 @@ Este exemplo aborda um cenário comum no setor de atacado/varejo.
 Nosso objetivo é obter todos os produtos disponíveis no serviço provedor.
 Para isto, vamos considerar que este dado será recuperado da seguinte forma:
 
-1 - Solicitamos ao serviço de dominio do cliente (consumer) a lista de produtos disponíveis, 
+1 - Solicitamos ao serviço de dominio do cliente (shopping-cart-consumer) a lista de produtos disponíveis, 
 algo como um carrinho de compras que solicita a relação produtos em um serviço externo. <br>
-2 - Por sua vez, o consumer pergunta ao serviço de domínio dos produtos (provider) quais os 
-produtos disponíveis e suas respectivas informações (preço, quantidade, método de pagamento etc). <br>
+2 - Por sua vez, o shopping-cart-consumer pergunta ao serviço de domínio dos produtos (product-provider) quais os produtos disponíveis e suas respectivas informações (nome, preço e quantidade). <br>
 3 - De posse da relação de produtos o consumer as envia a quem solicitou.
 
 De forma resumida, temos os seguintes serviços:
 
-* provider: mantém e gerencia informações relacionadas a produtos.
-* consumer: solicita produtos ao provider atuando como um carrinho de compras.
+* product-provider: mantém e gerencia informações relacionadas a produtos.
+* shopping-cart-consumer: solicita produtos ao provider atuando como um carrinho de compras.
 
 A imagem abaixo representa esta interação que acabamos de definir:
 
@@ -58,7 +57,7 @@ irá ocorrer. Extendendo o channel e sobrescrevendo o método *newCall*, consegu
 ```
 POST http://{{address}}/grpc/{{packageName}}.{{service}}/{{method}}
 ``` 
-* ex: POST http://provider/grpc/br.com.zup.pact.provider.resource.ProductService/getAll
+* ex: POST http://provider/grpc/br.com.zup.pact.product.provider.resource.ProductService/getAll
 
 
 Tendo gerado então esta chamada REST, conseguimos seguir o fluxo de teste do Pact no lado do consumidor.
