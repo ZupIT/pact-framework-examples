@@ -1,6 +1,0 @@
-applicationType: grpc
-defaultPackage: br.com.zup.pact.provider
-testFramework: junit
-sourceLanguage: kotlin
-buildTool: gradle
-features: [annotation-api, app-name, gradle, grpc, junit, kotlin, kotlin-application, logback, readme, shade, yaml]
