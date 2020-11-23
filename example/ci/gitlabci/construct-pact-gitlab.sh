@@ -37,8 +37,6 @@ docker-compose exec -T runner-2 \
     --docker-volumes /cache:/cache \
     --docker-volumes /builds:/builds
 
-pause
-
 echo "verificar toml"
 
 echo -e "\n\n Criando Personal Access Token\n\n"
@@ -80,10 +78,10 @@ cp -r consumer/. consumer-orange-stack/
 cp -r provider/. provider-orange-stack/
 
 cd consumer-orange-stack
-git add . && git commit -m "consumer" && git push http://root:zupItau123\$\@localhost/root/consumer-orange-stack.git
+git add . && git commit -m "consumer" && git push http://root:adminPact123\$\@localhost/root/consumer-orange-stack.git
 cd ..
 cd provider-orange-stack
-git add . && git commit -m "provider" && git push http://root:zupItau123\$\@localhost/root/provider-orange-stack.git
+git add . && git commit -m "provider" && git push http://root:adminPact123\$\@localhost/root/provider-orange-stack.git
 
 xdg-open http://localhost
 xdg-open http://localhost:9292
