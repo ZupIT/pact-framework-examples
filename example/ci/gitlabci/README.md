@@ -145,6 +145,12 @@ sudo chmod +x construct-pact-gitlab.sh
 
 Neste passo, serão linkados os Runners no GitlabCI, será criado um token para chamadas API no Gitlab e serão criados todos os requisitos dos dois repositórios para que seja executada a pipeline. Também serão clonados os repos criados e copiados os dois projetos exemplo para esses repos e enviados para o container Gitlab que quando receber os arquivos executará a pipeline.
 
+3. Login do GitLab
+
+Usuário: root
+
+Senha: zupItau123$
+
 ## Troubleshooting
 
 - Ao executar o comando `sudo docker-compose up` pela primeira vez, você pode se deparar com o seguinte erro do Docker `ERROR: Pool overlaps with other one on this address space`, caso isso aconteça, execute o comando `docker network prune` e tente novamente.
