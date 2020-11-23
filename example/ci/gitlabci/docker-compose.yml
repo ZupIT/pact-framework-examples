@@ -21,7 +21,7 @@ services:
         DEBUG: 'false'
         GITLAB_HTTPS: 'false'
         SSL_SELF_SIGNED: 'false'
-        GITLAB_ROOT_PASSWORD: 'zupItau123$$'
+        GITLAB_ROOT_PASSWORD: 'adminPact123$$'
         GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN: '2y6_pb_VNZQvYTL3T1qH'
       networks:
          internal_network:

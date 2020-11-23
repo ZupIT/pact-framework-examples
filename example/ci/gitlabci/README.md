@@ -136,6 +136,8 @@ sudo docker-compose up
 
 Para que consigamos executar os pipelines localmente precisamos criar Runners do Gitlab, neste exemplo incluí dois Runners que são Runners Docker, eles são responsáveis por rodar os Pipelines do GitlabCI.
 
+Na primeira vez que subir os containers haverá uma demora até que o container Gitlab crie toda a estrutura de arquivos necessárias, antes de rodar o próximo script, acesse a homepage do Gitlab para garantir que ele esteja funcionando.
+
 2. Com todos containers executando, execute o script (construct-pact-gitlab.sh)
 
 ```
@@ -149,7 +151,7 @@ Neste passo, serão linkados os Runners no GitlabCI, será criado um token para 
 
 Usuário: root
 
-Senha: zupItau123$
+Senha: adminPact123$
 
 ## Troubleshooting
 
