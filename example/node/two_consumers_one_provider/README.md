@@ -16,6 +16,16 @@ Exemplo da criação de um Pact entre:
 - Pact
 - Pact Broker
 
+## Índice
+
+<!--ts-->
+
+- [Cenários](#Cenários)
+  - [Obtendo o saldo a partir do cliente pessoa física](#Obtendo-o-saldo-a-partir-do-cliente-pessoa-física)
+  - [Obtendo o saldo a partir do cliente pessoa jurídica](#Obtendo-o-saldo-a-partir-do-cliente-pessoa-jurídica)
+- [Como executar](#Como-executar)
+<!--ts -->
+
 ## Cenários
 
 Este exemplo aborda um cenário comum no setor bancário.

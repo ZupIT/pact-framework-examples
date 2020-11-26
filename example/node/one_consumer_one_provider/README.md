@@ -16,6 +16,14 @@ Exemplo da criação de um Pact entre:
 - Pact
 - Pact Broker
 
+## Índice
+
+<!--ts-->
+
+- [Cenários](#Cenários)
+- [Como executar](#Como-executar)
+<!--ts -->
+
 ## Cenários
 
 Este exemplo aborda um cenário comum no setor bancário.
