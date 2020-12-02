@@ -5,8 +5,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
 import au.com.dius.pact.consumer.MockServer;
-import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
-import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
+import au.com.dius.pact.consumer.dsl.*;
 import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.RequestResponsePact;
@@ -45,11 +44,10 @@ public class AccountPactTest {
 
     @Pact(consumer = CONSUMER_NAME)
     public RequestResponsePact balanceEndpointTest(PactDslWithProvider builder) {
-
         PactDslJsonBody bodyResponse = new PactDslJsonBody()
                 .integerType("accountId")
                 .numberType("balance")
-                .numberType("credit");
+                .stringValue("accountType", "PERSONAL");
 
         return builder
                 .given("get balance of accountId 1")

@@ -42,6 +42,8 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
 
@@ -107,9 +109,25 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
+            <plugin>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-maven-plugin</artifactId>
+                <version>1.1</version>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <apiDocsUrl>http://localhost:8080/schema</apiDocsUrl>
+                    <outputFileName>contract-openapi.json</outputFileName>
+                    <outputDir>${project.basedir}/target/openapi</outputDir>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
         </plugins>
-
     </build>
-
 </project>
