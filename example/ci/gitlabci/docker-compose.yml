@@ -1,0 +1,134 @@
+version: '3.5'
+
+services:
+    
+   gitlab:
+      image: gitlab/gitlab-ce:13.5.3-ce.0
+      container_name: 'gitlab'
+      hostname: 'gitlab'
+      restart: always
+      ports: 
+         - '80:80'
+         - '443:443'
+      volumes:
+         - './data/config:/etc/gitlab'
+         - './data/logs:/var/log/gitlab'
+         - './data/data:/var/opt/gitlab'
+      environment:
+        GITLAB_OMNIBUS_CONFIG: |
+            external_url 'http://172.20.1.2'
+            prometheus['enable'] = false
+        DEBUG: 'false'
+        GITLAB_HTTPS: 'false'
+        SSL_SELF_SIGNED: 'false'
+        GITLAB_ROOT_PASSWORD: 'adminPact123$$'
+        GITLAB_SHARED_RUNNERS_REGISTRATION_TOKEN: '2y6_pb_VNZQvYTL3T1qH'
+      networks:
+         internal_network:
+            ipv4_address: 172.20.1.2
+            aliases:
+                - host.docker.gitlab
+
+   dind-1:
+       restart: always
+       privileged: true
+       volumes:
+          - /var/lib/docker
+       image: docker:18.06.3-ce-dind
+       volumes:
+          - docker_lib:/var/lib/docker
+          - cache:/cache
+          - builds:/builds
+       command: 
+          - --storage-driver=overlay2
+       networks:
+           internal_network:
+               ipv4_address: 172.20.1.3
+    
+   runner-1:
+       restart: always
+       image: gitlab/gitlab-runner:alpine
+       container_name: 'runner-1'
+       volumes:
+          - './data/config-runner:/etc/gitlab-runner'
+          - '/var/run/docker.sock:/var/run/docker.sock'
+       environment:
+          - DOCKER_HOST=tcp://dind-1:2375
+       networks:
+           internal_network:
+               ipv4_address: 172.20.1.4
+
+   dind-2:
+       restart: always
+       privileged: true
+       volumes:
+          - /var/lib/docker
+       image: docker:18.06.3-ce-dind
+       volumes:
+          - docker_lib_2:/var/lib/docker
+          - cache_2:/cache
+          - builds_2:/builds
+       command: 
+          - --storage-driver=overlay2
+       networks:
+            internal_network:
+              ipv4_address: 172.20.1.7
+    
+   runner-2:
+       restart: always
+       image: gitlab/gitlab-runner:alpine
+       container_name: 'runner-2'
+       volumes:
+           - './data/config-runner:/etc/gitlab-runner'
+           - '/var/run/docker.sock:/var/run/docker.sock'
+       environment:
+           - DOCKER_HOST=tcp://dind-2:2375
+       networks:
+           internal_network:
+               ipv4_address: 172.20.1.8
+        
+   postgres:
+       image: postgres:12.4-alpine
+       healthcheck:
+           test: psql postgres --command "select 1" -U postgres
+       ports:
+           - "5432:5432"
+       environment:
+           POSTGRES_USER: postgres
+           POSTGRES_PASSWORD: password
+           POSTGRES_DB: postgres
+       networks:
+           internal_network:
+              ipv4_address: 172.20.1.5
+
+   pact-broker:
+       image: pactfoundation/pact-broker:2.68.1.0
+       container_name: 'pact-broker'
+       hostname: 'pact-broker' 
+       ports:
+           - "9292:9292"
+       depends_on:
+           - postgres
+       environment:
+           PACT_BROKER_PORT: '9292'
+           PACT_BROKER_DATABASE_URL: "postgres://postgres:password@postgres/postgres"
+           PACT_BROKER_LOG_LEVEL: INFO
+           PACT_BROKER_SQL_LOG_LEVEL: DEBUG
+       networks:
+           internal_network:
+              ipv4_address: 172.20.1.6
+
+networks:
+   internal_network:
+      ipam:
+         driver: default
+         config:
+            - subnet: "172.20.1.0/24"
+
+volumes:
+  docker_lib:
+  cache:
+  builds:
+  docker_lib_2:
+  cache_2:
+  builds_2:

@@ -1,0 +1,30 @@
+syntax = "proto3";
+option java_multiple_files = true;
+//  TODO não seria consumer no lugar de client?
+package br.com.zup.pact.client.resource;
+
+message EmptyRequest {}
+
+message ClientRequest {
+  int32 clientId = 1;
+}
+
+message BalanceResponse {
+  int32 accountId = 1;
+  double balance = 2;
+}
+
+message ClientResponse {
+  int32 id = 1;
+  int32 accountId = 2;
+  string name = 3;
+  string finalName = 4;
+  int32 age = 5;
+}
+
+service ClientResource {
+  rpc getAll(EmptyRequest) returns (stream ClientResponse) {}
+  rpc getClientById(ClientRequest) returns (stream ClientResponse) {}
+  rpc getBalance(ClientRequest) returns (stream BalanceResponse) {}
+}
+
