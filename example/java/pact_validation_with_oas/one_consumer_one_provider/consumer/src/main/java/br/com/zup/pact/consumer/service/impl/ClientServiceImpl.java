@@ -6,8 +6,10 @@ import br.com.zup.pact.consumer.exception.ClientNotFoundException;
 import br.com.zup.pact.consumer.integration.account.service.AccountIntegrationService;
 import br.com.zup.pact.consumer.repository.ClientRepository;
 import br.com.zup.pact.consumer.service.ClientService;
+
 import java.util.List;
 import java.util.Optional;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,27 +18,27 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ClientServiceImpl implements ClientService {
 
-    private final ClientRepository clientRepository;
+    private final ClientRepository clientRepositoryImpl;
     private final AccountIntegrationService accountIntegrationService;
 
     @Override
     public Optional<ClientDetailsDTO> getClientDetails(Integer clientId) {
-        return clientRepository.findByClientId(clientId);
+        return this.clientRepositoryImpl.findByClientId(clientId);
     }
 
     @Override
     public Optional<List<ClientDetailsDTO>> getAll() {
-        return clientRepository.getAll();
+        return this.clientRepositoryImpl.getAll();
     }
 
     @Override
     public Optional<BalanceDTO> getBalance(Integer clientId) {
-        final Integer accountId = getAccountId(clientId);
-        return accountIntegrationService.getBalance(accountId);
+        final Integer accountId = this.getAccountId(clientId);
+        return this.accountIntegrationService.getBalance(accountId);
     }
 
     private Integer getAccountId(Integer clientId) {
-        return getClientDetails(clientId)
+        return this.getClientDetails(clientId)
                 .orElseThrow(() -> new ClientNotFoundException("Client with id: " + clientId + " not found!"))
                 .getAccountId();
     }
