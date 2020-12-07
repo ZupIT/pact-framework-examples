@@ -10,14 +10,10 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
-import br.com.zup.pact.consumer.dto.BalanceDTO;
-import com.google.gson.Gson;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import org.apache.commons.collections4.MapUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.junit.jupiter.api.Test;
@@ -35,12 +31,10 @@ public class AccountPactTest {
     private static final String CONSUMER_NAME = "AccountBalanceConsumer";
 
 
-    private Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
+    private final Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
             HttpHeaders.CONTENT_TYPE,
             MediaType.APPLICATION_JSON_VALUE
     });
-
-    private Gson gson = new Gson();
 
     @Pact(consumer = CONSUMER_NAME)
     public RequestResponsePact balanceEndpointTest(PactDslWithProvider builder) {

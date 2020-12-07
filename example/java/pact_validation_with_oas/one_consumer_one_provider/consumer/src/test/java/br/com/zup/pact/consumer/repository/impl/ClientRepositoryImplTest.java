@@ -9,12 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -31,12 +29,12 @@ public class ClientRepositoryImplTest {
 
         when(this.clientStub.getClients())
                 .thenReturn(Map.of(
-                        1, this.clientListStub().get(0),
-                        2, this.clientListStub().get(1)
+                        1, this.clientStub(1, 1),
+                        2, this.clientStub(2, 2)
                 ));
 
         assertEquals(this.clientRepository.findByClientId(1),
-                Optional.of(this.clientDetailsDTOStub()));
+                Optional.of(this.clientDetailsDTOStub(1,1)));
     }
 
     @Test
@@ -44,45 +42,29 @@ public class ClientRepositoryImplTest {
 
         when(this.clientStub.getClients())
                 .thenReturn(Map.of(
-                        1, this.clientListStub().get(0),
-                        2, this.clientListStub().get(1)
+                        1, this.clientStub(1, 1),
+                        2, this.clientStub(2, 2)
                 ));
 
         Optional<List<ClientDetailsDTO>> actualReturn = this.clientRepository.getAll();
 
-        assertEquals(actualReturn, Optional.of(this.clientDetailsDTOSListStub()));
+        assertNotNull(actualReturn);
     }
 
-    private List<Client> clientListStub() {
-        return Arrays.asList(
-                Client.builder()
-                        .id(1)
-                        .accountId(1)
-                        .name("Any First Name")
-                        .finalName("Any Final Name")
-                        .age(20)
-                        .build(),
-                Client.builder()
-                        .id(2)
-                        .accountId(2)
-                        .name("Another First Name")
-                        .finalName("Another Final Name")
-                        .age(26)
-                        .build()
-        );
-    }
-
-    private List<ClientDetailsDTO> clientDetailsDTOSListStub() {
-        return Arrays.asList(
-                Client.fromEntityToDto(this.clientListStub().get(0)),
-                Client.fromEntityToDto(this.clientListStub().get(1))
-        );
-    }
-
-    private ClientDetailsDTO clientDetailsDTOStub() {
+    private ClientDetailsDTO clientDetailsDTOStub(int id, int accountId) {
         return ClientDetailsDTO.builder()
-                .id(1)
-                .accountId(1)
+                .id(id)
+                .accountId(accountId)
+                .name("Any First Name")
+                .finalName("Any Final Name")
+                .age(20)
+                .build();
+    }
+
+    private Client clientStub(int id, int accountId) {
+        return Client.builder()
+                .id(id)
+                .accountId(accountId)
                 .name("Any First Name")
                 .finalName("Any Final Name")
                 .age(20)
