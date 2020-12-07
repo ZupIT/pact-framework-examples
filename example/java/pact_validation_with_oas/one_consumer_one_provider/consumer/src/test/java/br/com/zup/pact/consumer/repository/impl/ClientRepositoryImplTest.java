@@ -31,8 +31,8 @@ public class ClientRepositoryImplTest {
 
         when(this.clientStub.getClients())
                 .thenReturn(Map.of(
-                        1, this.client(),
-                        2, this.client()
+                        1, this.clientListStub().get(0),
+                        2, this.clientListStub().get(1)
                 ));
 
         assertEquals(this.clientRepository.findByClientId(1),
@@ -44,8 +44,8 @@ public class ClientRepositoryImplTest {
 
         when(this.clientStub.getClients())
                 .thenReturn(Map.of(
-                        1, this.client(),
-                        2, this.client()
+                        1, this.clientListStub().get(0),
+                        2, this.clientListStub().get(1)
                 ));
 
         Optional<List<ClientDetailsDTO>> actualReturn = this.clientRepository.getAll();
@@ -53,18 +53,30 @@ public class ClientRepositoryImplTest {
         assertEquals(actualReturn, Optional.of(this.clientDetailsDTOSListStub()));
     }
 
-    private Client client() {
-        return Client.builder()
-                .id(1)
-                .accountId(1)
-                .name("Any First Name")
-                .finalName("Any Final Name")
-                .age(20)
-                .build();
+    private List<Client> clientListStub() {
+        return Arrays.asList(
+                Client.builder()
+                        .id(1)
+                        .accountId(1)
+                        .name("Any First Name")
+                        .finalName("Any Final Name")
+                        .age(20)
+                        .build(),
+                Client.builder()
+                        .id(2)
+                        .accountId(2)
+                        .name("Another First Name")
+                        .finalName("Another Final Name")
+                        .age(26)
+                        .build()
+        );
     }
 
     private List<ClientDetailsDTO> clientDetailsDTOSListStub() {
-        return Arrays.asList(this.clientDetailsDTOStub(), this.clientDetailsDTOStub());
+        return Arrays.asList(
+                Client.fromEntityToDto(this.clientListStub().get(0)),
+                Client.fromEntityToDto(this.clientListStub().get(1))
+        );
     }
 
     private ClientDetailsDTO clientDetailsDTOStub() {
