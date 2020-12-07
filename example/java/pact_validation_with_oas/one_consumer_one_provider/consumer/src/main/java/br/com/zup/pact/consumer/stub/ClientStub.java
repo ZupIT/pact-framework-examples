@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class ClientStub {
 
-    private static final Integer NUMBER_OF_STUBS = 10;
+    private final Integer NUMBER_OF_STUBS = 10;
     private static final Integer MIN_AGE = 18;
     private static final Integer MAX_AGE = 70;
     @Getter
@@ -24,12 +24,12 @@ public class ClientStub {
 
     public ClientStub() {
         log.info("\n\n\n\t\t\t\t\t\t ============================ Creating Client Stubs! ============================ \n");
-        clients = createStubs(NUMBER_OF_STUBS);
+        clients = createStubs();
     }
 
-    private Map<Integer, Client> createStubs(int numberOfStubs) {
+    private Map<Integer, Client> createStubs() {
         final Map<Integer, Client> clients = new HashMap<>(NUMBER_OF_STUBS);
-        for (int i = 1; i <= numberOfStubs; i++) {
+        for (int i = 1; i <= this.NUMBER_OF_STUBS; i++) {
             final Client client = Client.builder()
                     .id(i)
                     .accountId(i)

@@ -7,7 +7,6 @@ import java.util.List;
 
 public class NameStub {
 
-
     private static List<String> firstName = buildFirstNameList();
     private static List<String> lastName = buildLastNameList();
 
