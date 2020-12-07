@@ -6,9 +6,7 @@ import br.com.zup.pact.consumer.repository.ClientRepository;
 import br.com.zup.pact.consumer.stub.ClientStub;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,14 +24,13 @@ public class ClientRepositoryImpl implements ClientRepository {
 
     @Override
     public Optional<List<ClientDetailsDTO>> getAll() {
-        final List<Client> clients = clientStub.getClients().values().stream()
-                .collect(Collectors.toList());
+        final List<Client> clients = new ArrayList<>(clientStub.getClients().values());
         final List<ClientDetailsDTO> clientDetailsDTOS = new ArrayList<>();
-        if (Objects.nonNull(clients)) {
+        if (!clients.isEmpty()) {
             for (Client client : clients) {
                 clientDetailsDTOS.add(Client.fromEntityToDto(client));
             }
         }
-        return Optional.ofNullable(clientDetailsDTOS);
+        return Optional.of(clientDetailsDTOS);
     }
 }
