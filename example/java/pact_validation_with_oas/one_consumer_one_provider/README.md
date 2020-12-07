@@ -68,30 +68,30 @@ Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localh
 Dentre as formas de verificação de contrato disponibilizadas na [documentação](https://bitbucket.org/atlassian/swagger-mock-validator/src/master/) do Swagger Mock Validator, utilizaremos a que um arquivo JSON com a especificação OpenAPI é fornecido para o Consumer validar suas expectativas. Primeiramente devemos adicionar o plugin `springdoc-openapi-maven-plugin` no pom.xml do provider para gerarmos o arquivo JSON:
 ```
 <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-maven-plugin</artifactId>
-                <version>1.1</version>
-                <executions>
-                    <execution>
-                        <id>contract-test</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <apiDocsUrl>http://${open-api-url}</apiDocsUrl>
-                    <outputFileName>contract-openapi.json</outputFileName>
-                    <outputDir>${project.basedir}/target/openapi</outputDir>
-                    <skip>false</skip>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+    <plugins>
+        <plugin>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-maven-plugin</artifactId>
+            <version>1.1</version>
+            <executions>
+                <execution>
+                    <id>contract-test</id>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                </execution>
+            </executions>
+            <configuration>
+                <apiDocsUrl>http://${open-api-url}</apiDocsUrl>
+                <outputFileName>contract-openapi.json</outputFileName>
+                <outputDir>${project.basedir}/target/openapi</outputDir>
+                <skip>false</skip>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
 ```
-Na tag `configuration` adicionamos a url onde está sendo disponibilizada a documentação OpenAPI do provider,o nome que será dado ao arquivo gerado e por último o caminho da pasta de destino.
+Na tag `configuration` adicionamos a url onde está sendo disponibilizada a documentação OpenAPI do provider, o nome que será dado ao arquivo gerado e por último o caminho da pasta de destino.
 Feito isso, execute o projeto Provider e em seguida abra o terminal e utilize o comando abaixo para gerar o arquivo JSON:
 ```
 mvn springdoc-openapi:generate
@@ -123,3 +123,8 @@ Feito isso, o terminal retornará a seguinte mensagem:
 0 warning(s)
 ```
 A saída acima indica que o contrato está em conformidade com a especificação OpenApi fornecida pelo provider.
+
+## Observações importantes
+
+A utilização da especificação OpenApi para validação de contrato de integração deve ser vista com cuidado. Diferente da implementação do Pact no Consumer e Provider, onde em tempo de teste o contrato será verificado no endpoint real da aplicação provedora, quando utiliza-se a especificação OpenApi há a real chance de falso positivo em cenários, como por exemplo, onde a documentação está desatualizada em relação ao estado atual do endpoint em ambiente de produção.
+Mais informações em: [but I use Swagger/OpenAPI?](https://docs.pact.io/faq/convinceme/#but-i-use-swaggeropenapi)
