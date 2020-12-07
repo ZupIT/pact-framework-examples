@@ -19,6 +19,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>11</java.version>
         <checkstyle-maven-plugin.version>3.1.1</checkstyle-maven-plugin.version>
+        <open-api-url>localhost:8080/schema</open-api-url>
     </properties>
 
     <dependencies>
@@ -81,7 +82,6 @@
 
     <build>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -104,7 +104,6 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -115,14 +114,14 @@
                 <version>1.1</version>
                 <executions>
                     <execution>
-                        <id>integration-test</id>
+                        <id>contract-test</id>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <apiDocsUrl>http://localhost:8080/schema</apiDocsUrl>
+                    <apiDocsUrl>http://${open-api-url}</apiDocsUrl>
                     <outputFileName>contract-openapi.json</outputFileName>
                     <outputDir>${project.basedir}/target/openapi</outputDir>
                     <skip>false</skip>

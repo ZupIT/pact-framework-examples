@@ -153,7 +153,6 @@
                     <pactBrokerUrl>http://${pact-broker-host}:9292</pactBrokerUrl>
                     <pactDirectory>target/pacts</pactDirectory>
                     <tags>
-<!--                        <tag>feature/supper-dupper-feature-X</tag>-->
                         <tag>master</tag>
                     </tags>
                     <trimSnapshot>true</trimSnapshot>

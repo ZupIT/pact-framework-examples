@@ -27,12 +27,12 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 
 @ExtendWith(PactConsumerTestExt.class)
-@PactTestFor(providerName = "provider")
+@PactTestFor(providerName = "AccountBalanceProvider")
 public class AccountPactTest {
 
     private static final String BALANCE_URL_WORKING = "/v1/accounts/1/balance/";
     private static final String BALANCE_URL_NOT_WORKING = "/v1/accounts/1000/balance/";
-    private static final String CONSUMER_NAME = "consumer2";
+    private static final String CONSUMER_NAME = "AccountBalanceConsumer";
 
 
     private Map<String, String> headers = MapUtils.putAll(new HashMap<>(), new String[] {
@@ -47,7 +47,7 @@ public class AccountPactTest {
         PactDslJsonBody bodyResponse = new PactDslJsonBody()
                 .integerType("accountId")
                 .numberType("balance")
-                .stringValue("accountType", "PERSONAL");
+                .stringValue("accountType", "COMMON");
 
         return builder
                 .given("get balance of accountId 1")
