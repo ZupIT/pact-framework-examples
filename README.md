@@ -38,6 +38,8 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Rest - um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).
       * [Rest - dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
       * [Mensageria/Kafka](example/java/messaging-kafka/)
+   - **Java - Spring Boot - Validação de contrato com OpenApi**
+      * [Rest - um consumidor e um provedor](example/java/pact_validation_with_oas/one_consumer_one_provider).
    - **Kotlin - Spring Boot**
       * [Rest - um consumidor e um provedor](example/kotlin/one-consumer-one-provider).
       * [gRPC - um consumidor e um provedor](example/kotlin/gRPC).
