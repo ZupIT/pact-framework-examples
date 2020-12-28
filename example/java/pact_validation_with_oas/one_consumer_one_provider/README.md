@@ -16,9 +16,9 @@ Exemplo da criação de um Pact entre:
  
 ## Índice
 
-- [O que é OpenAPI Specification (OAS)?](#O-que-é-OpenApi-Specification-(OAS)?)
+- [O que é OpenAPI Specification (OAS)?](#O-que-é-OpenApi-Specification-(OAS)-?)
 - [Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil](#Cenários-onde-o-teste-de-contrato-baseado-na-OpenAPI-Specification-pode-ser-útil)
-- [Usar contratos baseados na OpenAPI Specification requer cuidados!](#Usar-contratos-baseados-na-OpenAPI-Specification-requer-cuidados!)
+- [Usar contratos baseados na OpenAPI Specification requer cuidados!](#Usar-contratos-baseados-na-OpenAPI-Specification-requer-cuidados-!)
 - [Cenário deste exemplo](#Cenário-deste-exemplo)
     * [Como executar](#Como-executar)
     * [Gerando o contrato no Consumer](#Gerando-o-contrato-no-Consumer)
