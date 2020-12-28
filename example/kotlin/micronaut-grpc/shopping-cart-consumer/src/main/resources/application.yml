@@ -1,0 +1,10 @@
+micronaut:
+  application:
+    name: consumer
+grpc:
+  server:
+    port: 9090
+integration:
+  provider:
+    port: 6565
+    host: "localhost"
