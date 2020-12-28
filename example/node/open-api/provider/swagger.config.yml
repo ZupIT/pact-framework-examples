@@ -1,0 +1,22 @@
+
+swagger:
+  outputDirectory: ./doc
+  entryFile: 
+    - ./src/controllers/*
+  outputFormat: OpenApi_3
+  name: AccountApi
+  basePath: "http://localhost:3334"
+  description: A Sample application using Typescipt-rest library
+  license: MIT
+  produces: [application/json]
+  version: 0.0.1
+  ignore: ["**/node_modules/**"]
+  securityDefinitions:
+    default:
+      type: apiKey
+      in: header
+      name: Authorization
+    secondAuthenticator:
+      type: apiKey
+      in: header
+      name: Authorization
