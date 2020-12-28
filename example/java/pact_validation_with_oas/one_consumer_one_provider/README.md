@@ -22,7 +22,7 @@ Exemplo da criação de um Pact entre:
 
 - [Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil](#Cenários-onde-o-teste-de-contrato-baseado-na-OpenAPI-Specification-pode-ser-útil)
 
-- [Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!](#Usar-contratos-baseados-na-OpenAPI-Specification-parece-bom-,mas-cuidado!)
+- [Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!](#Usar-contratos-baseados-na-OpenAPI-Specification-parece-bom,-mas-cuidado!)
 
 - [Cenário deste exemplo](#Cenário-deste-exemplo)
     * [Como executar](#Como-executar)
@@ -42,8 +42,8 @@ Fonte: [The OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification)
 ## Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil
 
 Quando um time decide adotar o Pact para garantir a integração entre consumidores e provedores ele deve, necessariamente:
-1º Criar, no consumidor, a classe de testes do Pact que irá gerar as expectativas de consumo (contrato);
-2º Criar, no provedor, a classe de testes do Pact que irá obter e validar o contrato em seus endpoints.
+1. Criar, no consumidor, a classe de testes do Pact que irá gerar as expectativas de consumo (contrato);
+2. Criar, no provedor, a classe de testes do Pact que irá obter e validar o contrato em seus endpoints.
 
 Mas, e quando a aplicação provedora não pode implementar o Pact? É neste ponto que entra a OpenAPI Specification. Imagine um cenário onde você está desenvolvendo um front-end que consumirá dados de uma API provedora de terceiros e que esse terceiro não irá implementar a classe de testes do Pact, uma possível solução é o provedor gerar um contrato JSON baseado na sua especificação OpenAPI e disponibilizar o arquivo para os consumidores realizarem as asserções baseadas no seu contrato. Em síntese, ficaria assim:
 
