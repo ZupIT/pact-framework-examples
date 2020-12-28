@@ -1,0 +1,3 @@
+# Publish pact contract
+
+mvn pact:publish -Dpact.provider.version=0.0.1 -Dpact.verifier.publishResults=true
