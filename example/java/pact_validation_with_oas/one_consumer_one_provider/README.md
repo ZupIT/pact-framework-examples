@@ -14,7 +14,49 @@ Exemplo da criação de um Pact entre:
  - Pact JVM
  - Pact Broker
  
-## Cenário
+## Índice
+
+<!--ts-->
+
+- [O que é OpenAPI Specification (OAS)?](#O-que-é-OpenApi-Specification-(OAS)?)
+
+- [Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil](#Cenários-onde-o-teste-de-contrato-baseado-na-OpenAPI-Specification-pode-ser-útil)
+
+- [Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!](#Usar-contratos-baseados-na-OpenAPI-Specification-parece-bom-,mas-cuidado!)
+
+- [Cenário deste exemplo](#Cenário-deste-exemplo)
+    * [Como executar](#Como-executar)
+    * [Gerando o contrato no Consumer](#Gerando-o-contrato-no-Consumer)
+
+- [Gerando o arquivo JSON com a especificação OpenAPI do Provider](#Gerando-o-arquivo-JSON-com-a-especificação-OpenAPI-do-Provider)
+
+- [Swagger Mock Validator - Validando um contrato baseado na OpenApi Specification](#Swagger-Mock-Validator---Validando-um-contrato-baseado-na-OpenApi-Specification)
+
+<!--ts -->
+
+## O que é OpenAPI Specification (OAS)?
+
+A especificação OpenAPI (OAS) define uma descrição de interface agnóstica de linguagem de programação padrão para APIs HTTP, que permite que humanos e computadores descubram e entendam os recursos de um serviço sem exigir acesso ao código-fonte, documentação adicional ou inspeção do tráfego de rede. Quando definido corretamente por meio do OpenAPI, um consumidor pode entender e interagir com o serviço remoto com uma quantidade mínima de lógica de implementação. Semelhante ao que as descrições de interface fizeram para a programação de nível inferior, a especificação OpenAPI remove as suposições ao chamar um serviço. 
+Fonte: [The OpenAPI Specification](https://github.com/OAI/OpenAPI-Specification)
+
+## Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil
+
+Quando um time decide adotar o Pact para garantir a integração entre consumidores e provedores ele deve, necessariamente:
+1º Criar, no consumidor, a classe de testes do Pact que irá gerar as expectativas de consumo (contrato);
+2º Criar, no provedor, a classe de testes do Pact que irá obter e validar o contrato em seus endpoints.
+
+Mas, e quando a aplicação provedora não pode implementar o Pact? É neste ponto que entra a OpenAPI Specification. Imagine um cenário onde você está desenvolvendo um front-end que consumirá dados de uma API provedora de terceiros e que esse terceiro não irá implementar a classe de testes do Pact, uma possível solução é o provedor gerar um contrato JSON baseado na sua especificação OpenAPI e disponibilizar o arquivo para os consumidores realizarem as asserções baseadas no seu contrato. Em síntese, ficaria assim:
+
+<img src="../../../../imgs/pact-oas-schema-consumer-provider.png" alt="Geração de contrato baseado na OpenApi Specification"/>
+
+Agora basta o provedor disponibilizar o arquivo JSON gerado para que o consumidor realize as asserções conforme veremos adiante.
+
+## Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!
+
+A utilização da OpenApi Specification para geração de contrato deve ser vista com cautela. Diferente da implementação do Pact no Consumer e Provider, onde em tempo de teste o contrato será verificado no endpoint real da aplicação provedora, quando utilizamos contrato baseado na especificação OpenApi há a real chance de falso positivo em cenários, como por exemplo, onde a documentação está desatualizada em relação ao estado atual do endpoint em ambiente de produção.
+Mais informações em: [But I use Swagger/OpenAPI?](https://docs.pact.io/faq/convinceme/#but-i-use-swaggeropenapi)
+
+## Cenário deste exemplo
 
 Este exemplo aborda um cenário comum no setor bancário.
 Nosso objetivo é obter o saldo de determinado cliente.
@@ -65,7 +107,8 @@ Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localh
 
 ## Gerando o arquivo JSON com a especificação OpenAPI do Provider
 
-Dentre as formas de verificação de contrato disponibilizadas na [documentação](https://bitbucket.org/atlassian/swagger-mock-validator/src/master/) do Swagger Mock Validator, utilizaremos a que um arquivo JSON com a especificação OpenAPI é fornecido para o Consumer validar suas expectativas. Primeiramente devemos adicionar o plugin `springdoc-openapi-maven-plugin` no pom.xml do provider para gerarmos o arquivo JSON:
+Para essa tarefa utilizaremos o `springdoc-openapi-maven-plugin`. Para isso devemos adicionar o plugin  no pom.xml do provider:
+
 ```
 <build>
     <plugins>
@@ -92,15 +135,15 @@ Dentre as formas de verificação de contrato disponibilizadas na [documentaçã
 </build>
 ```
 Na tag `configuration` adicionamos a url onde está sendo disponibilizada a documentação OpenAPI do provider, o nome que será dado ao arquivo gerado e por último o caminho da pasta de destino.
-Feito isso, execute o projeto Provider e em seguida abra o terminal e utilize o comando abaixo para gerar o arquivo JSON:
+Feito isso, garanta que o endpoint com a OpenApi Specification do projeto Provider esteja disponível, em seguida abra o terminal e execute o comando abaixo para gerar o arquivo JSON:
 ```
 mvn springdoc-openapi:generate
 ```
 Após a execução vá até a pasta target/openapi e verifique se dentro dela há um arquivo contract-openapi.json e em caso positivo siga para o próximo passo.
 
-## Verificando o contrato utilizando o Swagger Mock Validator
+## Swagger Mock Validator - Validando um contrato baseado na OpenApi Specification
 
-A Atlassian disponibilizou uma ferramenta que podemos utilizar para testar contratos do Pact onde o Provider, ao invés de implementar os testes de contrato, disponibiliza a especificação OpenApi dos seus serviços e assim podemos fazer a asserção junto ao contrato disponibilizado pelo Consumer. Para que isso seja possível, instale a dependência do Swagger Mock Validator utilizando o comando npm abaixo.
+A Atlassian disponibilizou uma ferramenta que podemos utilizar para testar contratos do Pact onde o Provider, ao invés de implementar os testes de contrato, disponibiliza a especificação OpenApi dos seus serviços. Para que isso seja possível, instale a dependência do Swagger Mock Validator utilizando o comando npm abaixo.
 Para mais informações consulte a [documentação oficial.](https://bitbucket.org/atlassian/swagger-mock-validator/src/master/)
 
 ```
@@ -123,8 +166,3 @@ Feito isso, o terminal retornará a seguinte mensagem:
 0 warning(s)
 ```
 A saída acima indica que o contrato está em conformidade com a especificação OpenApi fornecida pelo provider.
-
-## Observações importantes
-
-A utilização da especificação OpenApi para validação de contrato de integração deve ser vista com cuidado. Diferente da implementação do Pact no Consumer e Provider, onde em tempo de teste o contrato será verificado no endpoint real da aplicação provedora, quando utiliza-se a especificação OpenApi há a real chance de falso positivo em cenários, como por exemplo, onde a documentação está desatualizada em relação ao estado atual do endpoint em ambiente de produção.
-Mais informações em: [but I use Swagger/OpenAPI?](https://docs.pact.io/faq/convinceme/#but-i-use-swaggeropenapi)
