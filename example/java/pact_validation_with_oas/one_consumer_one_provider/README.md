@@ -22,7 +22,7 @@ Exemplo da criação de um Pact entre:
 
 - [Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil](#Cenários-onde-o-teste-de-contrato-baseado-na-OpenAPI-Specification-pode-ser-útil)
 
-- [Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!](#Usar-contratos-baseados-na-OpenAPI-Specification-parece-bom,-mas-cuidado!)
+- [Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!](#Usar-contratos-baseados-na-OpenAPI-Specification-parece-bom-mas-cuidado!)
 
 - [Cenário deste exemplo](#Cenário-deste-exemplo)
     * [Como executar](#Como-executar)
