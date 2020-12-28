@@ -16,23 +16,14 @@ Exemplo da criação de um Pact entre:
  
 ## Índice
 
-<!--ts-->
-
 - [O que é OpenAPI Specification (OAS)?](#O-que-é-OpenApi-Specification-(OAS)?)
-
 - [Cenários onde o teste de contrato baseado na OpenAPI Specification pode ser útil](#Cenários-onde-o-teste-de-contrato-baseado-na-OpenAPI-Specification-pode-ser-útil)
-
-- [Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!](#Usar-contratos-baseados-na-OpenAPI-Specification-parece-bom-mas-cuidado!)
-
+- [Usar contratos baseados na OpenAPI Specification requer cuidados!](#Usar-contratos-baseados-na-OpenAPI-Specification-requer-cuidados!)
 - [Cenário deste exemplo](#Cenário-deste-exemplo)
     * [Como executar](#Como-executar)
     * [Gerando o contrato no Consumer](#Gerando-o-contrato-no-Consumer)
-
 - [Gerando o arquivo JSON com a especificação OpenAPI do Provider](#Gerando-o-arquivo-JSON-com-a-especificação-OpenAPI-do-Provider)
-
 - [Swagger Mock Validator - Validando um contrato baseado na OpenApi Specification](#Swagger-Mock-Validator---Validando-um-contrato-baseado-na-OpenApi-Specification)
-
-<!--ts -->
 
 ## O que é OpenAPI Specification (OAS)?
 
@@ -51,7 +42,7 @@ Mas, e quando a aplicação provedora não pode implementar o Pact? É neste pon
 
 Agora basta o provedor disponibilizar o arquivo JSON gerado para que o consumidor realize as asserções conforme veremos adiante.
 
-## Usar contratos baseados na OpenAPI Specification parece bom, mas cuidado!
+## Usar contratos baseados na OpenAPI Specification requer cuidados!
 
 A utilização da OpenApi Specification para geração de contrato deve ser vista com cautela. Diferente da implementação do Pact no Consumer e Provider, onde em tempo de teste o contrato será verificado no endpoint real da aplicação provedora, quando utilizamos contrato baseado na especificação OpenApi há a real chance de falso positivo em cenários, como por exemplo, onde a documentação está desatualizada em relação ao estado atual do endpoint em ambiente de produção.
 Mais informações em: [But I use Swagger/OpenAPI?](https://docs.pact.io/faq/convinceme/#but-i-use-swaggeropenapi)
