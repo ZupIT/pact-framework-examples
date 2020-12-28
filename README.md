@@ -38,7 +38,7 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Rest - um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).
       * [Rest - dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
       * [Mensageria/Kafka](example/java/messaging-kafka/)
-   - **Java - Spring Boot - Validação de contrato gerado a partir da OpenApi Specification**
+   - **Java - Spring Boot - Validação de contrato gerado a partir da OpenApi Specification do Provider**
       * [Rest - um consumidor e um provedor](example/java/pact_validation_with_oas/one_consumer_one_provider).
    - **Kotlin - Spring Boot**
       * [Rest - um consumidor e um provedor](example/kotlin/one-consumer-one-provider).
@@ -50,7 +50,8 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Rest - um consumidor e dois provedores](example/node/one_consumer_two_providers).
       * [Rest - dois consumidores e um provedor](example/node/two_consumers_one_provider).
       * [gRPC - um consumidor e um provedor](example/node/gRPC).
-      * [WIP: OpenAPI - um consumidor e um provedor](example/node/open-api).
+   - **Node - Validação de contrato gerado a partir da OpenApi Specification do Provider**
+      * [Rest - um consumidor e um provedor](example/node/open-api).
  - **FrontEnd**
    - **Angular**
       * [Rest - um consumidor e um provedor](example/frontend).
