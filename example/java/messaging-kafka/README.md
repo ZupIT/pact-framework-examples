@@ -21,10 +21,10 @@ Exemplo da criação de um Pact entre:
 - [Como executar](#Como-executar)
 <!--ts -->
 
-## Cenários
+## Cenários (verificar*)
 
 Este exemplo aborda um cenário de publish e subscribe serviço de mensageria Kafka.
-Nosso objetivo é obter o dado de saldo de determinado cliente.
+Nosso objetivo é ...
 Para isto, vamos considerar que este dado será recuperado da seguinte forma:
 
 1 - . <br>
