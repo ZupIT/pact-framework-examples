@@ -23,7 +23,7 @@ Exemplo da criação de um Pact entre:
 - [Como executar](#Como-executar)
 <!--ts -->
  
-## Cenários****
+## Cenários
 
 Este exemplo aborda um cenário comum no setor bancário.
 Nosso objetivo é obter o dado de saldo de determinado cliente.
