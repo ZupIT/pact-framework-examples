@@ -13,6 +13,34 @@ Exemplo da criação de um Pact entre:
  - Spring Boot
  - Pact JVM
  - Pact Broker
+
+ ## Índice
+
+<!--ts-->
+
+- [Cenário](#Cenário)
+- [Como executar](#Como-executar)
+
+<!--ts -->
+
+## Cenário
+
+Este exemplo aborda um cenário comum no setor bancário.
+Nosso objetivo é obter o dado de saldo de determinado cliente. 
+Para isto, vamos considerar que este dado será recuperado da seguinte forma:
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (consumer) o valor do saldo em conta. <br>
+2 - Por sua vez, o consumer pergunta ao serviço de domínio da conta (provider) qual o saldo contido na conta atrelada aquele cliente. <br>
+3 - Tendo a informação do saldo em conta, o consumer retorna a informação a quem a solicitou.
+
+De forma resumida, temos os seguintes serviços:
+
+* provider: mantém e gerencia informações relacionadas a contas bancárias.
+* consumer: mantém e gerencia informações sobre clientes/correntistas.
+
+A imagem abaixo representa esta interação que acabamos de definir.
+
+<img src="../../../imgs/consumer_provider_findById_scenario_gRPC.png" alt="gRPC pact scenario"/>
  
 ## Como executar
 

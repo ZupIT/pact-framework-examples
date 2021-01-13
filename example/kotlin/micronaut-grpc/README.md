@@ -1,4 +1,4 @@
-# Exemplo em Kotlin com gRPC
+# Exemplo em Kotlin com Micronaut 
 
 Exemplo da criação de um Pact entre:
 * 1 consumidor (shopping-cart-consumer)
