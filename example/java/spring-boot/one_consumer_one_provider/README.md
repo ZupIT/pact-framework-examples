@@ -14,7 +14,29 @@ Exemplo da criação de um Pact entre:
  - Lombok
  - Pact JVM
  - Pact Broker
+
+ ## Índice
+
+<!--ts-->
+
+- [Cenários](#Cenários)
+- [Como executar](#Como-executar)
+<!--ts -->
  
+## Cenários****
+
+Este exemplo aborda um cenário comum no setor bancário.
+Nosso objetivo é obter o dado de saldo de determinado cliente.
+Para isto, vamos considerar que este dado será recuperado da seguinte forma:
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (client-api) o valor do saldo em conta. <br>
+2 - Por sua vez, o client-api pergunta ao serviço de domínio da conta (account-api) qual o saldo contido na conta atrelada aquele cliente. <br>
+3 - Tendo a informação do saldo em conta, o client-api retorna a informação a quem a solicitou.
+
+A imagem abaixo representa esse fluxo.
+
+<img src="../../../../imgs/get-balance-spring-boot-1x1.png" alt="new pact contract"/>
+
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente. 

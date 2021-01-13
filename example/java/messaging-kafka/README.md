@@ -13,6 +13,33 @@ Exemplo da criação de um Pact entre:
 - Pact JVM
 - Pact Broker
 
+## Índice
+
+<!--ts-->
+
+- [Cenários](#Cenários)
+- [Como executar](#Como-executar)
+<!--ts -->
+
+## Cenários
+
+Este exemplo aborda um cenário de publish e subscribe serviço de mensageria Kafka.
+Nosso objetivo é obter o dado de saldo de determinado cliente.
+Para isto, vamos considerar que este dado será recuperado da seguinte forma:
+
+1 - . <br>
+2 - . <br>
+3 - .
+
+A imagem abaixo representa esse fluxo.
+
+[Colocar nova imagem aqui]<img src="../../../imgs/get-balance-node.png" alt="new pact contract"/>
+
+De forma resumida, temos os seguintes serviços:
+
+- ClientCreationMessageProvider: mantém e gerencia informações relacionadas a...
+- ClientCreationMessageConsummer: mantém e gerencia informações sobre ...
+
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente. 
