@@ -16,6 +16,7 @@ Exemplo da criação de um Pact entre:
  - Pact Broker
  - [Mockk](https://mockk.io/)
  - [AssertJ](https://joel-costigliola.github.io/assertj/)
+ - Maven
 
 ## Índice
 
@@ -85,7 +86,7 @@ Para maiores detalhes sobre a implementação dos testes, vide o arquivo de test
 De forma análoga a solução proposta no lado do Consumidor, no lado do Provedor precisamos fazer a tradução entre a chamada gRPC e REST, mas de forma inversa (REST > gRPC). 
 Para isto, precisamos criar um servidor REST como *proxy* (apenas em ambiente de teste), que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servidor gRPC. 
 Neste caso utilizamos *Spring Boot Web* para implementarmos este *proxy* seguindo a convenção definida anteriormente.
-Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [provider/src/tests/verify-pact.spec.ts](./consumer/src/tests/verify-pact.spec.ts). 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [AccountProviderPactTest.kt](./provider/src/test/kotlin/br/com/zup/pact/provider/pact/AccountProviderPactTest.kt).. 
 
 A imagem a seguir representa esta solução:
 
@@ -124,7 +125,7 @@ Veja os exemplos nas imagens abaixo.
 <img src="../../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 4. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
-Para isto, podemos utilizar o plugin maven do Pact. <br>
+Para isto, podemos utilizar o [plugin maven do Pact](https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider). <br>
 É necessário confirmar que o plugin está configurado corretamente.
 
 <img src="../../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>

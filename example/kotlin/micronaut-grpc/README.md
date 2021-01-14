@@ -16,6 +16,7 @@ Exemplo da criação de um Pact entre:
  - Pact Broker
  - [Mockk](https://mockk.io/)
  - [AssertJ](https://joel-costigliola.github.io/assertj/)
+ - Maven
 
 
   ## Índice

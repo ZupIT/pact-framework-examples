@@ -13,6 +13,7 @@ Exemplo da criação de um Pact entre:
  - Spring Boot
  - Pact JVM
  - Pact Broker
+ - Maven
 
  ## Índice
 
