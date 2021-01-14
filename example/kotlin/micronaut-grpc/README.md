@@ -1,4 +1,4 @@
-# Exemplo em Kotlin com Micronaut 
+# Exemplo em Micronaut com gRPC 
 
 Exemplo da criação de um Pact entre:
 * 1 consumidor (shopping-cart-consumer)
@@ -16,6 +16,19 @@ Exemplo da criação de um Pact entre:
  - Pact Broker
  - [Mockk](https://mockk.io/)
  - [AssertJ](https://joel-costigliola.github.io/assertj/)
+
+
+  ## Índice
+
+<!--ts-->
+
+- [Cenário](#Cenário)
+- [Compatibilidade com gRPC](#Compatibilidade-com-gRPC)
+  - [Solução no lado do Consumidor](#Solução-no-lado-do-Consumidor)
+  - [Solução no lado do Provedor](#Solução-no-lado-do-Provedor)
+- [Como executar](#Como-executar)
+
+<!--ts -->
 
 ## Cenário
 

@@ -23,6 +23,8 @@ Exemplo da criação de um Pact entre:
 
 - [Cenário](#Cenário)
 - [Compatibilidade com gRPC](#Compatibilidade-com-gRPC)
+  - [Solução no lado do Consumidor](#Solução-no-lado-do-Consumidor)
+  - [Solução no lado do Provedor](#Solução-no-lado-do-Provedor)
 - [Mas se o gRPC já é uma espécie de contrato, porque preciso do PACT?](#Mas-se-o-gRPC-já-é-uma-espécie-de-contrato-porque-preciso-do-PACT?)
 - [Como executar](#Como-executar)
 
