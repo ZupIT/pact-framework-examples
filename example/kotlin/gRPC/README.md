@@ -54,7 +54,7 @@ A imagem abaixo representa esta interação que acabamos de definir.
 ## Compatibilidade com gRPC
 
 Atualmente, o Pact suporta cenários de integração via REST, Mensageria e GraphQL. 
-No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests/p/support-protobufs), o suporte oficial para gRPC já está planejado.
+No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests), o suporte oficial para gRPC já está planejado.
 Enquanto esperamos este novo recurso, preparamos uma solução para que você possa iniciar seus testes desde já,
 de forma que seja fácil migrar para uma solução definitiva no futuro. 
 
@@ -71,8 +71,10 @@ irá ocorrer. Extendendo o channel e sobrescrevendo o método *newCall*, consegu
 ```
 POST http://{{address}}/grpc/{{packagaName}}.{{service}}/{{method}}
 ``` 
-* ex: POST http://provider/grpc/br.com.zup.pact.provider.resource.AccountResource/findById
-
+* Exemplo:
+ ```
+ POST http://provider/grpc/br.com.zup.pact.provider.resource.AccountResource/findById
+ ```
 
 Tendo gerado então esta chamada REST, conseguimos seguir o fluxo de teste do Pact no lado do consumidor.
 
