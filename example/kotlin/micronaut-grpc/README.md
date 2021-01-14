@@ -16,7 +16,7 @@ Exemplo da criação de um Pact entre:
  - Pact Broker
  - [Mockk](https://mockk.io/)
  - [AssertJ](https://joel-costigliola.github.io/assertj/)
- - Maven
+ 
 
 
   ## Índice
@@ -55,7 +55,7 @@ A imagem abaixo representa esta interação que acabamos de definir:
 ## Compatibilidade com gRPC
 
 Atualmente, o Pact suporta cenários de integração via REST, Mensageria e GraphQL. 
-No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests/p/support-protobufs), o suporte oficial para gRPC já está planejado.
+No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests), o suporte oficial para gRPC já está planejado.
 Enquanto esperamos este novo recurso, preparamos uma solução para que você possa iniciar seus testes desde já, de forma que seja fácil migrar para uma solução definitiva no futuro. 
 
 Como dizemos acima, hoje o Pact não tem suporte para protocolo gRPC, mas e se conseguissemos 
@@ -71,19 +71,21 @@ irá ocorrer. Extendendo o channel e sobrescrevendo o método *newCall*, consegu
 ```
 POST http://{{address}}/grpc/{{packageName}}.{{service}}/{{method}}
 ``` 
-* ex: POST http://provider/grpc/br.com.zup.pact.product.provider.resource.ProductService/getAll
-
+* Exemplo:
+```
+POST http://provider/grpc/br.com.zup.pact.product.provider.resource.ProductService/getAll
+```
 
 Tendo gerado então esta chamada REST, conseguimos seguir o fluxo de teste do Pact no lado do consumidor.
 
-Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste [ShoppingCartContractTest.kt](./consumer/src/test/kotlin/br/com/zup/pact/consumer/pact/ShoppingCartContractTest.kt). 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste [ShoppingCartContractTest.kt](./shopping-cart-consumer/src/test/kotlin/br/com/zup/pact/shopping/cart/consumer/pact/ShoppingCartContractTest.kt). 
 
 * ### Solução no lado do Provedor
 
 De forma análoga a solução proposta no lado do Consumidor, no lado do Provedor precisamos fazer a tradução entre a chamada gRPC e REST, mas de forma inversa (REST > gRPC). 
 Para isto, precisamos criar um servidor REST como *proxy* (apenas em ambiente de teste), que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servidor gRPC. 
 Neste caso utilizamos *Micronaut Http Server* para implementarmos este *proxy* seguindo a convenção definida anteriormente.
-Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [ShoppingCartProviderPactTest.kt](./provider/src/test/kotlin/br/com/zup/pact/provider/pact/ShoppingCartProviderPactTest.kt). 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [ShoppingCartProviderPactTest.kt](./product-provider/src/test/kotlin/br/com/zup/pact/product/provider/pact/ShoppingCartProviderPactTest.kt). 
 
 A imagem a seguir representa esta solução:
 

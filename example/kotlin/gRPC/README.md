@@ -86,7 +86,7 @@ Para maiores detalhes sobre a implementação dos testes, vide o arquivo de test
 De forma análoga a solução proposta no lado do Consumidor, no lado do Provedor precisamos fazer a tradução entre a chamada gRPC e REST, mas de forma inversa (REST > gRPC). 
 Para isto, precisamos criar um servidor REST como *proxy* (apenas em ambiente de teste), que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servidor gRPC. 
 Neste caso utilizamos *Spring Boot Web* para implementarmos este *proxy* seguindo a convenção definida anteriormente.
-Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [AccountProviderPactTest.kt](./provider/src/test/kotlin/br/com/zup/pact/provider/pact/AccountProviderPactTest.kt).. 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [AccountProviderPactTest.kt](./provider/src/test/kotlin/br/com/zup/pact/provider/pact/AccountProviderPactTest.kt). 
 
 A imagem a seguir representa esta solução:
 
