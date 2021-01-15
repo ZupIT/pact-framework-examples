@@ -14,6 +14,7 @@ Exemplo da criação de um Pact entre:
  - Lombok
  - Pact JVM
  - Pact Broker
+ - Maven
 
  ## Índice
 
@@ -54,7 +55,7 @@ Veja os exemplos nas imagens abaixo.
 <img src="../../../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 4. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
-Para isto, podemos utilizar o plugin maven do Pact. <br>
+Para isto, podemos utilizar o [plugin maven do Pact](https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider). <br>
 É necessário confirmar que o plugin está configurado corretamente.
 
 <img src="../../../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>
