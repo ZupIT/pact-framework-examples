@@ -91,7 +91,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `common-pe
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
+Em seguida, você poderá ver o contrato publicado no Pact Broker ```http://localhost:9292```.
 
 5. Para gerar o contrato da segunda API consumidora, basta seguir novamente os passos 4 e 5, mas desta vez com o projeto `common-person-consumer`.
 

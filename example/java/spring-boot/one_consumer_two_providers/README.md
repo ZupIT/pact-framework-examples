@@ -86,7 +86,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `consumer`
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
+Em seguida, você poderá ver o contrato publicado no Pact Broker ```http://localhost:9292```.
 
 5. Com o contrato publicado no Broker, agora validaremos se a API provedora (provider) 
 está aderente ao contrato.
