@@ -14,8 +14,8 @@ Exemplo da criação de um Pact entre:
  - Grpc Spring Boot Starter
  - Pact JVM
  - Pact Broker
- - [Mockk](https://mockk.io/)
- - [AssertJ](https://joel-costigliola.github.io/assertj/)
+ - Mockk
+ - AssertJ
  - Maven
 
 ## Índice

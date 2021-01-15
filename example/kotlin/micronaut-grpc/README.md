@@ -14,8 +14,8 @@ Exemplo da criação de um Pact entre:
  - Gradle - 6.7
  - Pact JVM
  - Pact Broker
- - [Mockk](https://mockk.io/)
- - [AssertJ](https://joel-costigliola.github.io/assertj/)
+ - Mockk
+ - AssertJ
  
 
 
