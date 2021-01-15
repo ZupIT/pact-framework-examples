@@ -136,7 +136,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `consumer`
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
+Em seguida, você poderá ver o contrato publicado no Pact Broker ```http://localhost:9292```.
 
 <img src="../../../imgs/gRPC_pact_published.png" alt="Pact publicado pelo consumer"/>
 
@@ -147,7 +147,7 @@ No projeto `provider`, rode os testes Junit e verifique se eles são concluídos
 Este teste irá verificar no Broker os contratos disponiveis para validação, baixá-los e testá-los de acordo com a API provedora. <br>
 
 > Para este passo, configuramos para que a publição do resultado seja feita automaticamente assim que a validação do contrato ocorre. <br>
-> Veja a configuração em: [AccountProviderPactTest.java](./provider/src/test/java/br/com/zup/pact/provider/pact/AccountProviderPactTest.java) linha 41 <br>
+> Veja a configuração em: [AccountProviderPactTest.kt](./provider/src/test/kotlin/br/com/zup/pact/provider/pact/AccountProviderPactTest.kt) linha 41 <br>
 ```
 System.setProperty("pact.verifier.publishResults", "true");
 ```
