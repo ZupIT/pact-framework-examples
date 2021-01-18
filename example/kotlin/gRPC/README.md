@@ -27,6 +27,7 @@ Exemplo da criação de um Pact entre:
   - [Solução no lado do Consumidor](#Solução-no-lado-do-Consumidor)
   - [Solução no lado do Provedor](#Solução-no-lado-do-Provedor)
 - [Mas se o gRPC já é uma espécie de contrato, porque preciso do PACT?](#Mas-se-o-gRPC-já-é-uma-espécie-de-contrato-porque-preciso-do-PACT?)
+- [Como o PACT pode ajudar a evitar essas falhas?](#Como-o-PACT-pode-ajudar-a-evitar-essas-falhas?)
 - [Como executar](#Como-executar)
 
 <!--ts -->
@@ -102,6 +103,19 @@ Como em muitos sistemas RPC, o gRPC é baseado na ideia de definir um serviço, 
 
 - **Removendo um serviço ou método** - haverá quebra de integração pois o cliente tentará acessar um recurso inexistente, esse tipo de alteração também é identificado pelo PACT realizando o teste de contrato preventivamente.
 
+## Como o PACT pode ajudar a evitar essas falhas?
+
+Quando o cliente(consumer) de uma aplicação gera um contrato com suas expectativas, dentre as informações ele pode definir o nome dos campos, seu tipo (linhas 26 à 38) e a url (ou path) com o pacote, nome do serviço e o método que deseja acessar (linhas 34 e 35) conforme imagem abaixo.
+
+<img src="../../../imgs/pact-consumer-grpc-code.png" alt="code pact consumer class"/>
+<br><br>
+
+O contrato gerado fica registrado no [Pact Broker](https://docs.pact.io/pact_broker) onde o provedor(provider) do serviço pode baixá-lo para realizar as asserções. O contrato dentro do broker possui o seguinte formato:
+
+<img src="../../../imgs/pact-contract-grpc-broker-view.png" alt="code pact consumer class"/>
+<br><br>
+
+Como podemos ver no recorte de contrato acima, ele trás consigo um exemplo fidedigno de tudo que o consumidor da aplicação espera que o provedor forneça, desta forma durante uma esteira de CI/CD o provedor conseguirá verificar se está totalmente de acordo com as expectativas do consumidor. O PACT garante uma **amarração** entre consumer e provider **sem a necessidade** de manter de pé ambientes com alto consumo de recursos (dev, homologação) e sem os riscos de tais ambientes ou seus mocks estarem **desatualizados** o que geraria sinais falsos de sucesso nos testes.
 
 ## Como executar
 

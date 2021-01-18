@@ -18,7 +18,7 @@ Exemplo da criação de um Pact entre:
 
 <!--ts-->
 
-- [Cenários](#Cenários)
+
 - [Como executar](#Como-executar)
 <!--ts -->
 
