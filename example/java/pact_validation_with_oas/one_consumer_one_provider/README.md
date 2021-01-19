@@ -8,11 +8,12 @@ Exemplo da criação de um Pact entre:
 
  - OpenJdk 11
  - Spring Boot
- - [Swagger Mock Validator](https://bitbucket.org/atlassian/swagger-mock-validator/src/master/)
+ - Swagger Mock Validator
  - Swagger
  - Lombok
  - Pact JVM
  - Pact Broker
+ - Maven
  
 ## Índice
 
@@ -79,7 +80,7 @@ Veja os exemplos nas imagens abaixo.
 <img src="../../../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 2. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
-Para isto, podemos utilizar o plugin maven do Pact. <br>
+Para isto, podemos utilizar o [plugin maven do Pact](https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider). <br>
 É necessário confirmar que o plugin está configurado corretamente.
 
 <img src="../../../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>
@@ -90,7 +91,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `consumer`
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
+Em seguida, você poderá ver o contrato publicado no Pact Broker ```http://localhost:9292```.
 
 <img src="../../../../imgs/pact-published.png" alt="Pact publicado pelo consumer"/>
 

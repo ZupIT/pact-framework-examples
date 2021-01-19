@@ -14,8 +14,19 @@ Exemplo da criação de um Pact entre:
  - Lombok
  - Pact JVM
  - Pact Broker
- 
-## Contexto
+ - Maven
+
+## Índice
+
+<!--ts-->
+
+- [Cenários](#Cenários)
+  - [Obtendo o saldo a partir do cliente pessoa física](#Obtendo-o-saldo-a-partir-do-cliente-pessoa-física)
+  - [Obtendo o saldo a partir do cliente pessoa jurídica](#Obtendo-o-saldo-a-partir-do-cliente-pessoa-jurídica)
+- [Como executar](#Como-executar)
+<!--ts -->
+
+## Cenários
 
 Neste exemplo, abordamos um cenário típico de uma API (`provider`) que provê dados de saldo de determinado cliente.
 No entanto, o cliente (consumer) pode ser uma pessoa comum (`common-person`) ou uma pessoa jurídica (`legal-person`).
@@ -25,6 +36,32 @@ Além da informação de saldo, a pessoa comum espera receber da API provedora u
 Da mesma forma, a pessoa jurídica espera receber, além da informação de saldo, qual seu identificador e, neste caso, seu nome fantasia registrado junto ao CNPJ.
 
 No passo seguinte, iremos conferir a criação dos contratos para ambos clientes, comum e jurídico, e como a API de saldo atendo os dois casos.
+
+### Obtendo o saldo a partir do cliente pessoa física
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (common-person-client) o valor do saldo em conta. <br>
+2 - Por sua vez, o common-person-client pergunta ao serviço de domínio da conta (account-api) qual o saldo contido na conta atrelada aquele cliente. <br>
+3 - Tendo a informação do saldo em conta, o common-person-client retorna a informação a quem a solicitou.
+
+A imagem abaixo representa esse fluxo.
+
+<img src="../../../../imgs/get-balance-common-person-client-spring-boot.png" alt="new pact contract"/>
+
+### Obtendo o saldo a partir do cliente pessoa jurídica
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (legal-person-client) o valor do saldo em conta. <br>
+2 - Por sua vez, o legal-person-client-client pergunta ao serviço de domínio da conta (account-api) qual o saldo contido na conta atrelada aquele cliente. <br>
+3 - Tendo a informação do saldo em conta, o common-person-client retorna a informação a quem a solicitou.
+
+A imagem abaixo representa esse fluxo.
+
+<img src="../../../../imgs/get-balance-legal-person-client-spring-boot.png" alt="new pact contract"/>
+
+De forma resumida, temos os seguintes serviços:
+
+- account-api: mantém e gerencia informações relacionadas a contas bancárias.
+- legal-person-client: mantém e gerencia informações sobre clientes pessoa jurídica.
+- common-person-client: mantém e gerencia informações sobre clientes pessoa física.
 
 ## Como executar
 
@@ -43,7 +80,7 @@ Veja os exemplos nas imagens abaixo.
 <img src="../../../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 4. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
-Para isto, podemos utilizar o plugin maven do Pact. <br>
+Para isto, podemos utilizar o [plugin maven do Pact](https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider). <br>
 É necessário confirmar que o plugin está configurado corretamente.
 
 <img src="../../../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>
@@ -54,7 +91,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `common-pe
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
+Em seguida, você poderá ver o contrato publicado no Pact Broker ```http://localhost:9292```.
 
 5. Para gerar o contrato da segunda API consumidora, basta seguir novamente os passos 4 e 5, mas desta vez com o projeto `common-person-consumer`.
 

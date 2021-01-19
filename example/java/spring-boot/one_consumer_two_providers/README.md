@@ -14,6 +14,49 @@ Exemplo da criação de um Pact entre:
  - Lombok
  - Pact JVM
  - Pact Broker
+ - Maven
+
+ ## Índice
+
+<!--ts-->
+
+- [Cenários](#Cenários)
+  - [Obtendo saldo](#Obtendo-saldo)
+  - [Obtendo a porcentagem de desconto](#Obtendo-a-porcentagem-de-desconto)
+- [Como executar](#Como-executar)
+<!--ts -->
+
+## Cenários
+
+Este exemplo aborda um cenário comum no setor bancário.
+Nosso objetivo é obter o dado de saldo de determinado cliente e/ou obter o dado da porcentagem de desconto de determinada conta.
+Para isto, vamos considerar que este dado será recuperado da seguinte forma:
+
+### Obtendo saldo
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (client-api) o valor do saldo em conta. <br>
+2 - Por sua vez, o client-api pergunta ao serviço de domínio da conta (account-api) qual o saldo contido na conta atrelada aquele cliente. <br>
+3 - Tendo a informação do saldo em conta, o client-api retorna a informação a quem a solicitou.
+
+A imagem abaixo representa este fluxo.
+
+<img src="../../../../imgs/get-balance-spring-boot-1x1.png" alt="new pact contract"/>
+
+### Obtendo a porcentagem de desconto
+
+1 - Com o identificador do cliente, solicitamos ao serviço de dominio do cliente (client-api) a porcentagem de desconto. <br>
+2 - Por sua vez, o client-api pergunta ao serviço de domínio da conta (prime-account-details-api) qual a porcentagem de desconto que aquele cliente tem direito. <br>
+3 - Tendo a informação da porcentagem de desconto, o client-api retorna a informação a quem a solicitou.
+
+A imagem abaixo representa este fluxo.
+
+<img src="../../../../imgs/get-prime-account-details-spring-boot.png" alt="new pact contract"/>
+
+De forma resumida, temos os seguintes serviços:
+
+- account-api: mantém e gerencia informações relacionadas a contas bancárias.
+- prime-account-details-api: mantém e gerencia informações relacionadas a porcentagem de desconto das contas.
+- client-api: mantém e gerencia informações sobre clientes/correntistas.
  
 ## Como executar
 
@@ -32,7 +75,7 @@ Veja os exemplos nas imagens abaixo.
 <img src="../../../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 4. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
-Para isto, podemos utilizar o plugin maven do Pact. <br>
+Para isto, podemos utilizar o [plugin maven do Pact](https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider). <br>
 É necessário confirmar que o plugin está configurado corretamente.
 
 <img src="../../../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>
@@ -43,7 +86,7 @@ Após confirmar o status do plugin, abra outro terminal no diretório `consumer`
 mvn pact:publish
 ```
 
-Em seguida, você poderá ver o contrato publicado no Pact Broker [http://localhost:9292](http://localhost:9292).
+Em seguida, você poderá ver o contrato publicado no Pact Broker ```http://localhost:9292```.
 
 5. Com o contrato publicado no Broker, agora validaremos se a API provedora (provider) 
 está aderente ao contrato.

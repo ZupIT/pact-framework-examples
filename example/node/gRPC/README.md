@@ -23,6 +23,7 @@ Exemplo da criação de um Pact entre:
 - [Compatibilidade com gRPC](#Compatibilidade-com-gRPC)
   - [Solução no lado do Consumidor](#Solução-no-lado-do-Consumidor)
   - [Solução no lado do Provedor](#Solução-no-lado-do-Provedor)
+- [Mas se o gRPC já é uma espécie de contrato, porque preciso do PACT?](#Mas-se-o-gRPC-já-é-uma-espécie-de-contrato-porque-preciso-do-PACT?)
 - [Como executar](#Como-executar)
 <!--ts -->
 
@@ -82,6 +83,16 @@ Para maiores detalhes sobre a implementação dos testes, vide o arquivo de test
 A imagem a seguir representa esta solução:
 
 <img src="../../../imgs/node_pact_grpc_solution.png" alt="Node Pact gRPC solution"/>
+
+## Mas se o gRPC já é uma espécie de contrato, porque preciso do PACT?
+
+Como em muitos sistemas RPC, o gRPC é baseado na ideia de definir um serviço, especificando os métodos que podem ser chamados remotamente com seus parâmetros e tipos de retorno. No lado do servidor, o servidor implementa esse contrato (interface) e executa um servidor gRPC para lidar com as chamadas do cliente. Entretanto, devemos observar [pontos](https://docs.microsoft.com/pt-br/aspnet/core/grpc/versioning?view=aspnetcore-5.0) que podem levar a quebra de integrações, por exemplo:
+
+- **Redefinir tipo de atributo** - ao alterar o tipo de um atributo, por exemplo, de `int32` para `double` no arquivo .proto, o provedor do serviço continuará funcionando, porém se o consumidor não receber essa alteração, haverá quebra na comunicação, esse tipo de alteração é identificado pelo PACT realizando o teste de contrato preventivamente.
+
+- **Renomear um pacote, serviço ou método** - o gRPC usa o nome do pacote, o nome do serviço e o nome do método para criar a URL, caso algum desses itens sejam modificados sem a devida comunicação aos consumidores do serviço, haverá uma quebra de integração, esse tipo de alteração também é identificado pelo PACT realizando o teste de contrato preventivamente.
+
+- **Removendo um serviço ou método** - haverá quebra de integração pois o cliente tentará acessar um recurso inexistente, esse tipo de alteração também é identificado pelo PACT realizando o teste de contrato preventivamente.
 
 ## Como executar
 

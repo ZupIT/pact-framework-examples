@@ -1,4 +1,4 @@
-# Exemplo em Kotlin com gRPC
+# Exemplo em Micronaut com gRPC 
 
 Exemplo da criação de um Pact entre:
 * 1 consumidor (shopping-cart-consumer)
@@ -14,8 +14,24 @@ Exemplo da criação de um Pact entre:
  - Gradle - 6.7
  - Pact JVM
  - Pact Broker
- - [Mockk](https://mockk.io/)
- - [AssertJ](https://joel-costigliola.github.io/assertj/)
+ - Mockk
+ - AssertJ
+ 
+
+
+  ## Índice
+
+<!--ts-->
+
+- [Cenário](#Cenário)
+- [Compatibilidade com gRPC](#Compatibilidade-com-gRPC)
+  - [Solução no lado do Consumidor](#Solução-no-lado-do-Consumidor)
+  - [Solução no lado do Provedor](#Solução-no-lado-do-Provedor)
+  - [Mas se o gRPC já é uma espécie de contrato, porque preciso do PACT?](#Mas-se-o-gRPC-já-é-uma-espécie-de-contrato-porque-preciso-do-PACT?)
+- [Como o PACT pode ajudar a evitar essas falhas?](#Como-o-PACT-pode-ajudar-a-evitar-essas-falhas?)
+- [Como executar](#Como-executar)
+
+<!--ts -->
 
 ## Cenário
 
@@ -41,7 +57,7 @@ A imagem abaixo representa esta interação que acabamos de definir:
 ## Compatibilidade com gRPC
 
 Atualmente, o Pact suporta cenários de integração via REST, Mensageria e GraphQL. 
-No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests/p/support-protobufs), o suporte oficial para gRPC já está planejado.
+No entanto, como podemos ver no [roadmap do framework](https://pact.canny.io/feature-requests), o suporte oficial para gRPC já está planejado.
 Enquanto esperamos este novo recurso, preparamos uma solução para que você possa iniciar seus testes desde já, de forma que seja fácil migrar para uma solução definitiva no futuro. 
 
 Como dizemos acima, hoje o Pact não tem suporte para protocolo gRPC, mas e se conseguissemos 
@@ -57,24 +73,50 @@ irá ocorrer. Extendendo o channel e sobrescrevendo o método *newCall*, consegu
 ```
 POST http://{{address}}/grpc/{{packageName}}.{{service}}/{{method}}
 ``` 
-* ex: POST http://provider/grpc/br.com.zup.pact.product.provider.resource.ProductService/getAll
-
+* Exemplo:
+```
+POST http://provider/grpc/br.com.zup.pact.product.provider.resource.ProductService/getAll
+```
 
 Tendo gerado então esta chamada REST, conseguimos seguir o fluxo de teste do Pact no lado do consumidor.
 
-Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste [ShoppingCartContractTest.kt](./consumer/src/test/kotlin/br/com/zup/pact/consumer/pact/ShoppingCartContractTest.kt). 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste [ShoppingCartContractTest.kt](./shopping-cart-consumer/src/test/kotlin/br/com/zup/pact/shopping/cart/consumer/pact/ShoppingCartContractTest.kt). 
 
 * ### Solução no lado do Provedor
 
 De forma análoga a solução proposta no lado do Consumidor, no lado do Provedor precisamos fazer a tradução entre a chamada gRPC e REST, mas de forma inversa (REST > gRPC). 
 Para isto, precisamos criar um servidor REST como *proxy* (apenas em ambiente de teste), que escute as chamadas que definimos no lado do consumidor e as encaminhe para o servidor gRPC. 
 Neste caso utilizamos *Micronaut Http Server* para implementarmos este *proxy* seguindo a convenção definida anteriormente.
-Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [ShoppingCartProviderPactTest.kt](./provider/src/test/kotlin/br/com/zup/pact/provider/pact/ShoppingCartProviderPactTest.kt). 
+Para maiores detalhes sobre a implementação dos testes, vide o arquivo de teste em [ShoppingCartProviderPactTest.kt](./product-provider/src/test/kotlin/br/com/zup/pact/product/provider/pact/ShoppingCartProviderPactTest.kt). 
 
 A imagem a seguir representa esta solução:
 
 <img src="../../../imgs/grpc-micronaut-scenario-create-pact.png" alt="Kotlin Pact gRPC solution"/>
  
+## Mas se o gRPC já é uma espécie de contrato, porque preciso do PACT?
+
+Como em muitos sistemas RPC, o gRPC é baseado na ideia de definir um serviço, especificando os métodos que podem ser chamados remotamente com seus parâmetros e tipos de retorno. No lado do servidor, o servidor implementa esse contrato (interface) e executa um servidor gRPC para lidar com as chamadas do cliente. Entretanto, devemos observar [pontos](https://docs.microsoft.com/pt-br/aspnet/core/grpc/versioning?view=aspnetcore-5.0) que podem levar a quebra de integrações, por exemplo:
+
+- **Redefinir tipo de atributo** - ao alterar o tipo de um atributo, por exemplo, de `int32` para `double` no arquivo .proto, o provedor do serviço continuará funcionando, porém se o consumidor não receber essa alteração, haverá quebra na comunicação, esse tipo de alteração é identificado pelo PACT realizando o teste de contrato preventivamente.
+
+- **Renomear um pacote, serviço ou método** - o gRPC usa o nome do pacote, o nome do serviço e o nome do método para criar a URL, caso algum desses itens sejam modificados sem a devida comunicação aos consumidores do serviço, haverá uma quebra de integração, esse tipo de alteração também é identificado pelo PACT realizando o teste de contrato preventivamente.
+
+- **Removendo um serviço ou método** - haverá quebra de integração pois o cliente tentará acessar um recurso inexistente, esse tipo de alteração também é identificado pelo PACT realizando o teste de contrato preventivamente.
+
+## Como o PACT pode ajudar a evitar essas falhas?
+
+Quando o cliente(consumer) de uma aplicação gera um contrato com suas expectativas, dentre as informações ele pode definir o nome dos campos, seu tipo (linhas 26 à 38) e a url (ou path) com o pacote, nome do serviço e o método que deseja acessar (linhas 34 e 35) conforme imagem abaixo.
+
+<img src="../../../imgs/pact-consumer-grpc-code.png" alt="code pact consumer class"/>
+<br><br>
+
+O contrato gerado fica registrado no [Pact Broker](https://docs.pact.io/pact_broker) onde o provedor(provider) do serviço pode baixá-lo para realizar as asserções. O contrato dentro do broker possui o seguinte formato:
+
+<img src="../../../imgs/pact-contract-grpc-broker-view.png" alt="code pact consumer class"/>
+<br><br>
+
+Como podemos ver no recorte de contrato acima, ele trás consigo um exemplo fidedigno de tudo que o consumidor da aplicação espera que o provedor forneça, desta forma durante uma esteira de CI/CD o provedor conseguirá verificar se está totalmente de acordo com as expectativas do consumidor. O PACT garante uma **amarração** entre consumer e provider **sem a necessidade** de manter de pé ambientes com alto consumo de recursos (dev, homologação) e sem os riscos de tais ambientes ou seus mocks estarem **desatualizados** o que geraria sinais falsos de sucesso nos testes.
+
 ## Como executar
 
 1. Garanta que você tenha uma instância do Pact Broker rodando localmente. 

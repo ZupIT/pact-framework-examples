@@ -12,6 +12,17 @@ Exemplo da criação de um Pact entre:
 - Spring Kafka
 - Pact JVM
 - Pact Broker
+- Maven
+
+## Índice
+
+<!--ts-->
+
+
+- [Como executar](#Como-executar)
+<!--ts -->
+
+
 
 ## Como executar
 
@@ -30,7 +41,7 @@ Obtendo sucesso, o plugin maven do Pact irá gerar um arquivo json contendo o co
 <img src="../../../imgs/pact-contract-generated.png" alt="Pact Contract Generated"/>
 
 4. Com o contrato gerado, podemos publicá-lo no Pact Broker. 
-Para isto, podemos utilizar o plugin maven do Pact. <br>
+Para isto, podemos utilizar o [plugin maven do Pact](https://mvnrepository.com/artifact/au.com.dius/pact-jvm-provider). <br>
 É necessário confirmar que o plugin está configurado corretamente.
 
 <img src="../../../imgs/pact-maven-plugin.png" alt="Pact Maven Plugin"/>

@@ -25,7 +25,7 @@ Linguagens abordadas nos exemplos:
 ----
 Zuppers contribuidores
 
-[![Contributors Display](https://badges.pufler.dev/contributors/ZupIT/pact-framework-examples?size=60&padding=5&bots=true)](https://badges.pufler.dev)
+[![Contributors Display](https://badges.pufler.dev/contributors/ZupIT/pact-framework-examples?size=60&padding=5&bots=false)](https://badges.pufler.dev)
 
 ## <a name='exemplos'>Exemplos neste repositório</a>
 
