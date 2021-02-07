@@ -1,6 +1,13 @@
 #!groovy
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven:3.6-jdk-11-openj9'
+      args '-v $HOME/.m2:/root/.m2:z --network host'
+      reuseNode true
+    }
+  }
+
   environment {
     WORKSPACE="${WORKSPACE}/example/ci/jenkins/cenario_1/pact-provider-sample"
   }
@@ -11,8 +18,7 @@ pipeline {
     stage ('Run Contract Tests'){
       steps {
         dir("${env.WORKSPACE}") {
-          sh "chmod +x mvnw"
-          sh "./mvnw clean verify " +
+          sh "mvn clean verify " +
                   "-Dpact.provider.version=${GIT_COMMIT} " +
                   "-Dpact.verifier.publishResults=true " +
                   "-Dpact.provider.tag=${params.pactConsumerTags}"
