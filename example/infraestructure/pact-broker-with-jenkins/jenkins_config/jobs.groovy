@@ -1,5 +1,5 @@
 def repository = "https://github.com/ZupIT/pact-framework-examples";
-def workbranch = "feature/fix-jenkins-examples";
+def workbranch = "master";
 
 def jobs = [
         [
