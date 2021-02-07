@@ -51,6 +51,18 @@ def jobs = [
                 }
         ],
         [
+                name: "cenario_1_passo_3",
+                description: "O consumer obtém informações do broker para validar se a integração está coesa",
+                scriptPath: "example/ci/jenkins/cenario_1/pact-consumer-sample/Jenkinsfile-can-i-deploy",
+                resources: {
+                    remote {
+                        url(repository)
+                    }
+                    branch("${workbranch}")
+                    extensions {}
+                }
+        ],
+        [
                 name: "cenario_2",
                 description: "O provider altera sua API e valida novamente os contratos",
                 scriptPath: "example/ci/jenkins/cenario_2/pact-provider-sample/Jenkinsfile",

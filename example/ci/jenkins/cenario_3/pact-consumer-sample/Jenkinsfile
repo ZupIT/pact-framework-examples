@@ -24,7 +24,7 @@ pipeline {
     success {
       script {
         echo "Contract Generated Successful, now trigger Provider check!"
-        build job: "CI_JENKINS_cenario_3_passo_2", propagate: true
+        build job: "cenario_3_passo_2", propagate: true
       }
     }
   }

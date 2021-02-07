@@ -29,7 +29,7 @@ pipeline {
         success {
             script {
                 echo "Contract Generated Successful, now trigger Provider check!"
-                build job: "CI_JENKINS_can-i-deploy_Consumer", propagate: true
+                build job: "can-i-deploy_Consumer", propagate: true
             }
         }
         failure {
