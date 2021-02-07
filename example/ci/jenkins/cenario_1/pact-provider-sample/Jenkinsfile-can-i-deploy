@@ -7,7 +7,7 @@ pipeline {
             sh 'curl -LO https://github.com/pact-foundation/pact-ruby-standalone/releases/download/v1.83.0/pact-1.83.0-linux-x86_64.tar.gz'
             sh 'tar xzf pact-1.83.0-linux-x86_64.tar.gz'
             dir('pact/bin') {
-              sh "./pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10  --pacticipant AccountProvider --latest CONTRACT-TEST --broker-base-url http://pact-broker:9292"
+              sh "./pact-broker can-i-deploy --retry-while-unknown=12 --retry-interval=10  --pacticipant AccountProvider --latest CONTRACT-TEST --broker-base-url http://localhost:9292"
             }
           }
         }

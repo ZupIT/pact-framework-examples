@@ -30,7 +30,7 @@ pipeline {
     success {
       script {
         echo "Contract Generated Successful, now trigger Provider check!"
-        build job: "can-i-deploy_Consumer", propagate: true
+        build job: "cenario_1_passo_3", propagate: true
       }
     }
   }
