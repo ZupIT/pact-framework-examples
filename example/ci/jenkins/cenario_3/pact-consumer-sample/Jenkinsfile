@@ -1,6 +1,12 @@
 #!groovy
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'maven:3.6-jdk-11-openj9'
+      args '-v $HOME/.m2:/root/.m2:z --network host'
+      reuseNode true
+    }
+  }
   environment {
     WORKSPACE="${WORKSPACE}/example/ci/jenkins/cenario_3/pact-consumer-sample"
   }
@@ -8,9 +14,8 @@ pipeline {
     stage('Build and Publish Pacts') {
       steps {
         dir("${env.WORKSPACE}") {
-          sh "chmod +x mvnw"
-          sh './mvnw clean verify pact:publish -Dpact.consumer.version=${GIT_COMMIT} -Dpact.tag=CONTRACT-TEST'
-        } 
+          sh 'mvn clean verify pact:publish -Dpact.consumer.version=${GIT_COMMIT} -Dpact.tag=CONTRACT-TEST'
+        }
       }
     }
   }
@@ -19,7 +24,7 @@ pipeline {
     success {
       script {
         echo "Contract Generated Successful, now trigger Provider check!"
-        build job: "CI_JENKINS_cenario_3_passo_2", propagate: true
+        build job: "cenario_3_passo_2", propagate: true
       }
     }
   }
