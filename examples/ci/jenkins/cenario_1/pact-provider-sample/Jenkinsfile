@@ -1,0 +1,37 @@
+#!groovy
+pipeline {
+  agent {
+    docker {
+      image 'maven:3.6-jdk-11-openj9'
+      args '-v $HOME/.m2:/root/.m2:z --network host'
+      reuseNode true
+    }
+  }
+
+  environment {
+    WORKSPACE="${WORKSPACE}/example/ci/jenkins/cenario_1/pact-provider-sample"
+  }
+  parameters {
+    string(name: 'pactConsumerTags', defaultValue: 'CONTRACT-TEST', description: 'Tags to verify')
+  }
+  stages {
+    stage ('Run Contract Tests'){
+      steps {
+        dir("${env.WORKSPACE}") {
+          sh "mvn clean verify " +
+                  "-Dpact.provider.version=${GIT_COMMIT} " +
+                  "-Dpact.verifier.publishResults=true " +
+                  "-Dpact.provider.tag=${params.pactConsumerTags}"
+        }
+      }
+    }
+  }
+  post {
+    success {
+      script {
+        echo "Contract Generated Successful, now trigger Provider check!"
+        build job: "cenario_1_passo_3", propagate: true
+      }
+    }
+  }
+}

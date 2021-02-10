@@ -1,0 +1,11 @@
+pactbroker:
+  host: localhost
+  port: 9292
+  protocol: http
+
+server:
+  port: 8080
+
+spring:
+  main:
+    web-application-type: SERVLET

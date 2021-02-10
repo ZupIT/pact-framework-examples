@@ -60,6 +60,9 @@ Neles você também irá encontrar detalhes sobre como executá-los.
       * [Rest - um consumidor e um provedor com verificação de integração automatizada com Jenkins](examples/ci/jenkins).
    - **GitlabCI**
       * [Grpc - um consumidor e um provedor com verificação de integração automatizada com GitlabCI](examples/ci/gitlabci).
+- **Documentos**
+   - [Código de Conduta](#code-of-conduct)
+        
 
 ## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 
@@ -114,6 +117,16 @@ sudo chown $USER:$USER jenkins_home -R
 ```
 
 Para demais informações, acesse a [documentação do Jenkins](https://www.jenkins.io/doc/).
+
+### <a name="code-of-conduct">Código de Conduta</a>
+
+Nosso repositório segue o Código de Conduta para desenvolvedores. Se você deseja participar
+criando códigos no nosso repositório, por favor, siga o Código de Conduta, ele pode ser lido
+aqui [CODIGO DE CONDUTA](docs/CODE-OF-CONDUCT-PT.MD). Qualquer código enviado para este repositório
+que ferir tais valores serão ignorados.
+
+Beagle has adopted a Code of Conduct that we expect project participants to adhere to.
+Please read the  so that you can understand what actions will and will not be tolerated.
 
 ## <a name='links-uteis'>Links Úteis</a>
 
