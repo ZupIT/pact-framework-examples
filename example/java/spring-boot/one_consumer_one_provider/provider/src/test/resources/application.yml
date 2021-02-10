@@ -1,4 +1,0 @@
-pactbroker:
-  host: localhost
-  port: 9292
-  protocol: http

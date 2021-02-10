@@ -14,7 +14,7 @@ target/
 .sts4-cache
 
 ### GitlabCI temp files ###
-example/ci/gitlabci/data/*
+examples/ci/gitlabci/data/*
 
 ### IntelliJ IDEA ###
 .idea
@@ -33,5 +33,5 @@ build/
 ### VS Code ###
 .vscode/
 .DS_Store
-example/.DS_Store
-example/java/.DS_Store
+examples/.DS_Store
+examples/java/.DS_Store
