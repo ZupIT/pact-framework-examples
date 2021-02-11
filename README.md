@@ -34,32 +34,35 @@ Neles você também irá encontrar detalhes sobre como executá-los.
 
  - **Backend**
    - **Java - Spring Boot**
-      * [Rest - um consumidor e um provedor](example/java/spring-boot/one_consumer_one_provider).
-      * [Rest - um consumidor e dois provedores](example/java/spring-boot/one_consumer_two_providers).
-      * [Rest - dois consumidores e um provedor](example/java/spring-boot/two_consumers_one_provider).
-      * [Mensageria/Kafka](example/java/messaging-kafka/)
+      * [Rest - um consumidor e um provedor](examples/java/spring-boot/one_consumer_one_provider).
+      * [Rest - um consumidor e dois provedores](examples/java/spring-boot/one_consumer_two_providers).
+      * [Rest - dois consumidores e um provedor](examples/java/spring-boot/two_consumers_one_provider).
+      * [Mensageria/Kafka](examples/java/messaging-kafka/)
    - **Java - Spring Boot - Validação de contrato gerado a partir da OpenApi Specification do Provider**
-      * [Rest - um consumidor e um provedor](example/java/pact_validation_with_oas/one_consumer_one_provider).
+      * [Rest - um consumidor e um provedor](examples/java/pact_validation_with_oas/one_consumer_one_provider).
    - **Kotlin - Spring Boot**
-      * [Rest - um consumidor e um provedor](example/kotlin/one-consumer-one-provider).
-      * [gRPC - um consumidor e um provedor](example/kotlin/gRPC).
+      * [Rest - um consumidor e um provedor](examples/kotlin/one-consumer-one-provider).
+      * [gRPC - um consumidor e um provedor](examples/kotlin/gRPC).
    - **Kotlin - Micronaut**
-      * [gRPC - um consumidor e um provedor](example/kotlin/micronaut-grpc).
+      * [gRPC - um consumidor e um provedor](examples/kotlin/micronaut-grpc).
    - **Node**
-      * [Rest - um consumidor e um provedor](example/node/one_consumer_one_provider).
-      * [Rest - um consumidor e dois provedores](example/node/one_consumer_two_providers).
-      * [Rest - dois consumidores e um provedor](example/node/two_consumers_one_provider).
-      * [gRPC - um consumidor e um provedor](example/node/gRPC).
+      * [Rest - um consumidor e um provedor](examples/node/one_consumer_one_provider).
+      * [Rest - um consumidor e dois provedores](examples/node/one_consumer_two_providers).
+      * [Rest - dois consumidores e um provedor](examples/node/two_consumers_one_provider).
+      * [gRPC - um consumidor e um provedor](examples/node/gRPC).
    - **Node - Validação de contrato gerado a partir da OpenApi Specification do Provider**
-      * [Rest - um consumidor e um provedor](example/node/open-api).
+      * [Rest - um consumidor e um provedor](examples/node/open-api).
  - **FrontEnd**
    - **Angular**
-      * [Rest - um consumidor e um provedor](example/frontend).
+      * [Rest - um consumidor e um provedor](examples/frontend).
 - **CI/CD**
    - **Jenkins**
-      * [Rest - um consumidor e um provedor com verificação de integração automatizada com Jenkins](example/ci/jenkins).
+      * [Rest - um consumidor e um provedor com verificação de integração automatizada com Jenkins](examples/ci/jenkins).
    - **GitlabCI**
-      * [Grpc - um consumidor e um provedor com verificação de integração automatizada com GitlabCI](example/ci/gitlabci).
+      * [Grpc - um consumidor e um provedor com verificação de integração automatizada com GitlabCI](examples/ci/gitlabci).
+- **Documentos**
+   - [Código de Conduta](#code-of-conduct)
+        
 
 ## <a name='estrutura-basica'>Estrutura básica dos exemplos</a>
 
@@ -114,6 +117,16 @@ sudo chown $USER:$USER jenkins_home -R
 ```
 
 Para demais informações, acesse a [documentação do Jenkins](https://www.jenkins.io/doc/).
+
+### <a name="code-of-conduct">Código de Conduta</a>
+
+Nosso repositório segue o Código de Conduta para desenvolvedores. Se você deseja participar
+criando códigos no nosso repositório, por favor, siga o Código de Conduta, ele pode ser lido
+aqui [CODIGO DE CONDUTA](docs/CODE-OF-CONDUCT-PT.MD). Qualquer código enviado para este repositório
+que ferir tais valores serão ignorados.
+
+Beagle has adopted a Code of Conduct that we expect project participants to adhere to.
+Please read the  so that you can understand what actions will and will not be tolerated.
 
 ## <a name='links-uteis'>Links Úteis</a>
 
