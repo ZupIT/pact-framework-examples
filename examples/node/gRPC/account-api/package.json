@@ -10,7 +10,7 @@
     "test": "jest --detectOpenHandles"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.1.6",
+    "@grpc/grpc-js": "^1.8.8",
     "@grpc/proto-loader": "^0.5.5",
     "@pact-foundation/pact": "^9.11.1",
     "cors": "^2.8.5"
