@@ -78,7 +78,7 @@
         <dependency>
             <groupId>au.com.dius</groupId>
             <artifactId>pact-jvm-provider-junit5</artifactId>
-            <version>4.0.6</version>
+            <version>4.0.10</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
