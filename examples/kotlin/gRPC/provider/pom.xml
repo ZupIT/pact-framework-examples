@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>11</java.version>
-		<grpc.version>1.31.1</grpc.version>
+		<grpc.version>1.61.1</grpc.version>
 		<grpc-spring-boot-starter.version>3.0.0</grpc-spring-boot-starter.version>
 		<pact.application.name>AccountBalanceProvider</pact.application.name>
 	</properties>
